@@ -107,7 +107,7 @@ h1, h2, h3, h4, .spa-display-type {
 
 /* Featured Gallery Layer */
 .gallery-section {
-    padding: var(--space-20) 0 var(--space-12);
+    padding: var(--space-macro) 0 var(--space-section);
 }
 
 .gallery-grid {
@@ -148,19 +148,24 @@ h1, h2, h3, h4, .spa-display-type {
 
 /* Menu Layout (Services Board) */
 .services-section {
-    padding: var(--space-8) 0 var(--space-24);
+    padding: var(--space-section) 0 var(--space-macro);
 }
 
 .service-board {
     background-color: var(--color-spa-brown);
     color: var(--color-spa-bg);
-    border-radius: var(--radius-xl);
-    padding: var(--space-12) var(--space-6) var(--space-16);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-16);
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
+    box-shadow: var(--shadow-diffused);
     margin: 0 auto;
     max-width: 1000px;
+    transition: var(--transition-premium);
+}
+
+.service-board:hover {
+    transform: scale(1.015);
 }
 
 .service-board-inner {
@@ -238,12 +243,13 @@ h1, h2, h3, h4, .spa-display-type {
     font-family: var(--font-body);
     font-size: var(--text-sm);
     text-decoration: none;
-    transition: all var(--transition-fast);
+    transition: var(--transition-premium);
 }
 
 .board-btn:hover {
     background-color: var(--color-spa-tan);
     color: var(--color-spa-brown);
+    transform: scale(1.015);
 }
 
 /* Floating WA CTA Button */

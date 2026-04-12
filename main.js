@@ -20,4 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.add('scrolled');
     }
   }
+
+  // --- Theme Toggle Logic ---
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const htmlElement = document.documentElement;
+
+  // 1. Check local storage
+  const savedTheme = localStorage.getItem('ovis-theme');
+  if (savedTheme) {
+      htmlElement.setAttribute('data-theme', savedTheme);
+  } else {
+      // 2. Check system preference
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      if (prefersLight) {
+          htmlElement.setAttribute('data-theme', 'light');
+      }
+  }
+
+  if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+          const currentTheme = htmlElement.getAttribute('data-theme') || 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          htmlElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('ovis-theme', newTheme);
+      });
+  }
 });

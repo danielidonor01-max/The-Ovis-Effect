@@ -1,11 +1,5 @@
 /* Good Food Avenue Local Styles */
 
-/* Base overrides */
-body {
-    background-color: var(--color-gfa-bg);
-    color: var(--color-gfa-text);
-}
-
 h1, h2, h3, h4, .gfa-display-type {
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
@@ -47,15 +41,15 @@ h1, h2, h3, h4, .gfa-display-type {
 
 /* Hero Section */
 .gfa-hero {
-    height: 60vh;
-    min-height: 400px;
+    height: 85vh;
+    min-height: 600px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: left;
     position: relative;
-    padding-top: 100px;
+    padding: var(--space-macro) var(--space-8);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -63,55 +57,54 @@ h1, h2, h3, h4, .gfa-display-type {
 
 .gfa-hero-gradient-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-gfa-gradient);
-    opacity: 0.15;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.2) 60%);
     z-index: 0;
-    mix-blend-mode: screen;
 }
 
 .gfa-hero-content {
     position: relative;
     z-index: 1;
+    max-width: 800px;
+    margin: 0;
 }
 
 .gfa-hero h1 {
-    font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
-    margin-bottom: var(--space-4);
+    font-size: clamp(var(--text-4xl), 6vw, var(--text-7xl));
+    margin-bottom: var(--space-6);
     font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
     color: #fff;
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .gfa-hero p {
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     color: var(--color-gfa-muted);
     max-width: 600px;
-    margin: 0 auto var(--space-8);
+    margin: 0 0 var(--space-8) 0;
 }
 
 .gfa-btn {
     display: inline-block;
-    background: var(--color-gfa-gradient);
-    color: #fff;
+    background: #fff;
+    color: #000;
     padding: var(--space-4) var(--space-8);
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-weight: 700;
-    font-size: var(--text-base);
+    font-size: var(--text-sm);
     text-transform: uppercase;
+    letter-spacing: 0.05em;
     border-radius: var(--radius-full);
-    transition: transform var(--transition-fast), box-shadow var(--transition-base);
+    transition: var(--transition-premium);
     text-decoration: none;
 }
 
 .gfa-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(240, 122, 35, 0.4);
+    transform: scale(1.015);
+    background: var(--color-gfa-orange);
+    color: #fff;
+    box-shadow: var(--shadow-diffused);
 }
 
 /* Featured Gallery Layer */
@@ -158,8 +151,8 @@ h1, h2, h3, h4, .gfa-display-type {
 
 /* Menu Layout (Text-Based List Format) */
 .menu-section {
-    padding: var(--space-12) 0 var(--space-20);
-    background-color: #0c140c; /* Deep contrast for the menu */
+    padding: var(--space-section) 0 var(--space-macro);
+    background-color: transparent; 
 }
 
 .section-title-wrap {
@@ -182,21 +175,24 @@ h1, h2, h3, h4, .gfa-display-type {
 .menu-board {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-6);
+    gap: var(--space-8);
     align-items: start;
 }
 
 .cat-card {
-    background-color: var(--color-gfa-surface);
-    border-radius: var(--radius-lg);
-    border: 1px solid rgba(29, 191, 115, 0.15);
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-xl);
+    border: var(--border-color);
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: var(--transition-premium);
 }
 
 .cat-card:hover {
+    transform: translateY(-4px) scale(1.015);
     border-color: var(--color-gfa-orange);
+    box-shadow: var(--shadow-diffused);
 }
 
 .cat-header {
