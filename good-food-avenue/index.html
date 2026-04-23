@@ -5,190 +5,232 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Good Food Avenue | The Ovis Effect</title>
   <meta name="description" content="Warri's favourite spot for premium Nigerian dishes, grills, and fresh fruit drinks. Order directly to your door.">
-  <link rel="stylesheet" href="../style.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=2">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Global Header -->
-  <header class="global-header" id="global-header" style="background-color: rgba(13, 26, 13, 0.95);">
+  <!-- Unified Navigation -->
+  <header class="unified-nav" id="global-header">
     <div class="container header-inner">
-      <div style="display: flex; align-items: center; gap: var(--space-4);">
-        <a href="/" class="logo">OVIS<span>.</span></a>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme">
-          <svg class="sun-icon" viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
-          <svg class="moon-icon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4C12.92 3.04 12.46 3 12 3A9 9 0 0 0 12 3z"/></svg>
+      <div class="nav-left">
+        <a href="/" class="ovis-logo-text">The Ovis Effect</a>
+      </div>
+      <div class="nav-center">
+        <span class="subbrand-logo gfa-pacifico-logo">Good Food<br>Avenue</span>
+      </div>
+      <div class="nav-right">
+        <button class="menu-toggle" aria-label="Open Menu">
+          Menu <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
         </button>
       </div>
-      <nav class="global-nav">
-        <ul>
-          <li><a href="/good-food-avenue/" style="color: var(--color-gfa-green);">Good Food</a></li>
-          <li><a href="/urovi-spa/">Urovi Spa</a></li>
-          <li><a href="/financial-advisory/">Finance</a></li>
-          <li><a href="/safe-haven/">Safe Haven</a></li>
-        </ul>
-      </nav>
     </div>
   </header>
 
-  <!-- Local Sub-Header -->
-  <div class="local-subheader">
-    <div class="container">
-      <nav class="local-nav">
-        <ul>
-          <li><a href="#gallery">Featured</a></li>
-          <li><a href="#menu">Our Menu</a></li>
-          <li><a href="#footer">Contact</a></li>
-        </ul>
-      </nav>
+  <!-- Nav Modal Overlay -->
+  <div id="nav-modal" class="nav-modal" aria-hidden="true">
+    <div class="nav-modal-backdrop"></div>
+    <div class="nav-modal-inner">
+      <button class="modal-close" aria-label="Close Menu">
+        MENU <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="modal-split">
+        <!-- Left Side: Global Links -->
+        <div class="modal-left">
+          <a href="/" class="modal-home-btn">HOME</a>
+          <div class="modal-global-links">
+            <a href="/urovi-spa/">Urovi Spa</a>
+            <a href="/financial-advisory/">Financial Advisory</a>
+            <a href="/safe-haven/">Safe Haven</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Local Links -->
+        <div class="modal-right">
+          <a href="#main-meal">Menu Preview</a>
+          <a href="#footer">Contact</a>
+        </div>
+      </div>
+
+      <hr class="modal-divider">
+
+      <div class="modal-footer">
+        <div class="footer-left">
+          <p class="modal-tagline">Wealth, Appetite and Wellbeing.</p>
+          <div class="modal-contact">
+            <a href="mailto:info@theoviseffect.com">info@theoviseffect.com</a>
+            <a href="tel:+23480973687887">+234 809 736 87887</a>
+          </div>
+          <div class="modal-social">
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M9 0h1.98c.144 2.58 1.964 4.5 4.02 4.5v3c-1.294 0-2.527-.406-3.52-1.127v8.627c0 3.86-3.14 7-7 7s-7-3.14-7-7 3.14-7 7-7c1.379 0 2.663.4 3.738 1.085v3.42C10.428 11.895 9.743 11.5 9 11.5c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V0z"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-right">
+          <p>TM Mall, Jakpa Road, opposite Aka Avenue, Warri, Delta State.</p>
+        </div>
+      </div>
     </div>
   </div>
 
+
   <main>
-    <!-- GFA Hero -->
-    <section class="gfa-hero" style="background-image: url('../assets/images/food/hero.jpg');">
-      <div class="gfa-hero-gradient-overlay"></div>
-      <div class="container gfa-hero-content">
-        <h1>Taste the Vibrancy.</h1>
-        <p>Premium Nigerian delicacies, prepared with authentic spices and delivered directly to you across Warri.</p>
-        <a href="#menu" class="gfa-btn">View Menu Offerings</a>
-      </div>
-    </section>
 
-    <!-- Featured Gallery -->
-    <section id="gallery" class="gallery-section">
-      <div class="container">
-        <div class="gfa-masonry">
-          <div class="gfa-masonry-item"><img data-img-key="asun" class="gfa-masonry-img" alt="Spicy Asun and Grills"></div>
-          <div class="gfa-masonry-item"><img data-img-key="rice_dishes" class="gfa-masonry-img" alt="Classic Party Rice"></div>
-          <div class="gfa-masonry-item"><img data-img-key="egusi_soup" class="gfa-masonry-img" alt="Premium Egusi Soup"></div>
+    <!-- GFA Hero Viewport -->
+    <section class="gfa-hero-viewport">
+      <div class="hero-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+      </div>
+      <div class="container hero-container">
+        <!-- Main Image Placeholder spanning max-width -->
+        <div class="hero-image-placeholder">
+          <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+          </svg>
+        </div>
+        
+        <!-- Category Short Links -->
+        <div class="hero-categories">
+          <a href="#main-meal" class="category-link">Main Meal</a>
+          <span class="cat-divider">•</span>
+          <a href="#soups-stews" class="category-link">Soups</a>
+          <span class="cat-divider">•</span>
+          <a href="#soups-stews" class="category-link">Stew</a>
+          <span class="cat-divider">•</span>
+          <a href="#proteins" class="category-link">Proteins</a>
+          <span class="cat-divider">•</span>
+          <a href="#snacks-drinks" class="category-link">Drinks</a>
+          <span class="cat-divider">•</span>
+          <a href="#snacks-drinks" class="category-link">Snacks</a>
+          <span class="cat-divider">•</span>
+          <a href="#side-dishes" class="category-link">Side Dishes</a>
+        </div>
+        
+        <!-- Hero Heading -->
+        <div class="hero-heading-wrap">
+          <h1 class="hero-animate-title">Taste the <span class="text-vibrancy">Vibrancy.</span></h1>
         </div>
       </div>
     </section>
 
-    <!-- Text-Based Display Menu -->
-    <section id="menu" class="menu-section">
-      <div class="container">
-        <div class="section-title-wrap">
-          <h2>Made to Satisfy</h2>
-          <p>Tasty meals crafted just for you</p>
+    <!-- Intro Section -->
+    <section class="gfa-intro-section-wrapper" data-reveal>
+      <div class="gfa-intro-section container">
+        <p class="intro-text text-scrub">Premium Nigerian delicacies, prepared with authentic spices and delivered directly to you across Warri.</p>
+        <a href="#" class="view-menu-link">View Full Menu PDF <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg></a>
+      </div>
+    </section>
+
+    <!-- Zig-Zag Category Layout Section -->
+    <section class="gfa-menu-zigzag">
+      
+      <!-- Category 1: Main Meal -->
+      <article class="zigzag-row container" id="main-meal" data-reveal>
+        <div class="zigzag-image">
+          <div class="placeholder-box">
+             <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+             </svg>
+          </div>
         </div>
+        <div class="zigzag-content">
+          <h3>Main Meal</h3>
+          <p>We offer Asun Rice, Chinese Rice, Native Rice, Jollof Rice, Fried Rice, White Rice, and Spaghetti.</p>
+        </div>
+      </article>
 
-        <div class="menu-board">
-          
-          <!-- Category 1 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Main Meal</h3></header>
-            <ul class="cat-list">
-              <li>Asun Rice</li>
-              <li>Chinese Rice</li>
-              <li>Native Rice</li>
-              <li>Jollof Rice</li>
-              <li>Fried Rice</li>
-              <li>White Rice</li>
-              <li>Spaghetti</li>
-            </ul>
-            <div class="cat-btn-wrap">
-              <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20order%20from%20the%20Main%20Meals..." class="cat-btn">Order Now</a>
-            </div>
-          </article>
+      <!-- Category 2: Soups and Stews -->
+      <article class="zigzag-row reverse container" id="soups-stews" data-reveal>
+        <div class="zigzag-content">
+          <h3>Soups and Stews</h3>
+          <p>We offer Egusi Soup, Okra Soup, Vegetable Soup, Banga Soup, Regular Stew, Buka Peppered Stew with swallows like Eba and Semo.</p>
+        </div>
+        <div class="zigzag-image">
+          <div class="placeholder-box portrait">
+             <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+             </svg>
+          </div>
+        </div>
+      </article>
 
-          <!-- Category 2 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Proteins</h3></header>
-            <ul class="cat-list">
-              <li>Sauced Turkey</li>
-              <li>Grilled Turkey</li>
-              <li>Chicken</li>
-              <li>Sauced Chicken</li>
-              <li>Chicken Wings</li>
-              <li>Sauced Chicken Wings</li>
-              <li>Gizzard</li>
-              <li>Beef</li>
-              <li>Fish</li>
-              <li>Eggs</li>
-            </ul>
-            <div class="cat-btn-wrap">
-              <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20order%20from%20the%20Proteins..." class="cat-btn">Order Now</a>
-            </div>
-          </article>
+      <!-- Category 3: Proteins -->
+      <article class="zigzag-row container" id="proteins" data-reveal>
+        <div class="zigzag-image">
+          <div class="placeholder-box portrait">
+             <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+             </svg>
+          </div>
+        </div>
+        <div class="zigzag-content">
+          <h3>Proteins</h3>
+          <p>We offer Sauced Turkey, Grilled Turkey, Chicken, Sauced Chicken, Chicken Wings, Sauced Chicken Wings, Gizzard, Beef, Fish, and Eggs.</p>
+        </div>
+      </article>
 
-          <!-- Category 3 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Soups</h3></header>
-            <ul class="cat-list">
-              <li>Egusi Soup</li>
-              <li>Okra Soup</li>
-              <li>Vegetable Soup</li>
-              <li>Banga Soup</li>
-            </ul>
-            <div class="cat-btn-wrap">
-              <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20order%20from%20the%20Soups..." class="cat-btn">Order Now</a>
-            </div>
-          </article>
+      <!-- Category 4: Snacks and Drinks -->
+      <article class="zigzag-row reverse container" id="snacks-drinks" data-reveal>
+        <div class="zigzag-content">
+          <h3>Snacks and Drinks</h3>
+          <p>We offer Ice Cream, Yoghurt Drinks, Fruits Juice, Tigernut, Beer, alongside snacks like Super Roll, Chicken Pie, and Small Chops.</p>
+        </div>
+        <div class="zigzag-image">
+          <div class="placeholder-box">
+             <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+             </svg>
+          </div>
+        </div>
+      </article>
 
-          <!-- Category 4 -->
-          <article class="cat-card" style="grid-row: span 2;">
-            <header class="cat-header"><h3>Drinks</h3></header>
-            <ul class="cat-list">
-              <li>Ice Cream</li>
-              <li>Yoghurt Drinks</li>
-              <li>Fruits Juice</li>
-              <li>Tigernut</li>
-              <li>Beer</li>
-            </ul>
-            <div class="cat-btn-wrap">
-              <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20order%20Drinks..." class="cat-btn">Order Now</a>
-            </div>
-          </article>
+      <!-- Category 5: Side Dishes -->
+      <article class="zigzag-row container" id="side-dishes" data-reveal>
+        <div class="zigzag-image">
+          <div class="placeholder-box portrait">
+             <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+             </svg>
+          </div>
+        </div>
+        <div class="zigzag-content">
+          <h3>Side Dishes</h3>
+          <p>We offer Salad, Moi moi, and Plantain.</p>
+        </div>
+      </article>
 
-          <!-- Category 5 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Snacks</h3></header>
-            <ul class="cat-list">
-              <li>Super Roll</li>
-              <li>Chicken Pie</li>
-              <li>Small Chops</li>
-            </ul>
-             <div class="cat-btn-wrap">
-              <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20order%20Snacks..." class="cat-btn">Order Now</a>
-            </div>
-          </article>
+    </section>
 
-          <!-- Category 6 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Side Dishes</h3></header>
-            <ul class="cat-list">
-              <li>Salad</li>
-              <li>Moi moi</li>
-              <li>Plantain</li>
-            </ul>
-          </article>
-
-          <!-- Category 7 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Stew</h3></header>
-            <ul class="cat-list">
-              <li>Regular Stew</li>
-              <li>Buka Peppered Stew</li>
-            </ul>
-          </article>
-
-          <!-- Category 8 -->
-          <article class="cat-card">
-            <header class="cat-header"><h3>Swallow</h3></header>
-            <ul class="cat-list">
-              <li>Eba</li>
-              <li>Semo</li>
-            </ul>
-          </article>
-
+    <!-- ══════════════════════════════════════════
+         CTA: ORDER NOW
+         ══════════════════════════════════════════ -->
+    <section class="gfa-cta-section" id="order" data-reveal>
+      <div class="container">
+        <div class="gfa-cta-inner">
+          <div class="gfa-cta-text">
+            <p class="gfa-cta-eyebrow">Order Now</p>
+            <h2 class="gfa-cta-title">Hungry? We've got <em>just the thing.</em></h2>
+            <p class="gfa-cta-sub">Fresh, authentic Nigerian food prepared with love and delivered directly to you in Warri. Just say the word.</p>
+          </div>
+          <div class="gfa-cta-action">
+            <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20place%20a%20food%20order%20from%20Good%20Food%20Avenue..." class="gfa-cta-btn">
+              Place Your Order
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <p class="gfa-cta-note">Via WhatsApp · Mon–Sun, 8am–10pm</p>
+          </div>
         </div>
       </div>
     </section>
 
   </main>
+
 
   <!-- Sticky WA CTA -->
   <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20place%20a%20food%20order%20from%20Good%20Food%20Avenue..." class="sticky-wa-btn" aria-label="Chat on WhatsApp">
@@ -196,13 +238,44 @@
   </a>
 
   <!-- Global Footer -->
-  <footer id="footer" class="global-footer" style="background:#0D1A0D; margin-top:0;">
+  <footer class="global-footer" id="footer" data-reveal>
     <div class="container footer-inner">
+
       <div class="footer-main">
+
+        <!-- Col 1: Brand & Contact -->
         <div class="footer-brand">
-          <h3 style="color:#FFF;">OVIS<span style="color:var(--color-hub-gold);">.</span></h3>
-          <p>The Ovis Effect. TM Mall, Jakpa Road, opposite Aka Avenue, Warri, Delta State.</p>
+          <h3>The Ovis Effect</h3>
+          <p>TM Mall, Jakpa Road, opposite Aka Avenue,<br>Warri, Delta State.</p>
+          <div class="footer-contact">
+            <a href="https://wa.me/2348077125775" target="_blank" rel="noopener noreferrer" class="contact-link">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+              </div>
+              Chat on WhatsApp
+            </a>
+            <a href="mailto:theoviseffect@gmail.com" class="contact-link">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+              </div>
+              theoviseffect@gmail.com
+            </a>
+          </div>
         </div>
+
+        <!-- Col 2: Newsletter -->
+        <div class="footer-newsletter">
+          <h4>Subscribe to Our Newsletter</h4>
+          <p>Be the first to know about our latest updates, recipes and financial offerings</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email" id="newsletter-email" autocomplete="email">
+            <button type="submit" aria-label="Subscribe">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-7-7 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Col 3: Directory -->
         <div class="footer-links">
           <h4>Directory</h4>
           <ul>
@@ -213,10 +286,19 @@
           </ul>
         </div>
       </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 The Ovis Effect. All rights reserved.</p>
+        <a href="/" class="footer-logo">OVIS<span>.</span></a>
+        <p>Warri, Delta State</p>
+      </div>
+
     </div>
   </footer>
 
   <script src="../main.js"></script>
   <script src="images.js"></script>
+  <div class="magic-cursor"></div>
 </body>
 </html>

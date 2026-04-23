@@ -1,45 +1,32 @@
 /**
  * GOOD FOOD AVENUE — IMAGE CONFIGURATION
- * 
- * To swap any image: change the file path in the dictionary below.
- * Ensure you maintain the quotation marks. No need to touch the HTML!
+ *
+ * When real photography is ready, add the file paths below.
+ * The JS will automatically inject them into the placeholder boxes via [data-img-key] attributes.
+ * Ensure all images are placed in /assets/images/food/
  */
 
 const GFA_IMAGES = {
   // --- HERO IMAGE ---
-  hero:          "../assets/images/food/hero.jpg",
+  hero: '../assets/images/food/hero.jpg',
 
-  // --- GRILLS SECTION ---
-  asun:          "../assets/images/food/asun.jpg",
-  turkey_wings:  "../assets/images/food/turkey-wings.jpg",
-  chicken:       "../assets/images/food/chicken.jpg",
-
-  // --- SOUPS & SWALLOWS ---
-  egusi_soup:    "../assets/images/food/egusi-soup.jpg",
-  
-  // --- RICE DISHES ---
-  rice_dishes:   "../assets/images/food/rice-dishes.jpg",
-
-  // --- DRINKS ---
-  fruit_drink_1: "../assets/images/food/drinks/drink-1.jpg",
-  fruit_drink_2: "../assets/images/food/drinks/drink-2.jpg",
+  // --- CATEGORY IMAGES (matches data-img-key on each .placeholder-box) ---
+  main_meal:      '../assets/images/food/main-meal.jpg',
+  soups_stews:    '../assets/images/food/soups-stews.jpg',
+  proteins:       '../assets/images/food/proteins.jpg',
+  snacks_drinks:  '../assets/images/food/snacks-drinks.jpg',
+  side_dishes:    '../assets/images/food/side-dishes.jpg',
 };
 
-// --- AUTOMATIC IMAGE INJECTION LOGIC ---
+// --- AUTOMATIC IMAGE INJECTION ---
+// Replaces placeholder boxes with real images once file paths above are populated.
 document.addEventListener('DOMContentLoaded', () => {
-    const heroEl = document.querySelector('.gfa-hero');
-    if(heroEl && GFA_IMAGES.hero) {
-        heroEl.style.backgroundImage = `linear-gradient(180deg, rgba(13,26,13,0.8) 0%, rgba(13,26,13,1) 100%), url('${GFA_IMAGES.hero}')`;
+  document.querySelectorAll('[data-img-key]').forEach(el => {
+    const key = el.getAttribute('data-img-key');
+    if (GFA_IMAGES[key]) {
+      el.style.backgroundImage = `url('${GFA_IMAGES[key]}')`;
+      el.style.backgroundSize = 'cover';
+      el.style.backgroundPosition = 'center';
     }
-
-    document.querySelectorAll('[data-img-key]').forEach(el => {
-        const key = el.getAttribute('data-img-key');
-        if(GFA_IMAGES[key]) {
-            el.src = GFA_IMAGES[key];
-        } else {
-            // Keep a nice fallback background if image path is broken/missing
-            el.style.backgroundColor = '#152015';
-            el.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; 
-        }
-    });
+  });
 });

@@ -1,200 +1,35 @@
-/* Safe Haven Local Styles overrides and extensions */
+/* ═══════════════════════════════════════════════════════════════
+   SAFE HAVEN APARTMENTS — Style Sheet
+   Light theme · Cormorant Garamond + Inter · 1116px max-width
+   ═══════════════════════════════════════════════════════════════ */
 
-/* Base overrides for Safe Haven */
+/* ── CUSTOM TOKENS ── */
+:root {
+    --sh-bg:          #FAFAFA;
+    --sh-bg-alt:      #F2EFE9;
+    --sh-text:        #1A1A1A;
+    --sh-muted:       #6B6B6B;
+    --sh-gold:        #B8975A;
+    --sh-gold-light:  #D4B47A;
+    --sh-border:      rgba(26, 26, 26, 0.1);
+    --sh-card-bg:     #FFFFFF;
+    --font-cormorant: 'Cormorant Garamond', Georgia, serif;
+    --font-inter:     'Inter', sans-serif;
+    --sh-wa-green: #25D366;
+}
+
+/* ── BASE ── */
 body {
-    background-color: var(--color-sh-bg);
-    color: var(--color-sh-text);
+    background-color: var(--sh-bg);
+    color: var(--sh-text);
 }
 
-h1, h2, h3 {
-    font-family: var(--font-sh-head);
-    font-weight: 600;
-}
-
-/* Local Sub-Header */
-.local-subheader {
-    position: fixed;
-    top: 76px; /* Below the global header */
-    left: 0;
-    width: 100%;
-    z-index: 90;
-    background-color: rgba(15, 23, 42, 0.95);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--color-sh-border);
-    padding: var(--space-3) 0;
-}
-
-.local-nav ul {
-    display: flex;
-    gap: var(--space-6);
-    justify-content: center;
-}
-
-.local-nav a {
-    font-size: var(--text-sm);
-    color: var(--color-sh-muted);
-    transition: color var(--transition-fast);
-    letter-spacing: 0.05em;
-    font-family: var(--font-body);
-}
-
-.local-nav a:hover {
-    color: var(--color-sh-gold);
-}
-
-/* Safe Haven Hero */
-.sh-hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    padding-top: 100px;
-}
-
-.sh-hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* Gradient overlay simulates dark overlay over placeholder bg */
-    background: linear-gradient(180deg, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.7) 50%, rgba(15,23,42,1) 100%),
-                url('../assets/images/safe-haven/hero-placeholder.jpg') no-repeat center center / cover;
-    z-index: -1;
-}
-
-.sh-hero h1 {
-    font-size: clamp(var(--text-4xl), 5vw, var(--text-6xl));
-    max-width: 800px;
-    margin: 0 auto var(--space-8);
-    line-height: 1.1;
-    color: var(--color-sh-text);
-}
-
-.sh-gold-btn {
-    display: inline-block;
-    background-color: var(--color-sh-gold);
-    color: var(--color-sh-bg);
-    padding: var(--space-4) var(--space-10);
-    font-weight: 600;
-    font-size: var(--text-base);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-radius: var(--radius-sm);
-    transition: var(--transition-premium);
-    font-family: var(--font-body);
-}
-
-.sh-gold-btn:hover {
-    transform: scale(1.015);
-    box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
-}
-
-/* Ecosystem Grid */
-.sh-section {
-    padding: var(--space-section) 0 var(--space-macro);
-}
-
-.sh-section-title {
-    text-align: center;
-    margin-bottom: var(--space-12);
-    font-size: var(--text-4xl);
-    color: var(--color-sh-gold);
-}
-
-.ecosystem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-}
-
-.eco-card {
-    background-color: var(--color-sh-surface);
-    border: var(--border-color);
-    border-radius: var(--radius-xl);
-    padding: var(--space-10);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: var(--space-4);
-    transition: var(--transition-premium);
-}
-
-.eco-card:hover {
-    transform: translateY(-4px) scale(1.015);
-    border-color: var(--color-sh-gold);
-    box-shadow: var(--shadow-diffused);
-    z-index: 10;
-}
-
-.eco-card h3 {
-    font-size: var(--text-2xl);
-    color: var(--color-sh-text);
-}
-
-.eco-card p {
-    color: var(--color-sh-muted);
-    font-size: var(--text-base);
-}
-
-.eco-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: var(--space-2);
-    stroke: var(--color-sh-gold);
-}
-
-/* Gallery Block */
-.masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 300px;
-    gap: var(--space-4);
-}
-
-.masonry-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.masonry-item:first-child {
-    grid-row: span 2;
-}
-.masonry-item:nth-child(4) {
-    grid-column: span 2;
-}
-
-/* Footer Conversion */
-.sh-conversion {
-    text-align: center;
-    padding: var(--space-20) 0 var(--space-24);
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.sh-conversion p {
-    font-family: var(--font-sh-head);
-    font-size: var(--text-2xl);
-    font-style: italic;
-    color: var(--color-sh-muted);
-    margin-bottom: var(--space-10);
-    line-height: 1.4;
-}
-
-/* Sticky WA Button specific to Safe Haven page (overrides global if needed) */
+/* ── Sticky WhatsApp button ── */
 .sticky-wa-btn {
     position: fixed;
-    bottom: var(--space-8);
-    right: var(--space-8);
-    background-color: var(--color-wa-green);
+    bottom: 32px;
+    right: 32px;
+    background-color: var(--sh-wa-green, #25D366);
     color: #fff;
     width: 60px;
     height: 60px;
@@ -202,9 +37,9 @@ h1, h2, h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: var(--shadow-lg);
-    z-index: 100;
-    transition: transform var(--transition-fast);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 200;
+    transition: transform 150ms ease;
 }
 
 .sticky-wa-btn:hover {
@@ -212,24 +47,695 @@ h1, h2, h3 {
 }
 
 .sticky-wa-btn svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     fill: currentColor;
+    flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
-    .ecosystem-grid {
-        grid-template-columns: 1fr;
-    }
-    .masonry-grid {
-        grid-template-columns: 1fr;
-        grid-auto-rows: 250px;
-    }
-    .masonry-item:first-child, .masonry-item:nth-child(4) {
-        grid-row: span 1;
-        grid-column: span 1;
-    }
-    .sh-hero {
-        padding-top: 150px; /* Space for both headers */
-    }
+/* ── NAV OVERRIDES — light background page ──
+   Global style.css defaults nav text to #FFFFFF (for dark hero pages).
+   Safe Haven is light-background, so we override to dark text. */
+.unified-nav .ovis-logo-text {
+    color: var(--sh-muted);
+}
+.unified-nav .menu-toggle {
+    color: var(--sh-text);
+}
+.unified-nav.scrolled .ovis-logo-text,
+.unified-nav.scrolled .menu-toggle {
+    color: var(--sh-text);
+}
+
+/* ── SUBBRAND LOGO ── */
+.sh-cormorant-logo {
+    font-family: var(--font-cormorant) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em;
+    color: var(--sh-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 1: HERO VIEWPORT
+   ═══════════════════════════════════════════════════════════════ */
+.sh-hero-viewport {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(184, 151, 90, 0.1) 0%,
+        transparent 50%
+    ), var(--sh-bg);
+    padding-top: 80px; /* nav height */
+    cursor: none; /* Magic cursor active */
+}
+
+/* Animated background blobs */
+.sh-hero-blobs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sh-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.3;
+    animation: sh-blob-drift 12s ease-in-out infinite alternate;
+}
+
+.sh-blob-1 {
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, #D4B47A 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    animation-duration: 14s;
+}
+
+.sh-blob-2 {
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, #B8975A 0%, transparent 70%);
+    bottom: 100px;
+    left: -80px;
+    animation-duration: 10s;
+    animation-delay: -4s;
+}
+
+.sh-blob-3 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, #F2EFE9 0%, transparent 70%);
+    top: 40%;
+    left: 40%;
+    animation-duration: 16s;
+    animation-delay: -8s;
+}
+
+@keyframes sh-blob-drift {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, 20px) scale(1.08); }
+}
+
+/* Hero inner layout */
+.sh-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding-top: var(--space-12, 80px);
+    padding-bottom: var(--space-12, 80px);
+}
+
+/* Left text column */
+.sh-hero-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.sh-eyebrow {
+    font-family: var(--font-inter);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sh-gold);
+}
+
+.sh-hero-title {
+    font-family: var(--font-cormorant);
+    font-size: 72px;
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--sh-text);
+    letter-spacing: -0.01em;
+}
+
+.sh-hero-title em {
+    font-style: italic;
+    color: var(--sh-gold);
+    font-weight: 300;
+}
+
+.sh-hero-sub {
+    font-family: var(--font-inter);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--sh-muted);
+    line-height: 1.65;
+    max-width: 380px;
+}
+
+/* CTA Button */
+.sh-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background-color: var(--sh-text);
+    color: #FFFFFF;
+    font-family: var(--font-inter);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    text-decoration: none;
+    width: fit-content;
+    transition: background-color 250ms ease, transform 250ms ease;
+}
+
+.sh-cta-btn:hover {
+    background-color: var(--sh-gold);
+    transform: translateY(-2px);
+}
+
+.sh-cta-btn--dark {
+    background-color: var(--sh-text);
+}
+
+/* Right image column */
+.sh-hero-image-col {
+    position: relative;
+}
+
+.sh-hero-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 4px;
+    overflow: visible;
+}
+
+.sh-img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #E8E2D9;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.sh-img-placeholder svg {
+    width: 48px;
+    height: 48px;
+    color: #B0A898;
+}
+
+/* Full-size placeholder variant */
+.sh-suite-img .sh-img-placeholder,
+.sh-gallery-item .sh-img-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+/* Floating badge */
+.sh-floating-badge {
+    position: absolute;
+    bottom: -24px;
+    left: -24px;
+    width: 96px;
+    height: 96px;
+    background-color: var(--sh-gold);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(184, 151, 90, 0.3);
+    animation: sh-badge-pulse 3s ease-in-out infinite;
+}
+
+@keyframes sh-badge-pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.04); }
+}
+
+.badge-number {
+    font-family: var(--font-cormorant);
+    font-size: 22px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: 1;
+}
+
+.badge-label {
+    font-family: var(--font-inter);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 2: STATEMENT
+   ═══════════════════════════════════════════════════════════════ */
+.sh-statement-section {
+    padding: 100px 0;
+    background-color: var(--sh-bg-alt);
+    border-top: 1px solid var(--sh-border);
+    border-bottom: 1px solid var(--sh-border);
+}
+
+.sh-statement-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    max-width: 760px;
+}
+
+.sh-statement-quote {
+    font-family: var(--font-cormorant);
+    font-size: 40px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.3;
+    color: var(--sh-text);
+    letter-spacing: -0.01em;
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sh-statement-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sh-meta-line {
+    width: 48px;
+    height: 1px;
+    background-color: var(--sh-gold);
+}
+
+.sh-statement-meta p {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sh-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SHARED SECTION TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════ */
+.sh-section-title {
+    font-family: var(--font-cormorant);
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--sh-text);
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.sh-section-sub {
+    font-family: var(--font-inter);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--sh-muted);
+    line-height: 1.65;
+    max-width: 500px;
+    margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 3: THE APARTMENT
+   ═══════════════════════════════════════════════════════════════ */
+.sh-apartment-section {
+    padding: 100px 0;
+    background-color: var(--sh-bg);
+}
+
+.sh-apartment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 56px;
+}
+
+.sh-apartment-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: center;
+}
+
+/* Left: Image Column */
+.sh-apartment-image {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.sh-apartment-image .sh-img-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    transition: transform 600ms ease;
+}
+
+.sh-apartment-image:hover .sh-img-placeholder {
+    transform: scale(1.03);
+}
+
+.sh-apartment-tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--sh-gold);
+    color: #FFFFFF;
+    font-family: var(--font-inter);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 2px;
+}
+
+/* Right: Info Column */
+.sh-apartment-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sh-apartment-name {
+    font-family: var(--font-cormorant);
+    font-size: 52px;
+    font-weight: 400;
+    color: var(--sh-text);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.sh-apartment-desc {
+    font-family: var(--font-inter);
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--sh-muted);
+    line-height: 1.75;
+    margin: 0;
+    max-width: 400px;
+}
+
+/* Amenities grid */
+.sh-amenities-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.sh-amenity-item span {
+    display: block;
+    font-family: var(--font-inter);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sh-text);
+    padding: 10px 14px;
+    background-color: var(--sh-bg-alt);
+    border: 1px solid var(--sh-border);
+    border-radius: 2px;
+    transition: border-color 200ms ease, color 200ms ease;
+}
+
+.sh-amenity-item span:hover {
+    border-color: var(--sh-gold);
+    color: var(--sh-gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 4: GALLERY MOSAIC
+   ═══════════════════════════════════════════════════════════════ */
+.sh-gallery-section {
+    padding: 100px 0;
+    background-color: var(--sh-bg-alt);
+}
+
+.sh-gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.sh-text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-inter);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sh-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--sh-text);
+    padding-bottom: 2px;
+    transition: color 250ms ease, border-color 250ms ease;
+}
+
+.sh-text-link:hover {
+    color: var(--sh-gold);
+    border-color: var(--sh-gold);
+}
+
+/* Mosaic layout */
+.sh-gallery-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 320px 260px;
+    gap: 12px;
+}
+
+.sh-gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sh-gallery-item--tall {
+    grid-row: 1 / 3;      /* spans both rows */
+}
+
+.sh-gallery-item--wide {
+    grid-column: 2 / 4;   /* spans 2 columns */
+}
+
+.sh-gallery-item .sh-img-placeholder {
+    height: 100%;
+    transition: transform 500ms ease;
+}
+
+.sh-gallery-item:hover .sh-img-placeholder {
+    transform: scale(1.03);
+}
+
+.sh-gallery-label {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-family: var(--font-inter);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background-color: rgba(26, 26, 26, 0.6);
+    padding: 5px 12px;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.sh-gallery-item:hover .sh-gallery-label {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 5: ECOSYSTEM GRID
+   ═══════════════════════════════════════════════════════════════ */
+.sh-ecosystem-section {
+    padding: 100px 0;
+    background-color: var(--sh-bg);
+}
+
+.sh-ecosystem-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 56px;
+}
+
+.sh-eco-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background-color: var(--sh-border);
+    border: 1px solid var(--sh-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.sh-eco-card {
+    background-color: var(--sh-card-bg);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 250ms ease;
+}
+
+.sh-eco-card:hover {
+    background-color: var(--sh-bg-alt);
+}
+
+.sh-eco-card--link {
+    cursor: pointer;
+}
+
+.sh-eco-icon-wrap {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sh-gold);
+}
+
+.sh-eco-icon-wrap svg {
+    width: 24px;
+    height: 24px;
+}
+
+.sh-eco-title {
+    font-family: var(--font-cormorant);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--sh-text);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.sh-eco-body {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--sh-muted);
+    line-height: 1.6;
+    margin: 0;
+    flex: 1;
+}
+
+.sh-eco-link-tag {
+    font-family: var(--font-inter);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--sh-gold);
+    margin-top: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   SECTION 6: BOOKING CTA
+   ═══════════════════════════════════════════════════════════════ */
+.sh-booking-section {
+    padding: 120px 0;
+    background-color: var(--sh-text);
+}
+
+.sh-booking-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 80px;
+}
+
+.sh-booking-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 520px;
+}
+
+.sh-booking-section .sh-eyebrow {
+    color: var(--sh-gold-light);
+}
+
+.sh-booking-title {
+    font-family: var(--font-cormorant);
+    font-size: 60px;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.sh-booking-title em {
+    font-style: italic;
+    color: var(--sh-gold-light);
+    font-weight: 300;
+}
+
+.sh-booking-sub {
+    font-family: var(--font-inter);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.65;
+    margin: 0;
+}
+
+.sh-booking-action {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.sh-booking-action .sh-cta-btn--dark {
+    background-color: #FFFFFF;
+    color: var(--sh-text);
+}
+
+.sh-booking-action .sh-cta-btn--dark:hover {
+    background-color: var(--sh-gold);
+    color: #FFFFFF;
+}
+
+.sh-booking-note {
+    font-family: var(--font-inter);
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.04em;
 }

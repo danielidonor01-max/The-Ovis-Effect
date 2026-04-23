@@ -1,35 +1,47 @@
 /**
  * UROVI SPA — IMAGE CONFIGURATION
- * 
- * To swap any image: change the file path in the dictionary below.
+ *
+ * When real photography is ready, add the file paths below.
+ * The JS will automatically inject them into the placeholder boxes via [data-img-key] attributes.
  */
 
 const UROVI_IMAGES = {
   // --- HERO IMAGE ---
-  hero:          "../assets/images/spa/hero-spa.jpg",
+  hero:          "../assets/images/spa/hero.jpg",
 
-  // --- GALLERY IMAGES ---
+  // --- OVERLAPPING DUO ---
+  duo_back:      "../assets/images/spa/duo-back.jpg",
+  duo_front:     "../assets/images/spa/duo-front.jpg",
+
+  // --- SERVICE CARDS ---
+  service_1:     "../assets/images/spa/service-1.jpg",
+  service_2:     "../assets/images/spa/service-2.jpg",
+  service_3:     "../assets/images/spa/service-3.jpg",
+  service_4:     "../assets/images/spa/service-4.jpg",
+
+  // --- GALLERY STRIP ---
   gallery_1:     "../assets/images/spa/gallery-1.jpg",
   gallery_2:     "../assets/images/spa/gallery-2.jpg",
   gallery_3:     "../assets/images/spa/gallery-3.jpg",
+  gallery_4:     "../assets/images/spa/gallery-4.jpg",
+  gallery_5:     "../assets/images/spa/gallery-5.jpg",
+  gallery_6:     "../assets/images/spa/gallery-6.jpg",
 };
 
-// --- AUTOMATIC IMAGE INJECTION LOGIC ---
+// --- AUTOMATIC IMAGE INJECTION ---
 document.addEventListener('DOMContentLoaded', () => {
-    const heroEl = document.querySelector('.spa-hero');
-    if(heroEl && UROVI_IMAGES.hero) {
-        // Soft warm overlay for the spa hero
-        heroEl.style.backgroundImage = `linear-gradient(180deg, rgba(61, 35, 20, 0.4) 0%, rgba(61, 35, 20, 0.6) 100%), url('${UROVI_IMAGES.hero}')`;
-    }
-
     document.querySelectorAll('[data-img-key]').forEach(el => {
         const key = el.getAttribute('data-img-key');
         if(UROVI_IMAGES[key]) {
-            el.src = UROVI_IMAGES[key];
-        } else {
-            // Keep a nice fallback background if image path is broken/missing
-            el.style.backgroundColor = '#F0EAE0';
-            el.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; 
+            // If it's an IMG tag
+            if (el.tagName === 'IMG') {
+                el.src = UROVI_IMAGES[key];
+            } else {
+                // If it's a div, use background-image
+                el.style.backgroundImage = `url('${UROVI_IMAGES[key]}')`;
+                el.style.backgroundSize = 'cover';
+                el.style.backgroundPosition = 'center';
+            }
         }
     });
 });

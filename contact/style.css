@@ -1,0 +1,396 @@
+/* ════════════════════════════════════════════════════
+   CONTACT PAGE — style.css
+   FARMform-inspired two-column card layout
+   Max container: 1116px · Sandy page background
+   ════════════════════════════════════════════════════ */
+
+/* ── PAGE BASE ── */
+.contact-page {
+  background-color: var(--color-wild-sand);
+  min-height: 100vh;
+}
+
+/* ── MAIN WRAPPER ── */
+.contact-main {
+  padding: calc(76px + 48px) 0 80px;
+  min-height: calc(100vh - 80px);
+}
+
+.contact-card-wrap {
+  max-width: 1116px;
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+/* ── THE CARD ── */
+.contact-card {
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: 2fr auto 3fr;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════════════════
+   LEFT COLUMN
+   ════════════════════════════════════════════════════ */
+.contact-left {
+  padding: 52px 48px 52px 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-left-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* "Contact" heading in elegant serif */
+.contact-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-mirage);
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+/* Social icons row (top-right of left column, FARMform style) */
+.contact-social-row {
+  display: flex;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.c-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(22, 35, 42, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-mirage);
+  transition: all var(--transition-fast);
+}
+
+.c-social-btn:hover {
+  background-color: var(--color-mirage);
+  color: #fff;
+  border-color: var(--color-mirage);
+}
+
+.c-social-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Company name + address */
+.contact-details-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.c-company {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-mirage);
+  margin: 0;
+}
+
+.c-address {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-muted);
+  font-style: normal;
+  margin: 0;
+}
+
+/* Email + phone links */
+.contact-links-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.c-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-mirage);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(22, 35, 42, 0.2);
+  transition: text-decoration-color var(--transition-fast);
+}
+
+.c-link:hover {
+  text-decoration-color: var(--color-mirage);
+}
+
+/* Map placeholder */
+.contact-map-placeholder {
+  flex: 1;
+  min-height: 180px;
+  background-color: var(--color-wild-sand);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-muted);
+}
+
+.map-pin-icon {
+  width: 32px;
+  height: 32px;
+  color: var(--color-mirage);
+  opacity: 0.4;
+}
+
+.contact-map-placeholder p {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ════════════════════════════════════════════════════
+   VERTICAL DIVIDER
+   ════════════════════════════════════════════════════ */
+.contact-vline {
+  width: 1px;
+  background-color: rgba(22, 35, 42, 0.08);
+  align-self: stretch;
+}
+
+/* ════════════════════════════════════════════════════
+   RIGHT COLUMN (FORM)
+   ════════════════════════════════════════════════════ */
+.contact-right {
+  padding: 52px 52px 52px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contact-form-heading {
+  font-family: 'Inter', sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--color-mirage);
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+/* ── FORM ── */
+.ovis-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Inputs + textarea: all-caps label style inside placeholder */
+.ovis-form input,
+.ovis-form textarea {
+  width: 100%;
+  background-color: var(--color-wild-sand);
+  border: 1px solid rgba(22, 35, 42, 0.1);
+  border-radius: 10px;
+  padding: 16px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-mirage);
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  box-sizing: border-box;
+}
+
+.ovis-form input::placeholder,
+.ovis-form textarea::placeholder {
+  color: rgba(22, 35, 42, 0.35);
+}
+
+.ovis-form input:focus,
+.ovis-form textarea:focus {
+  border-color: rgba(22, 35, 42, 0.4);
+  background-color: #fff;
+}
+
+.ovis-form textarea {
+  resize: none;
+  min-height: 110px;
+}
+
+/* Validation UI States */
+.ovis-form input.is-invalid,
+.ovis-form textarea.is-invalid {
+  border-color: #E03E3E;
+  background-color: rgba(224, 62, 62, 0.03);
+}
+
+.error-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #E03E3E;
+  margin-top: 6px;
+  font-weight: 500;
+  display: block;
+}
+
+.form-feedback {
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.feedback-success {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+  border: 1px solid #C8E6C9;
+}
+
+.feedback-error {
+  background-color: #FFEBEE;
+  color: #C62828;
+  border: 1px solid #FFCDD2;
+}
+
+
+/* Interest toggle row */
+.form-interest {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-interest-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.interest-toggles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.interest-btn span {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(22, 35, 42, 0.15);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-mirage);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: transparent;
+  letter-spacing: 0.02em;
+}
+
+.interest-btn input:checked + span,
+.interest-btn.selected span {
+  background-color: var(--color-mirage);
+  color: #fff;
+  border-color: var(--color-mirage);
+}
+
+.interest-btn span:hover {
+  border-color: var(--color-mirage);
+}
+
+/* Submit button */
+.contact-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  background-color: var(--color-mirage);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  margin-top: 6px;
+}
+
+.contact-submit-btn:hover {
+  background-color: var(--color-hub-gold);
+  transform: translateY(-2px);
+}
+
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .contact-card {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .contact-vline {
+    width: 100%;
+    height: 1px;
+    align-self: auto;
+  }
+
+  .contact-left,
+  .contact-right {
+    padding: 36px 32px;
+  }
+
+  .contact-heading { font-size: 44px; letter-spacing: -0.03em; }
+  .contact-form-heading { font-size: 26px; }
+}
+
+@media (max-width: 600px) {
+  .contact-card { border-radius: 16px; }
+  .contact-left,
+  .contact-right { padding: 28px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  .contact-heading { font-size: 36px; }
+}
