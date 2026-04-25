@@ -76,7 +76,7 @@ body {
 /* Left Hero Text */
 .fin-hero-text {
     font-family: var(--font-display);
-    font-size: 54px;
+    font-size: clamp(32px, 5vw, 54px);
     font-weight: 700;
     text-align: left;
     color: var(--color-mirage, #16232A);
@@ -137,7 +137,7 @@ body {
 .stat-number {
     display: block;
     font-family: var(--font-display);
-    font-size: 40px;
+    font-size: clamp(28px, 4vw, 40px);
     font-weight: 700;
     color: var(--color-mirage, #16232A);
     letter-spacing: -0.04em;
@@ -261,7 +261,7 @@ body {
 
 .pricing-title {
     font-family: 'Inter', sans-serif;
-    font-size: 40px;
+    font-size: clamp(28px, 4vw, 40px);
     font-weight: 700;
     text-transform: uppercase;
     text-align: left !important;
@@ -452,8 +452,27 @@ body {
         height: 400px;
     }
 }
+/* Mobile Hero Logo specific styles */
+.mobile-hero-logo {
+    display: none;
+}
 
 @media (max-width: 768px) {
+    .mobile-hero-logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: var(--space-6);
+        margin-top: 80px; /* Offset fixed header */
+        width: 100%;
+    }
+    
+    .mobile-hero-logo .subbrand-logo {
+        font-size: 28px; /* Slightly smaller for mobile */
+    }
+
+    .fin-hero-viewport {
+        padding-top: 0;
+    }
     .fin-hero-split {
         flex-direction: column;
         text-align: center;
@@ -483,6 +502,16 @@ body {
     }
     .pricing-cell {
         border-right: none;
+    }
+
+    .fin-cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-6);
+    }
+    
+    .fin-cta-section {
+        padding: 80px 0;
     }
 }
 
@@ -520,7 +549,7 @@ body {
 
 .fin-cta-title {
     font-family: 'Inter', sans-serif;
-    font-size: 54px;
+    font-size: clamp(32px, 5vw, 54px);
     font-weight: 700;
     line-height: 1.1;
     color: #FFFFFF;

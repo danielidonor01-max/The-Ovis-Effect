@@ -131,7 +131,7 @@ body {
 
 .spa-intro-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 72px;
+    font-size: clamp(36px, 6vw, 72px);
     font-weight: 400;
     line-height: 71px;
     letter-spacing: -0.02em;
@@ -296,7 +296,7 @@ body {
 
 .gallery-display-heading {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 128px;
+    font-size: clamp(56px, 10vw, 128px);
     font-weight: 300;
     line-height: 1;
     letter-spacing: -0.03em;
@@ -542,16 +542,33 @@ body {
     }
 }
 
+/* Mobile Hero Logo specific styles */
+.mobile-hero-logo {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .mobile-hero-logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: var(--space-6);
+        margin-top: 80px; /* Offset fixed header */
+    }
+    
+    .mobile-hero-logo img {
+        height: 52px;
+    }
+
+    .spa-hero-viewport {
+        padding-top: 0;
+    }
     .spa-hero-image {
         height: 380px;
         border-radius: 20px;
     }
 
     .spa-hero-text {
-        font-size: 24px;
-        bottom: 24px;
-        left: 24px;
+        display: none; /* Hidden on mobile to match wireframe */
     }
 
     .spa-intro-text {
@@ -586,6 +603,16 @@ body {
         height: auto;
         min-height: 289px;
         border-radius: 0;
+    }
+
+    .spa-cta-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-6);
+    }
+    
+    .spa-cta-section {
+        padding: 80px 0;
     }
 }
 
@@ -623,7 +650,7 @@ body {
 
 .spa-cta-title {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 60px;
+    font-size: clamp(36px, 5vw, 60px);
     font-weight: 400;
     line-height: 1.1;
     color: #FFFFFF;

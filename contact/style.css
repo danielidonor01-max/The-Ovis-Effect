@@ -52,7 +52,7 @@
 /* "Contact" heading in elegant serif */
 .contact-heading {
   font-family: 'Inter', sans-serif;
-  font-size: 56px;
+  font-size: clamp(36px, 5vw, 56px);
   font-weight: 700;
   line-height: 1;
   color: var(--color-mirage);
@@ -383,7 +383,6 @@
     padding: 36px 32px;
   }
 
-  .contact-heading { font-size: 44px; letter-spacing: -0.03em; }
   .contact-form-heading { font-size: 26px; }
 }
 
@@ -392,5 +391,4 @@
   .contact-left,
   .contact-right { padding: 28px 24px; }
   .form-row { grid-template-columns: 1fr; }
-  .contact-heading { font-size: 36px; }
 }

@@ -85,6 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- Global Hub Mobile Menu Logic ---
+  const mobileMenuBtns = document.querySelectorAll('.mobile-menu-btn');
+  mobileMenuBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('menu-open');
+    });
+  });
+
   // --- Nav Modal Logic ---
   const menuToggles = document.querySelectorAll('.menu-toggle');
   const modalClose = document.querySelector('.modal-close');
