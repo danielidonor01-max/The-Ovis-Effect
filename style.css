@@ -1445,6 +1445,11 @@ body {
   .section-header-meta {
     text-align: right;
   }
+  
+  .section-meta-brand,
+  .section-meta-desc {
+    font-size: 12px;
+  }
 
   .brand-grid {
     grid-template-columns: 1fr;

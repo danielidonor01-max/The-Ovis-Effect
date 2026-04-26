@@ -607,7 +607,8 @@ body {
 
     .spa-cta-inner {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
         gap: var(--space-6);
     }
     
@@ -626,16 +627,20 @@ body {
 
 .spa-cta-inner {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 80px;
+    text-align: center;
+    gap: 40px;
 }
 
 .spa-cta-text {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 20px;
-    max-width: 540px;
+    max-width: 640px;
 }
 
 .spa-cta-eyebrow {
@@ -676,7 +681,8 @@ body {
 .spa-cta-action {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 16px;
     flex-shrink: 0;
 }

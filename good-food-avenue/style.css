@@ -164,9 +164,11 @@ body {
 .gfa-intro-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
     padding: 0 var(--space-4);
+    max-width: 1116px;
+    margin: 0 auto;
 }
 
 .intro-text {
@@ -175,9 +177,11 @@ body {
     font-weight: 500;
     letter-spacing: -0.02em;
     color: var(--text-primary);
-    max-width: 100%;
+    width: 100%;
     margin-bottom: var(--space-8);
     line-height: 1.1;
+    text-align: justify;
+    text-align-last: center;
 }
 
 .view-menu-link {
@@ -213,7 +217,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 690px;
+    max-width: 832px; /* Matches hero image placeholder */
     margin: 0 auto;
     gap: 20px;
 }
@@ -291,7 +295,8 @@ body {
     
     .gfa-cta-inner {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        text-align: center;
         gap: var(--space-6);
     }
     
@@ -338,16 +343,20 @@ body {
 
 .gfa-cta-inner {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 80px;
+    text-align: center;
+    gap: 40px;
 }
 
 .gfa-cta-text {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 20px;
-    max-width: 540px;
+    max-width: 640px;
 }
 
 .gfa-cta-eyebrow {
@@ -388,7 +397,8 @@ body {
 .gfa-cta-action {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 16px;
     flex-shrink: 0;
 }
@@ -467,16 +477,6 @@ body {
     .mobile-hero-logo img {
         height: 60px;
     }
-
-    .order-whatsapp-btn.mobile-only {
-        display: inline-flex;
-        width: 100%;
-        background-color: #000;
-        color: #fff;
-    }
-    
-    .view-menu-link {
-        display: none; /* Hide PDF link on mobile as per wireframe */
     }
     
     .gfa-hero-viewport {
