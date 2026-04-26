@@ -303,6 +303,13 @@ body {
     .gfa-cta-section {
         padding: 80px 0;
     }
+
+    /* Center (not justify) the intro tagline on mobile */
+    .intro-text {
+        text-align: center;
+        text-align-last: center;
+        font-size: clamp(24px, 7vw, 36px);
+    }
 }
 
 /* WA CTA */

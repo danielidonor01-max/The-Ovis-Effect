@@ -216,6 +216,8 @@
         </article>
 
       </div>
+      <!-- Service carousel dots (mobile only) -->
+      <div class="carousel-dots mobile-only-flex" id="services-dots"></div>
     </section>
 
     <!-- ══════════════════════════════════════════
@@ -269,6 +271,8 @@
           </svg>
         </div>
       </div>
+      <!-- Gallery carousel dots (mobile only) -->
+      <div class="carousel-dots mobile-only-flex" id="gallery-dots"></div>
     </section>
 
     <!-- ══════════════════════════════════════════
@@ -353,10 +357,10 @@
         </div>
       </div>
 
-      <!-- Progress Indicator -->
-      <div class="reviews-progress-wrap">
-        <div class="reviews-progress-bar">
-          <div class="reviews-progress-thumb" id="reviews-progress-thumb"></div>
+      <!-- Reviews scroll progress (mobile only) -->
+      <div class="reviews-progress-wrap mobile-only-flex">
+        <div class="reviews-progress-track">
+          <div class="reviews-progress-bar" id="reviews-progress-bar"></div>
         </div>
       </div>
     </section>
@@ -448,49 +452,103 @@
   <script src="../main.js"></script>
   <script src="images.js"></script>
   <script>
-    /* ── REVIEW CAROUSEL ── */
-    (function () {
-      const track    = document.getElementById('reviews-track');
-      const thumb    = document.getElementById('reviews-progress-thumb');
-      const CARDS    = 6;
-      const PER_PAGE = 3;
-      const PAGES    = Math.ceil(CARDS / PER_PAGE); // 2
-      let currentIndex = 0; // 0 or 1
-
-      function goTo(index) {
-        currentIndex = Math.max(0, Math.min(index, PAGES - 1));
-        const cardWidth = 372; // px
-        track.style.transform = `translateX(-${currentIndex * PER_PAGE * cardWidth}px)`;
-        // Update progress thumb position
-        thumb.style.transform = `translateX(${currentIndex * 100}%)`;
+    /* ── MOBILE CAROUSEL HELPERS ── */
+    function buildDots(container, count, onDotClick) {
+      if (!container) return [];
+      container.innerHTML = '';
+      const dots = [];
+      for (let i = 0; i < count; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        btn.addEventListener('click', () => onDotClick(i));
+        container.appendChild(btn);
+        dots.push(btn);
       }
+      return dots;
+    }
 
-      // Wheel scroll on the section
-      const section = document.getElementById('reviews');
-      let scrollCooldown = false;
-      section.addEventListener('wheel', function (e) {
-        if (scrollCooldown) return;
-        e.preventDefault();
-        scrollCooldown = true;
-        if (e.deltaY > 0) {
-          goTo(currentIndex + 1);
-        } else {
-          goTo(currentIndex - 1);
-        }
-        setTimeout(() => { scrollCooldown = false; }, 800);
-      }, { passive: false });
+    function setActiveDot(dots, index) {
+      dots.forEach((d, i) => d.classList.toggle('active', i === index));
+    }
 
-      // Click on progress bar to jump
-      const bar = document.querySelector('.reviews-progress-bar');
-      bar.addEventListener('click', function (e) {
-        const rect = bar.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const ratio = x / rect.width;
-        goTo(Math.round(ratio * (PAGES - 1)));
+    function snapCarousel(track, dotsContainer) {
+      if (!track) return;
+      const items = Array.from(track.children);
+      const dots  = buildDots(dotsContainer, items.length, (i) => {
+        items[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       });
 
-      // Initialise
-      goTo(0);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const idx = items.indexOf(entry.target);
+            setActiveDot(dots, idx);
+          }
+        });
+      }, { root: track.parentElement, threshold: 0.6 });
+
+      items.forEach(item => observer.observe(item));
+    }
+
+    /* ── SERVICE CARDS CAROUSEL (mobile) ── */
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const servicesRow  = document.querySelector('.services-row');
+      const servicesDots = document.getElementById('services-dots');
+      snapCarousel(servicesRow, servicesDots);
+    }
+
+    /* ── GALLERY CAROUSEL (mobile) ── */
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const galleryStrip = document.querySelector('.gallery-overflow-strip');
+      const galleryDots  = document.getElementById('gallery-dots');
+      snapCarousel(galleryStrip, galleryDots);
+    }
+
+    /* ── REVIEWS SCROLL-BASED PROGRESS BAR ── */
+    (function () {
+      const track    = document.getElementById('reviews-track');
+      const progBar  = document.getElementById('reviews-progress-bar');
+
+      if (!track) return;
+
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+      if (isMobile) {
+        /* Mobile: native scroll on track, progress bar updates on scroll */
+        track.addEventListener('scroll', () => {
+          if (!progBar) return;
+          const scrollLeft = track.scrollLeft;
+          const maxScroll  = track.scrollWidth - track.clientWidth;
+          const ratio      = maxScroll > 0 ? scrollLeft / maxScroll : 0;
+          progBar.style.width = (40 + ratio * 60) + '%';
+        }, { passive: true });
+      } else {
+        /* Desktop: wheel-driven page carousel (original behaviour) */
+        const CARDS    = 6;
+        const PER_PAGE = 3;
+        const PAGES    = Math.ceil(CARDS / PER_PAGE);
+        let   current  = 0;
+
+        function goTo(index) {
+          current = Math.max(0, Math.min(index, PAGES - 1));
+          const cardWidth = 372;
+          track.style.transform = `translateX(-${current * PER_PAGE * cardWidth}px)`;
+          if (progBar) progBar.style.width = (current / (PAGES - 1) * 60 + 40) + '%';
+        }
+
+        const section = document.getElementById('reviews');
+        let cooldown  = false;
+        section && section.addEventListener('wheel', (e) => {
+          if (cooldown) return;
+          e.preventDefault();
+          cooldown = true;
+          goTo(current + (e.deltaY > 0 ? 1 : -1));
+          setTimeout(() => { cooldown = false; }, 800);
+        }, { passive: false });
+
+        goTo(0);
+      }
     })();
   </script>
 

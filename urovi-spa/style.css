@@ -548,10 +548,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* ── 1. HERO ── */
     .mobile-hero-logo {
         display: flex;
         justify-content: center;
-        margin-bottom: var(--space-6);
+        margin-bottom: var(--space-4);
         margin-top: 80px; /* Offset fixed header */
     }
     
@@ -561,14 +562,28 @@ body {
 
     .spa-hero-viewport {
         padding-top: 0;
-    }
-    .spa-hero-image {
-        height: 380px;
-        border-radius: 20px;
+        padding-bottom: var(--space-10);
     }
 
+    .spa-hero-image {
+        height: 480px;
+        border-radius: 20px;
+        position: relative; /* needed for hero text overlay */
+    }
+
+    /* SHOW hero text bottom-left on mobile */
     .spa-hero-text {
-        display: none; /* Hidden on mobile to match wireframe */
+        display: block;
+        position: absolute;
+        bottom: 24px;
+        left: 24px;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 28px;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--color-mirage);
+        line-height: 1.25;
+        max-width: 220px;
     }
 
     .spa-intro-text {
@@ -576,35 +591,182 @@ body {
         line-height: 40px;
     }
 
+    /* ── 2. DUO OVERLAPPING IMAGES ── */
+    /* Container holds both absolutely positioned images */
     .spa-duo-container {
-        height: auto;
-        min-height: 600px;
+        position: relative;
+        height: 420px; /* scaled for mobile: 354 + offsets */
+        overflow: visible;
     }
 
+    /* Back image: 170w × 272h, top-left corner */
+    .duo-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 170px;
+        height: 272px;
+        z-index: 1;
+    }
+
+    /* Front image: 221w × 354h, bottom-right corner */
+    .duo-front {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 221px;
+        height: 354px;
+        z-index: 2;
+    }
+
+    /* ── 3. SERVICE CARDS — horizontal scroll carousel ── */
+    .spa-services-section {
+        padding-bottom: var(--space-8);
+    }
+
+    /* Overflow the container so cards scroll edge-to-edge */
+    .services-row {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 16px;
+        padding: 0 var(--space-4) var(--space-4);
+        margin: 0 calc(-1 * var(--space-4));
+        align-items: flex-start;
+    }
+
+    .services-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Each card: 80vw wide, snap to center */
     .service-card {
-        width: 100%;
+        width: 75vw;
+        max-width: 300px;
+        flex-shrink: 0;
+        scroll-snap-align: center;
+    }
+
+    /* Center-align card text below image */
+    .service-card-content {
+        text-align: center;
+        max-width: 100%;
+        padding-top: 20px;
+    }
+
+    /* Service carousel dots */
+    .services-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: var(--space-4);
+    }
+
+    /* ── 4. GALLERY — horizontal scroll carousel with dots ── */
+    .spa-gallery-section {
+        overflow: hidden;
+        padding-bottom: var(--space-8);
     }
 
     .gallery-display-heading {
         font-size: 56px;
+        margin-bottom: var(--space-6);
     }
 
+    /* Override the staircase strip: make it a peek carousel */
+    .gallery-overflow-strip {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0 calc((100vw - 80vw) / 2); /* center peek */
+        padding-bottom: var(--space-4);
+        margin: 0;
+        width: 100%;
+    }
+
+    .gallery-overflow-strip::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Reset staircase vertical offsets — transform handled by JS but we flatten it */
     .gallery-stair-item {
-        width: 200px;
-        height: 240px;
+        width: 80vw;
+        height: 260px;
+        flex-shrink: 0;
+        border-radius: 16px;
+        scroll-snap-align: center;
+        transform: none !important; /* override inline staircase transforms */
     }
 
+    /* Dots container for gallery */
+    .gallery-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: var(--space-5);
+    }
+
+    /* ── 5. REVIEWS — horizontal scroll carousel with progress bar ── */
     .reviews-viewport {
         max-width: 100%;
+        overflow: hidden;
+    }
+
+    .reviews-track {
+        display: flex;
+        flex-direction: row !important; /* ensure horizontal */
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .reviews-track::-webkit-scrollbar {
+        display: none;
     }
 
     .review-card {
-        width: 100vw;
+        width: 85vw;
+        max-width: 340px;
         height: auto;
-        min-height: 289px;
-        border-radius: 0;
+        min-height: 220px;
+        border-radius: 12px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+        margin-right: 12px;
     }
 
+    /* Progress bar for reviews */
+    .reviews-progress-wrap {
+        display: flex;
+        justify-content: center;
+        margin-top: var(--space-5);
+        padding: 0 var(--space-4);
+    }
+
+    .reviews-progress-track {
+        width: 100%;
+        max-width: 280px;
+        height: 3px;
+        background-color: rgba(0,0,0,0.12);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .reviews-progress-bar {
+        height: 100%;
+        width: 40%;
+        background-color: var(--color-mirage);
+        border-radius: 2px;
+        transition: width 0.2s ease;
+    }
+
+    /* CTA */
     .spa-cta-inner {
         flex-direction: column;
         align-items: center;

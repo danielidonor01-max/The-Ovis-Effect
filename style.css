@@ -157,6 +157,41 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 var(--space-4);
 }
 
+/* ── MOBILE-ONLY VISIBILITY UTILITIES ── */
+.mobile-only-flex {
+  display: none; /* hidden by default (desktop) */
+}
+
+@media (max-width: 768px) {
+  .mobile-only-flex {
+    display: flex;
+  }
+}
+
+/* ── GLOBAL CAROUSEL DOT STYLES ── */
+.carousel-dots {
+  justify-content: center;
+  gap: 8px;
+  padding: var(--space-4) 0 var(--space-2);
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.carousel-dot.active {
+  background-color: var(--color-hub-text);
+  transform: scale(1.2);
+}
+
 /* For desktop 1440px canvas, the design region is 1116px with 162px margins */
 @media (min-width: 1440px) {
   .container {
