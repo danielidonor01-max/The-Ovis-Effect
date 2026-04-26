@@ -217,7 +217,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 832px; /* Matches hero image placeholder */
+    max-width: 690px;
     margin: 0 auto;
     gap: 20px;
 }

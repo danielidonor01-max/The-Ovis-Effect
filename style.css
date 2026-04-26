@@ -527,6 +527,32 @@ body {
   color: var(--color-hub-muted);
 }
 
+/* Hub header menu-toggle (same visual style as unified-nav) */
+.global-header .menu-toggle {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-hub-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.08em;
+  transition: color var(--transition-fast);
+}
+
+.global-header .menu-toggle:hover {
+  color: var(--color-hub-gold);
+}
+
+/* CTA group inside modal (Hub: Contact us pill) */
+.modal-cta-group {
+  padding: var(--space-6) 0 var(--space-4);
+}
+
 @media (max-width: 768px) {
   .unified-nav .header-inner {
     grid-template-columns: auto auto;
@@ -578,8 +604,17 @@ body {
   pointer-events: all;
 }
 
+/* ─ NEW MODAL LAYOUT ─────────────────────────────────────── */
+
+/* Top bar: HOME pill on left, Menu × on right */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
 .modal-close {
-  align-self: flex-end;  /* Right-aligned, sits at top due to space-between */
   background: transparent;
   border: none;
   cursor: pointer;
@@ -587,11 +622,11 @@ body {
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  font-family: var(--font-body);  /* Inter */
+  font-family: var(--font-body);
   font-size: 14px;
   font-weight: 500;
   text-transform: none;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   transition: color var(--transition-fast);
 }
 
@@ -599,56 +634,52 @@ body {
   color: var(--color-hub-gold);
 }
 
-.modal-split {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  max-width: 710px;
-  margin: 62px auto auto; /* Using auto for margin-bottom pushes the divider and footer to the bottom */
-}
-
-/* Modal Left (Global Hub Links) */
-.modal-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 24px;
-}
-
+/* HOME pill button */
 .modal-home-btn {
   display: inline-block;
   background-color: var(--color-hub-text);
   color: var(--bg-primary);
   padding: 10px 24px;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   border-radius: var(--radius-full);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   transition: var(--transition-premium);
+  text-decoration: none;
 }
 
 .modal-home-btn:hover {
-  transform: scale(1.02);
   background-color: var(--color-hub-gold);
   color: #000;
 }
 
+/* Body: two stacked groups of links */
+.modal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  padding-top: 60px;
+}
+
+/* Sub-brand cross-links (small, muted, uppercase) */
 .modal-global-links {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .modal-global-links a {
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.07em;
   transition: color var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
 }
 
 .modal-global-links a:hover {
@@ -656,43 +687,64 @@ body {
   transform: translateX(4px);
 }
 
-/* Modal Right (Local Sub-Brand Links) */
-.modal-right {
+/* Local page links (large, bold, uppercase — the hero items) */
+.modal-local-links {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 16px;
 }
 
-.modal-right a {
+.modal-local-links a {
   font-family: var(--font-display);
-  font-size: 18px;
+  font-size: clamp(28px, 5vw, 40px);
   font-weight: 700;
   color: var(--color-hub-text);
   text-transform: uppercase;
   letter-spacing: 0.02em;
   transition: color var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
+  line-height: 1;
 }
 
-.modal-right a:hover {
+.modal-local-links a:hover {
   color: var(--color-hub-gold);
-  transform: translateX(10px);
+  transform: translateX(8px);
+}
+
+/* Hub-specific: the hub nav links list (GOOD FOOD, UROVI SPA…) */
+.modal-hub-links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-hub-links a {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 700;
+  color: var(--color-hub-text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.modal-hub-links a:hover {
+  color: var(--color-hub-gold);
+  transform: translateX(8px);
 }
 
 .modal-divider {
   width: 100%;
-  max-width: 710px;
-  margin: 0 auto;
   height: 1px;
   background-color: var(--border-color);
   border: none;
+  margin: 0;
 }
 
-/* Modal Bottom (Footer Links) */
+/* Modal Bottom (Footer Info) */
 .modal-footer {
-  width: 100%;
-  max-width: 710px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -711,12 +763,13 @@ body {
   font-size: 18px;
   font-weight: 700;
   color: var(--color-hub-text);
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .modal-contact {
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  gap: 6px;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
@@ -724,7 +777,9 @@ body {
 }
 
 .modal-contact a {
+  text-decoration: none;
   transition: color var(--transition-fast);
+  color: var(--text-muted);
 }
 
 .modal-contact a:hover {
@@ -766,7 +821,7 @@ body {
 }
 
 .footer-right {
-  width: 123px;
+  width: 160px;
   font-family: var(--font-body);
   font-size: 12px;
   font-weight: 500;
@@ -774,17 +829,12 @@ body {
 }
 
 @media (max-width: 768px) {
-  .modal-split {
-    flex-direction: column;
-    gap: var(--space-8);
-  }
   .modal-footer {
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--space-6);
   }
-  .modal-contact {
-    flex-direction: column;
-    gap: var(--space-2);
+  .footer-right {
+    width: auto;
   }
 }
 
@@ -1382,44 +1432,18 @@ body {
 }
 
 @media (max-width: 768px) {
+  /* Hide the desktop nav and contact button on mobile; use modal instead */
   .global-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--color-hub-surface);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition-base);
-    margin: 0;
-  }
-  
-  .menu-open .global-nav {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  .global-nav ul {
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-  
-  .global-nav a {
-    font-size: var(--text-lg);
-  }
-
-  .mobile-menu-btn {
-    display: flex;
+    display: none;
   }
 
   .nav-contact-btn {
-    display: none; /* Hide in header, could optionally move into menu */
+    display: none;
+  }
+
+  /* Show the Menu toggle button on mobile for the hub */
+  .global-header .menu-toggle {
+    display: flex;
   }
 
   .hub-hero {
