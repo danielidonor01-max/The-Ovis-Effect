@@ -116,13 +116,14 @@ html {
   font-size: 16px;
 }
 
-body {
+html, body {
   font-family: var(--font-body);
   background-color: var(--color-hub-bg);
   color: var(--color-hub-text);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  max-width: 100vw;
 }
 
 body.menu-open {
@@ -562,13 +563,13 @@ body {
   color: var(--color-hub-muted);
 }
 
-/* Hub header menu-toggle (same visual style as unified-nav) */
+/* Hub header menu-toggle — hidden on desktop, shown on mobile via media query */
 .global-header .menu-toggle {
   background: transparent;
   border: none;
   cursor: pointer;
   color: var(--color-hub-text);
-  display: flex;
+  display: none; /* hidden on desktop */
   align-items: center;
   gap: var(--space-1);
   font-family: var(--font-body);

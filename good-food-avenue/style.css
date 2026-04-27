@@ -91,7 +91,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--space-4);
+    margin: auto auto var(--space-4); /* margin-top:auto centres the group vertically */
 }
 
 .placeholder-icon-large {
@@ -133,8 +133,8 @@ body {
 /* Hero Heading */
 .hero-heading-wrap {
     text-align: center;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-top: auto; /* free space above heading balances free space above image */
+    padding-bottom: var(--space-8);
 }
 
 .hero-animate-title {
@@ -180,8 +180,7 @@ body {
     width: 100%;
     margin-bottom: var(--space-8);
     line-height: 1.1;
-    text-align: justify;
-    text-align-last: center;
+    text-align: center;
 }
 
 .view-menu-link {
@@ -255,7 +254,8 @@ body {
 /* Layout Image Placeholders */
 .placeholder-box {
     width: 406px;
-    height: 538px;
+    max-width: 100%;
+    height: 480px;
     flex-shrink: 0;
     background-color: #E2E8F0;
     border-radius: 16px;
@@ -287,10 +287,18 @@ body {
     
     .placeholder-box {
         aspect-ratio: 1 / 1;
+        width: 100%;
+        height: auto;
     }
     
     .placeholder-box.portrait {
         aspect-ratio: 1 / 1;
+        width: 100%;
+        height: auto;
+    }
+    
+    .hero-categories {
+        gap: 8px; /* reduce gap to ensure items wrap nicely without overflow */
     }
     
     .gfa-cta-inner {

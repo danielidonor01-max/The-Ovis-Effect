@@ -592,75 +592,78 @@ body {
     }
 
     /* ── 2. DUO OVERLAPPING IMAGES ── */
-    /* Container holds both absolutely positioned images */
+    /* Clip any overflow so images respect the 32px page padding */
+    .spa-duo-section {
+        overflow: hidden;
+    }
+
     .spa-duo-container {
         position: relative;
-        height: 420px; /* scaled for mobile: 354 + offsets */
+        height: 400px;
         overflow: visible;
     }
 
-    /* Back image: 170w × 272h, top-left corner */
+    /* Back image: 170x272px — top-left corner respecting padding */
     .duo-back {
         position: absolute;
         top: 0;
-        left: 0;
+        left: var(--space-4);
         width: 170px;
         height: 272px;
+        aspect-ratio: auto;
         z-index: 1;
     }
 
-    /* Front image: 221w × 354h, bottom-right corner */
+    /* Front image: 221x354px — bottom-right corner respecting padding */
     .duo-front {
         position: absolute;
         bottom: 0;
-        right: 0;
+        right: var(--space-4);
         width: 221px;
         height: 354px;
+        aspect-ratio: auto;
         z-index: 2;
     }
 
-    /* ── 3. SERVICE CARDS — horizontal scroll carousel ── */
+    /* ── 3. SERVICE CARDS — vertical stack on mobile ── */
     .spa-services-section {
+        overflow: hidden;
         padding-bottom: var(--space-8);
     }
 
-    /* Overflow the container so cards scroll edge-to-edge */
     .services-row {
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        gap: 16px;
-        padding: 0 var(--space-4) var(--space-4);
-        margin: 0 calc(-1 * var(--space-4));
-        align-items: flex-start;
+        flex-direction: column; /* stack cards top-to-bottom */
+        flex-wrap: nowrap !important;
+        gap: var(--space-4); /* 32px between each vertically stacked card */
+        overflow-x: visible;
+        overflow-y: visible;
+        padding: 0; /* .container already has 32px horizontal padding */
+        margin: 0;
+        align-items: stretch; /* full width cards */
     }
 
-    .services-row::-webkit-scrollbar {
-        display: none;
-    }
-
-    /* Each card: 80vw wide, snap to center */
     .service-card {
-        width: 75vw;
-        max-width: 300px;
-        flex-shrink: 0;
-        scroll-snap-align: center;
+        width: 100%; /* full container width */
+        max-width: 100%;
+        flex-shrink: unset;
+        scroll-snap-align: unset;
     }
 
-    /* Center-align card text below image */
+    /* Center-align card text below image with reduced gap */
     .service-card-content {
         text-align: center;
         max-width: 100%;
-        padding-top: 20px;
+        padding-top: 12px;
     }
 
-    /* Service carousel dots */
+    .service-card-body {
+        margin-top: 8px;
+    }
+
+    /* Remove service carousel dots (not needed on mobile) */
+    #services-dots,
     .services-dots {
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: var(--space-4);
+        display: none !important;
     }
 
     /* ── 4. GALLERY — horizontal scroll carousel with dots ── */
@@ -693,12 +696,12 @@ body {
         display: none;
     }
 
-    /* Reset staircase vertical offsets — transform handled by JS but we flatten it */
+    /* Reset staircase vertical offsets — flat carousel tiles, no border-radius */
     .gallery-stair-item {
         width: 80vw;
         height: 260px;
         flex-shrink: 0;
-        border-radius: 16px;
+        border-radius: 0; /* flat/sharp corners on mobile */
         scroll-snap-align: center;
         transform: none !important; /* override inline staircase transforms */
     }
@@ -724,6 +727,7 @@ body {
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
+        padding-left: var(--space-4); /* 32px — aligns with gallery peek offset */
     }
 
     .reviews-track::-webkit-scrollbar {
@@ -734,11 +738,13 @@ body {
         width: 85vw;
         max-width: 340px;
         height: auto;
-        min-height: 220px;
-        border-radius: 12px;
+        min-height: 284px;  /* 220 base + 32px top + 32px bottom */
+        border-radius: 0;   /* flat corners on mobile */
         flex-shrink: 0;
         scroll-snap-align: start;
-        margin-right: 12px;
+        margin-right: 0;    /* zero gap between review cards */
+        padding-top: 32px;
+        padding-bottom: 32px;
     }
 
     /* Progress bar for reviews */
