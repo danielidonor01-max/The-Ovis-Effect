@@ -530,6 +530,55 @@ button { cursor: pointer; }
 .hover-lift { transition: transform var(--transition-base), box-shadow var(--transition-base); }
 .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(22, 35, 42, 0.10); }
 
+/* ── Image-card hover zoom ──
+   A ::before layer inherits the injected background image and scales within the
+   clipped frame, so uploaded photos feel alive. No-op while still a placeholder. */
+.service-card-image,
+.gallery-stair-item,
+.sh-gallery-item,
+.sh-apartment-image,
+.placeholder-box {
+  position: relative;
+  overflow: hidden;
+}
+.service-card-image::before,
+.gallery-stair-item::before,
+.sh-gallery-item::before,
+.sh-apartment-image::before,
+.placeholder-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: inherit;
+  background-size: cover;
+  background-position: center;
+  transition: transform var(--transition-slow);
+}
+.service-card-image:hover::before,
+.gallery-stair-item:hover::before,
+.sh-gallery-item:hover::before,
+.sh-apartment-image:hover::before,
+.placeholder-box:hover::before {
+  transform: scale(1.06);
+}
+/* keep any real <img>/icon/caption above the zoom layer */
+.service-card-image > *,
+.gallery-stair-item > *,
+.sh-gallery-item > *,
+.sh-apartment-image > *,
+.placeholder-box > * {
+  position: relative;
+  z-index: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-card-image::before,
+  .gallery-stair-item::before,
+  .sh-gallery-item::before,
+  .sh-apartment-image::before,
+  .placeholder-box::before { transition: none; }
+}
+
 /* ── Unified button feel ──
    One consistent transition + a tactile press across every CTA, regardless of
    each brand's colour. The `body ` prefix bumps specificity so this reliably
