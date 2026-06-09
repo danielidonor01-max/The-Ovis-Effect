@@ -26,6 +26,9 @@ const { title, description, bodyClass = '' } = Astro.props;
   <slot name="head" />
 </head>
 <body class={bodyClass || undefined}>
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
   <!-- header + nav modal + page content -->
   <slot />
 

@@ -452,6 +452,92 @@ body {
 
 
 
+/* ════════════════════════════════════════════════
+   GLOBAL POLISH — cohesion, a11y & micro-interaction
+   Applies to every page for one consistent premium feel.
+   ════════════════════════════════════════════════ */
+
+/* Anchor jumps account for the fixed header (no more hiding under the nav) */
+html { scroll-padding-top: 96px; }
+
+/* Scroll-progress indicator (per-brand accent via --scroll-accent) */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  z-index: 200;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--scroll-accent, var(--color-accent));
+  pointer-events: none;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress { display: none; }
+}
+
+/* On-brand text selection */
+::selection { background: var(--color-mirage); color: var(--color-wild-sand); }
+
+/* Slim, premium scrollbar */
+* { scrollbar-width: thin; scrollbar-color: rgba(22, 35, 42, 0.28) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(22, 35, 42, 0.22);
+  border-radius: var(--radius-full);
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(22, 35, 42, 0.4); background-clip: content-box; }
+
+/* Accessible, consistent focus ring across all interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+button { cursor: pointer; }
+
+/* Animated link underline — shared "interactive text" affordance.
+   Opt-in via .link-underline so it never fights bespoke link styles. */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-base);
+}
+.link-underline:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* Shared hover-lift for cards/CTAs that opt in */
+.hover-lift { transition: transform var(--transition-base), box-shadow var(--transition-base); }
+.hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(22, 35, 42, 0.10); }
+
+@media (prefers-reduced-motion: reduce) {
+  .link-underline::after,
+  .hover-lift { transition: none; }
+  .hover-lift:hover { transform: none; }
+}
+
+
+
 /* ── GLOBAL HEADER ── */
 .global-header {
   position: fixed;
@@ -512,6 +598,7 @@ body {
 }
 
 .global-nav a {
+  position: relative;
   font-size: 12px;
   font-weight: 500;
   color: var(--color-hub-muted);
@@ -520,8 +607,30 @@ body {
   letter-spacing: 0.05em;
 }
 
+.global-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-hub-gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transition-base);
+}
+
 .global-nav a:hover {
   color: var(--color-hub-text);
+}
+
+.global-nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-nav a::after { transition: none; }
 }
 
 

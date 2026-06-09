@@ -40,14 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
     lastScrollY = currentY <= 0 ? 0 : currentY;
   };
 
-  // rAF-throttle: run nav logic at most once per frame instead of per scroll event
+  // --- Scroll progress indicator ---
+  const progressBar = document.getElementById('scroll-progress');
+  const updateScrollProgress = () => {
+    if (!progressBar) return;
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const ratio = max > 0 ? doc.scrollTop / max : 0;
+    progressBar.style.transform = `scaleX(${Math.min(Math.max(ratio, 0), 1)})`;
+  };
+
+  // rAF-throttle: run nav + progress logic at most once per frame
   let navScrollTicking = false;
   window.addEventListener('scroll', () => {
     if (navScrollTicking) return;
     navScrollTicking = true;
-    requestAnimationFrame(() => { handleScroll(); navScrollTicking = false; });
+    requestAnimationFrame(() => { handleScroll(); updateScrollProgress(); navScrollTicking = false; });
   }, { passive: true });
   handleScroll(); // Run once on load
+  updateScrollProgress();
 
   // --- Magic Cursor Tracking ---
   const cursor = document.querySelector('.magic-cursor');

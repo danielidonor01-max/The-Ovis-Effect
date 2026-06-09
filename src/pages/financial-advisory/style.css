@@ -5,6 +5,7 @@ body {
     background-color: var(--color-wild-sand, #FAFAFA); /* Light theme */
     /* Single source for the FA accent — the deep-sea brand token (#125C54). */
     --fin-accent: var(--color-fin-gold);
+    --scroll-accent: var(--fin-accent);
 }
 
 /* ── NAVBAR OVERRIDES ──
@@ -735,6 +736,13 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 0 10px 30px rgba(18, 92, 84, 0.05);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.fin-review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(18, 92, 84, 0.12);
+    border-color: rgba(18, 92, 84, 0.18);
 }
 
 .fin-review-mark {
