@@ -1,0 +1,74 @@
+---
+// First-visit-only intro overlay for the hub. The flash-guard inline script
+// lives in index.astro's head slot (adds .ovis-seen to <html> before paint).
+---
+<div id="ovis-preloader" class="ovis-preloader" role="dialog" aria-modal="true" aria-label="Welcome to The Ovis Effect">
+  <div class="preloader-inner">
+    <span class="preloader-mark">OVIS<span class="dot">.</span></span>
+    <p class="preloader-tagline">experience the ovis effect</p>
+    <div class="preloader-choices">
+      <button type="button" class="preloader-btn preloader-btn--sound" data-enter="sound">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
+        Enter with sound
+      </button>
+      <button type="button" class="preloader-btn preloader-btn--silent" data-enter="silent">Enter silently</button>
+    </div>
+  </div>
+
+  <!-- Swap in a real track at public/audio/ovis-ambient.mp3 (see suggestions). -->
+  <audio id="preloader-audio" src="/audio/ovis-ambient.mp3" loop preload="auto"></audio>
+</div>
+
+<script>
+  const pre = document.getElementById('ovis-preloader');
+  if (pre) {
+    const seen = document.documentElement.classList.contains('ovis-seen');
+
+    if (seen) {
+      // Returning visitor — overlay is already display:none; just clean up.
+      pre.remove();
+    } else {
+      const audio = /** @type {HTMLAudioElement|null} */ (document.getElementById('preloader-audio'));
+      document.body.classList.add('preloader-active');
+
+      const soundBtn = pre.querySelector('.preloader-btn--sound');
+      if (soundBtn) soundBtn.focus();
+
+      let dismissed = false;
+      const enter = (withSound) => {
+        if (dismissed) return;
+        dismissed = true;
+        try { localStorage.setItem('ovis_visited', '1'); } catch (e) {}
+
+        if (withSound && audio) {
+          audio.volume = 0;
+          const p = audio.play();
+          if (p && p.then) {
+            p.then(() => {
+              // gentle fade-in to a calm level
+              let v = 0;
+              const fade = setInterval(() => {
+                v = Math.min(v + 0.04, 0.55);
+                audio.volume = v;
+                if (v >= 0.55) clearInterval(fade);
+              }, 120);
+            }).catch(() => { /* missing file or blocked — enter silently */ });
+          }
+        }
+
+        pre.classList.add('is-leaving');
+        document.body.classList.remove('preloader-active');
+        window.setTimeout(() => { pre.remove(); }, 850);
+      };
+
+      pre.querySelectorAll('[data-enter]').forEach((btn) => {
+        btn.addEventListener('click', () => enter(btn.getAttribute('data-enter') === 'sound'));
+      });
+
+      // Escape = enter silently
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') enter(false);
+      });
+    }
+  }
+</script>
