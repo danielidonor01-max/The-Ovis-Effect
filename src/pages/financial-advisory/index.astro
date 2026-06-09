@@ -15,10 +15,22 @@ try {
 
 const pageTitle = brandData?.seo?.metaTitle || "Financial Advisory | The Ovis Effect";
 const metaDesc = brandData?.seo?.metaDescription || "Financial Services for MSMEs tailored to scale your business.";
-const heroTitleHTML = brandData?.heroHeadline || "Financial Services<br>for <span>MSMEs</span> Tailored<br>to Scale your<br><span>Business.</span>";
+const heroTitleHTML = brandData?.heroHeadline || "Financial services for <span>MSMEs</span>, tailored to scale your <span>business.</span>";
+const introText = brandData?.heroSub || "Bookkeeping, tax compliance, and advisory built for Nigerian MSMEs — structured to scale with you.";
 
 const brand = siteConfig.brands.find((b) => b.slug === 'financial-advisory')!;
 const localLinks = [{"href":"#about","label":"Overview"},{"href":"#pricing","label":"MSME Packages"},{"href":"#contact","label":"Contact"}];
+
+// Testimonials — pulled from Sanity (brand.testimonials), else these fallbacks.
+const fallbackReviews = [
+  { quote: "They brought real structure to our books — for the first time I actually understand my numbers." },
+  { quote: "Tax season used to terrify me. Now it's handled, on time, every single time." },
+  { quote: "The advisory calls alone paid for the package. Clear, honest, practical guidance." },
+  { quote: "Professional, discreet, and genuinely invested in our growth. Exactly what we needed." },
+  { quote: "From messy receipts to clean financial statements — the difference has been night and day." },
+];
+const reviewQuotes = (brandData?.testimonials ?? []).filter((t) => t?.quote);
+const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
@@ -28,14 +40,45 @@ const localLinks = [{"href":"#about","label":"Overview"},{"href":"#pricing","lab
 <main>
     <!-- Finance Hero -->
     <section class="fin-hero-viewport">
-      <div class="container fin-hero-split">
-        <!-- Mobile Logo -->
-        <div class="mobile-hero-logo">
-          <span class="subbrand-logo" style="color: var(--color-fin-gold); font-family: var(--font-display);">Financial Advisory</span>
+      <!-- Floating transaction cards -->
+      <div class="fin-hero-floats" aria-hidden="true">
+        <div class="float-card fc-1">
+          <span class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l3 3v17l-3-2-3 2-3-2-3 2V2z"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>
+          </span>
+          <div class="fc-body">
+            <span class="fc-label">Tax remitted</span>
+            <span class="fc-amount pos">+₦70,000</span>
+          </div>
         </div>
+        <div class="float-card fc-2">
+          <span class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h13"/></svg>
+          </span>
+          <div class="fc-body">
+            <span class="fc-label">Bookkeeping</span>
+            <span class="fc-status">Reconciled</span>
+          </div>
+        </div>
+        <div class="float-card fc-3">
+          <span class="fc-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+          </span>
+          <div class="fc-body">
+            <span class="fc-label">Payroll run</span>
+            <span class="fc-amount">₦1,240,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container fin-hero-inner">
         <h1 class="fin-hero-text hero-animate-title" set:html={heroTitleHTML}></h1>
-        <div class="fin-hero-image">
-          <svg class="placeholder-icon-lg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        <p class="fin-hero-sub">{introText}</p>
+        <div class="fin-hero-actions">
+          <a href="#pricing" class="fin-hero-btn">
+            Explore packages
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </section>
@@ -58,27 +101,63 @@ const localLinks = [{"href":"#about","label":"Overview"},{"href":"#pricing","lab
       </div>
     </section>
 
-    <!-- Growth Chart Section -->
+    <!-- Growth Panel -->
     <section class="fin-growth-section" data-reveal>
-      <div class="container growth-split">
-        <!-- Left Animated Card -->
+      <div class="container">
         <div class="growth-card">
-          <h2>Grow Your<br>Business Faster</h2>
+          <div class="growth-card-text">
+            <p class="growth-eyebrow">Proven momentum</p>
+            <h2>Grow your<br>business faster</h2>
+            <p class="growth-desc">Structured books, clean tax compliance, and advisory that compounds — so your numbers keep trending the right way.</p>
+            <a href="#pricing" class="growth-cta">
+              See the packages
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
           <div class="growth-chart-wrap">
-            <div class="chart-bars">
-              <div class="bar bar-1"></div>
-              <div class="bar bar-2"></div>
-              <div class="bar bar-3"></div>
-              <div class="bar bar-4"></div>
-              <div class="bar bar-5"></div>
-              <div class="bar bar-6"></div>
-              <div class="bar bar-7"></div>
-            </div>
+            <svg class="growth-svg" viewBox="0 0 300 160" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="growthGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#8FE3D2" stop-opacity="0.35"/>
+                  <stop offset="100%" stop-color="#8FE3D2" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <line class="grid-line" x1="0" y1="40" x2="300" y2="40"/>
+              <line class="grid-line" x1="0" y1="80" x2="300" y2="80"/>
+              <line class="grid-line" x1="0" y1="120" x2="300" y2="120"/>
+              <path class="growth-area" d="M0,148 L50,128 L100,96 L150,104 L200,60 L250,48 L300,18 L300,160 L0,160 Z"/>
+              <path class="growth-line" pathLength="1" d="M0,148 L50,128 L100,96 L150,104 L200,60 L250,48 L300,18"/>
+            </svg>
+            <span class="growth-dot"></span>
           </div>
         </div>
-        <!-- Right Image Placeholder -->
-        <div class="growth-image">
-          <svg class="placeholder-icon-lg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+      </div>
+    </section>
+
+    <!-- About / Trust -->
+    <section class="fin-about-section" id="about" data-reveal>
+      <div class="container fin-about-inner">
+        <div class="fin-about-portrait">
+          <svg class="placeholder-icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>
+          <div class="fin-about-caption">
+            <span class="about-name">Dhaniel Khaniels</span>
+            <span class="about-role">Founder &amp; Lead Advisor</span>
+          </div>
+        </div>
+        <div class="fin-about-text">
+          <p class="fin-about-eyebrow">About</p>
+          <h2 class="fin-about-title">Finance partners <em>you can trust.</em></h2>
+          <p class="fin-about-desc">For years we've helped business owners across Delta State and beyond bring order to their books, stay compliant, and make confident decisions with their money. From your first invoice to full CFO-level support, our advisory is built on precision, discretion, and a genuine stake in your growth.</p>
+          <div class="fin-about-points">
+            <div class="fin-about-point">
+              <span class="point-num">270+</span>
+              <span class="point-label">businesses served nationwide</span>
+            </div>
+            <div class="fin-about-point">
+              <span class="point-num">100%</span>
+              <span class="point-label">focused on Nigerian MSMEs</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -110,7 +189,8 @@ const localLinks = [{"href":"#about","label":"Overview"},{"href":"#pricing","lab
             </div>
           </div>
 
-          <div class="pricing-cell">
+          <div class="pricing-cell featured">
+            <span class="cell-badge">Most Popular</span>
             <div class="pricing-cell-inner">
               <div class="cell-head">
                 <h3>FS 4 Micro</h3>
@@ -208,6 +288,25 @@ const localLinks = [{"href":"#about","label":"Overview"},{"href":"#pricing","lab
           </div>
           
         </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="fin-reviews-section" data-reveal>
+      <div class="container">
+        <div class="fin-reviews-head">
+          <p class="fin-reviews-eyebrow">Client stories</p>
+          <h2 class="fin-reviews-title">Trusted by business owners across Nigeria</h2>
+        </div>
+      </div>
+      <div class="fin-reviews-strip">
+        {reviewList.map((r) => (
+          <article class="fin-review-card">
+            <span class="fin-review-mark">&ldquo;</span>
+            <p class="fin-review-text">{r.quote}</p>
+            {r.author && <p class="fin-review-author">{r.author}</p>}
+          </article>
+        ))}
       </div>
     </section>
 
