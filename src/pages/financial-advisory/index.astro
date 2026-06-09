@@ -291,22 +291,30 @@ const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
       </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="fin-reviews-section" data-reveal>
-      <div class="container">
-        <div class="fin-reviews-head">
-          <p class="fin-reviews-eyebrow">Client stories</p>
-          <h2 class="fin-reviews-title">Trusted by business owners across Nigeria</h2>
+    <!-- Customer Reviews (Carousel) — identical to Urovi Spa -->
+    <section class="spa-reviews-section" id="reviews">
+      <div class="reviews-viewport">
+        <div class="reviews-track" id="reviews-track">
+          {reviewList.map((r) => (
+            <article class="review-card">
+              <div class="review-inner">
+                <div class="review-quote-icon">
+                  <svg viewBox="0 0 54 54" fill="currentColor">
+                    <text x="2" y="46" font-size="60" font-family="Georgia, serif" opacity="0.9">"</text>
+                  </svg>
+                </div>
+                <p class="review-text">{r.quote}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
-      <div class="fin-reviews-strip">
-        {reviewList.map((r) => (
-          <article class="fin-review-card">
-            <span class="fin-review-mark">&ldquo;</span>
-            <p class="fin-review-text">{r.quote}</p>
-            {r.author && <p class="fin-review-author">{r.author}</p>}
-          </article>
-        ))}
+
+      <!-- Reviews scroll progress (mobile only) -->
+      <div class="reviews-progress-wrap mobile-only-flex">
+        <div class="reviews-progress-track">
+          <div class="reviews-progress-bar" id="reviews-progress-bar"></div>
+        </div>
       </div>
     </section>
 
@@ -344,5 +352,52 @@ const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
 
   <Fragment slot="scripts">
     <script src="../../scripts/financial-advisory-images.js"></script>
+    <script>
+      /* ── REVIEWS SCROLL-BASED PROGRESS BAR (identical to Urovi Spa) ── */
+      (function () {
+        const track    = document.getElementById('reviews-track');
+        const progBar  = document.getElementById('reviews-progress-bar');
+
+        if (!track) return;
+
+        const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+        if (isMobile) {
+          /* Mobile: native scroll on track, progress bar updates on scroll */
+          track.addEventListener('scroll', () => {
+            if (!progBar) return;
+            const scrollLeft = track.scrollLeft;
+            const maxScroll  = track.scrollWidth - track.clientWidth;
+            const ratio      = maxScroll > 0 ? scrollLeft / maxScroll : 0;
+            progBar.style.width = (40 + ratio * 60) + '%';
+          }, { passive: true });
+        } else {
+          /* Desktop: wheel-driven page carousel */
+          const CARDS    = track.children.length || 6;
+          const PER_PAGE = 3;
+          const PAGES    = Math.ceil(CARDS / PER_PAGE);
+          let   current  = 0;
+
+          function goTo(index) {
+            current = Math.max(0, Math.min(index, PAGES - 1));
+            const cardWidth = 372;
+            track.style.transform = `translateX(-${current * PER_PAGE * cardWidth}px)`;
+            if (progBar) progBar.style.width = (current / (PAGES - 1) * 60 + 40) + '%';
+          }
+
+          const section = document.getElementById('reviews');
+          let cooldown  = false;
+          section && section.addEventListener('wheel', (e) => {
+            if (cooldown) return;
+            e.preventDefault();
+            cooldown = true;
+            goTo(current + (e.deltaY > 0 ? 1 : -1));
+            setTimeout(() => { cooldown = false; }, 800);
+          }, { passive: false });
+
+          goTo(0);
+        }
+      })();
+    </script>
   </Fragment>
 </BaseLayout>
