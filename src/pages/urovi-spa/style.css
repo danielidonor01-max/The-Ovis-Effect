@@ -6,6 +6,7 @@
 /* ── PAGE BASE ── */
 body {
     background-color: var(--color-wild-sand);
+    --scroll-accent: var(--color-deep-sea); /* calm progress accent */
 }
 
 /* ── SPA NAVBAR OVERRIDES ──────────────────────────────────────────────────

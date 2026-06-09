@@ -530,10 +530,60 @@ button { cursor: pointer; }
 .hover-lift { transition: transform var(--transition-base), box-shadow var(--transition-base); }
 .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(22, 35, 42, 0.10); }
 
+/* ── Unified button feel ──
+   One consistent transition + a tactile press across every CTA, regardless of
+   each brand's colour. The `body ` prefix bumps specificity so this reliably
+   wins over per-page :hover rules (cascade-safe). */
+body .nav-contact-btn,
+body .preloader-btn,
+body .modal-home-btn,
+body .cell-btn,
+body .fin-hero-btn,
+body .fin-cta-btn,
+body .gfa-cta-btn,
+body .order-whatsapp-btn,
+body .spa-cta-btn,
+body .sh-cta-btn,
+body .sticky-wa-btn,
+body .contact-submit-btn {
+  transition: transform var(--transition-fast),
+              background-color var(--transition-base),
+              box-shadow var(--transition-base),
+              color var(--transition-base),
+              border-color var(--transition-base);
+}
+
+body .nav-contact-btn:active,
+body .preloader-btn:active,
+body .modal-home-btn:active,
+body .cell-btn:active,
+body .fin-hero-btn:active,
+body .fin-cta-btn:active,
+body .gfa-cta-btn:active,
+body .order-whatsapp-btn:active,
+body .spa-cta-btn:active,
+body .sh-cta-btn:active,
+body .sticky-wa-btn:active,
+body .contact-submit-btn:active {
+  transform: scale(0.96);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .link-underline::after,
   .hover-lift { transition: none; }
   .hover-lift:hover { transform: none; }
+  body .nav-contact-btn:active,
+  body .preloader-btn:active,
+  body .modal-home-btn:active,
+  body .cell-btn:active,
+  body .fin-hero-btn:active,
+  body .fin-cta-btn:active,
+  body .gfa-cta-btn:active,
+  body .order-whatsapp-btn:active,
+  body .spa-cta-btn:active,
+  body .sh-cta-btn:active,
+  body .sticky-wa-btn:active,
+  body .contact-submit-btn:active { transform: none; }
 }
 
 
