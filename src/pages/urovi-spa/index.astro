@@ -33,7 +33,12 @@ const fallbackReviews = [
 const reviewQuotes = (brandData?.testimonials ?? []).map((t) => t?.quote).filter(Boolean);
 const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
 
-const brandImages = buildBrandImages(brandData);
+const brandImages = buildBrandImages(brandData, {
+  extra: [
+    { field: 'spaServiceImages', slots: ['service_1', 'service_2', 'service_3', 'service_4'] },
+    { field: 'spaDuoImages', slots: ['duo_back', 'duo_front'] },
+  ],
+});
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
