@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import NavModal from '../../components/NavModal.astro';
 import { siteConfig } from '../../lib/siteConfig';
+import { buildBrandImages } from '../../lib/brandImages';
 import './style.css';
 
 let brandData = null;
@@ -31,6 +32,8 @@ const fallbackReviews = [
 ];
 const reviewQuotes = (brandData?.testimonials ?? []).map((t) => t?.quote).filter(Boolean);
 const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
+
+const brandImages = buildBrandImages(brandData);
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
@@ -299,6 +302,7 @@ const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
   <!-- Global Footer -->
 
   <Fragment slot="scripts">
+    <script is:inline define:vars={{ brandImages }}>window.__BRAND_IMAGES__ = brandImages;</script>
     <script src="../../scripts/urovi-spa-images.js"></script>
     <script>
         /* ── MOBILE CAROUSEL HELPERS ── */

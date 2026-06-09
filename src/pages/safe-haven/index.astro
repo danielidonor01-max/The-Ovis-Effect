@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import NavModal from '../../components/NavModal.astro';
 import { siteConfig } from '../../lib/siteConfig';
+import { buildBrandImages } from '../../lib/brandImages';
 import './style.css';
 
 let brandData = null;
@@ -20,6 +21,11 @@ const heroSubText = brandData?.heroSub || "Anonymous luxury apartment rentals in
 
 const brand = siteConfig.brands.find((b) => b.slug === 'safe-haven')!;
 const localLinks = [{"href":"#lifestyle","label":"The Lifestyle"},{"href":"#apartment","label":"The Apartment"},{"href":"#gallery","label":"Gallery"},{"href":"#ecosystem","label":"Ecosystem"},{"href":"#booking","label":"Reservations"}];
+
+// Gallery order: 1st image = main apartment showcase, rest = gallery grid
+const brandImages = buildBrandImages(brandData, {
+  gallerySlots: ['apartment_main', 'gallery_1', 'gallery_2', 'gallery_3', 'gallery_4'],
+});
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
@@ -284,6 +290,7 @@ const localLinks = [{"href":"#lifestyle","label":"The Lifestyle"},{"href":"#apar
        ══════════════════════════════════════════ -->
 
   <Fragment slot="scripts">
+    <script is:inline define:vars={{ brandImages }}>window.__BRAND_IMAGES__ = brandImages;</script>
     <script src="../../scripts/safe-haven-images.js"></script>
   </Fragment>
 </BaseLayout>

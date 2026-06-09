@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import NavModal from '../../components/NavModal.astro';
 import { siteConfig } from '../../lib/siteConfig';
+import { buildBrandImages } from '../../lib/brandImages';
 import './style.css';
 
 let brandData = null;
@@ -23,6 +24,8 @@ const introText = brandData?.heroSub || "Premium Nigerian delicacies, prepared w
 
 const brand = siteConfig.brands.find((b) => b.slug === 'good-food-avenue')!;
 const localLinks = [{"href":"#about","label":"About"},{"href":"#services","label":"Services"},{"href":"#gallery","label":"Gallery"},{"href":"#reviews","label":"Reviews"},{"href":"#contact","label":"Contact"}];
+
+const brandImages = buildBrandImages(brandData);
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
@@ -50,7 +53,7 @@ const localLinks = [{"href":"#about","label":"About"},{"href":"#services","label
         </div>
 
         <!-- Main Image Placeholder spanning max-width -->
-        <div class="hero-image-placeholder">
+        <div class="hero-image-placeholder" data-img-key="hero">
           <svg class="placeholder-icon-large" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
           </svg>
@@ -203,6 +206,7 @@ const localLinks = [{"href":"#about","label":"About"},{"href":"#services","label
   <!-- Global Footer -->
 
   <Fragment slot="scripts">
+    <script is:inline define:vars={{ brandImages }}>window.__BRAND_IMAGES__ = brandImages;</script>
     <script src="../../scripts/good-food-avenue-images.js"></script>
   </Fragment>
 </BaseLayout>

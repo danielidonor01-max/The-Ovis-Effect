@@ -29,18 +29,21 @@ const UROVI_IMAGES = {
 };
 
 // --- AUTOMATIC IMAGE INJECTION ---
+// Sanity-provided URLs (window.__BRAND_IMAGES__, emitted by the page) override
+// the local fallbacks above, so editors can manage images from the CMS.
 document.addEventListener('DOMContentLoaded', () => {
+    const IMAGES = Object.assign({}, UROVI_IMAGES, window.__BRAND_IMAGES__ || {});
     document.querySelectorAll('[data-img-key]').forEach(el => {
         const key = el.getAttribute('data-img-key');
-        if(UROVI_IMAGES[key]) {
-            // If it's an IMG tag
+        if (IMAGES[key]) {
             if (el.tagName === 'IMG') {
-                el.src = UROVI_IMAGES[key];
+                el.src = IMAGES[key];
             } else {
-                // If it's a div, use background-image
-                el.style.backgroundImage = `url('${UROVI_IMAGES[key]}')`;
+                el.style.backgroundImage = `url('${IMAGES[key]}')`;
                 el.style.backgroundSize = 'cover';
                 el.style.backgroundPosition = 'center';
+                const icon = el.querySelector('svg');
+                if (icon) icon.style.display = 'none';
             }
         }
     });

@@ -18,14 +18,22 @@ const SAFE_HAVEN_IMAGES = {
 };
 
 // --- AUTOMATIC IMAGE INJECTION ---
-// Replaces placeholder boxes with real images once file paths above are populated.
+// Sanity-provided URLs (window.__BRAND_IMAGES__, emitted by the page) override
+// the local fallbacks above, so editors can manage images from the CMS.
 document.addEventListener('DOMContentLoaded', () => {
+  const IMAGES = Object.assign({}, SAFE_HAVEN_IMAGES, window.__BRAND_IMAGES__ || {});
   document.querySelectorAll('[data-img-key]').forEach(el => {
     const key = el.getAttribute('data-img-key');
-    if (SAFE_HAVEN_IMAGES[key]) {
-      el.style.backgroundImage = `url('${SAFE_HAVEN_IMAGES[key]}')`;
-      el.style.backgroundSize = 'cover';
-      el.style.backgroundPosition = 'center';
+    if (IMAGES[key]) {
+      if (el.tagName === 'IMG') {
+        el.src = IMAGES[key];
+      } else {
+        el.style.backgroundImage = `url('${IMAGES[key]}')`;
+        el.style.backgroundSize = 'cover';
+        el.style.backgroundPosition = 'center';
+        const icon = el.querySelector('svg');
+        if (icon) icon.style.display = 'none';
+      }
     }
   });
 });
