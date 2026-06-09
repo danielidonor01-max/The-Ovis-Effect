@@ -3,6 +3,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // Detect both .global-header and .unified-nav (sub-brand pages use the latter)
   const header = document.getElementById('global-header');
 
@@ -38,7 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
     lastScrollY = currentY <= 0 ? 0 : currentY;
   };
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  // rAF-throttle: run nav logic at most once per frame instead of per scroll event
+  let navScrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (navScrollTicking) return;
+    navScrollTicking = true;
+    requestAnimationFrame(() => { handleScroll(); navScrollTicking = false; });
+  }, { passive: true });
   handleScroll(); // Run once on load
 
   // --- Magic Cursor Tracking ---
@@ -207,6 +215,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const target = parseInt(el.dataset.count, 10);
           const suffix = el.dataset.suffix || '';
           const pad    = parseInt(el.dataset.pad || '0', 10);
+          // Reduced motion: snap straight to the final value, no counting
+          if (prefersReducedMotion) {
+            el.textContent = (pad > 0 ? String(target).padStart(pad, '0') : target) + suffix;
+            return;
+          }
           // Longer duration for smaller numbers to feel weighty
           const duration = target <= 10 ? 800 : target <= 100 ? 1200 : 1600;
           el.textContent = pad > 0 ? '0'.repeat(pad) : '0';
@@ -269,8 +282,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     };
 
-    window.addEventListener('scroll', handleScrubScroll, { passive: true });
-    handleScrubScroll(); // Initialize on load
+    if (prefersReducedMotion) {
+      // No scroll-scrub for reduced-motion users — show the text fully lit
+      document.querySelectorAll('.scrub-word').forEach((w) => { w.style.opacity = '1'; });
+    } else {
+      // rAF-throttle the scrub so getBoundingClientRect reads happen once per frame
+      let scrubTicking = false;
+      window.addEventListener('scroll', () => {
+        if (scrubTicking) return;
+        scrubTicking = true;
+        requestAnimationFrame(() => { handleScrubScroll(); scrubTicking = false; });
+      }, { passive: true });
+      handleScrubScroll(); // Initialize on load
+    }
   }
 
 });
