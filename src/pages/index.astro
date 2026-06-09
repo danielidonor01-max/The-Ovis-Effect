@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import NavModal from '../components/NavModal.astro';
+import BrandCard from '../components/BrandCard.astro';
+import { getSiteSettings } from '../lib/getSiteSettings';
+import { getHubCards } from '../lib/getHubCards';
+
+const settings = await getSiteSettings();
+const hubCards = await getHubCards();
+const pageTitle = settings.defaultSeo?.metaTitle || "The Ovis Effect | Warri";
+const metaDesc = settings.defaultSeo?.metaDescription || "The Ovis Effect: A central brand hub for Good Food Avenue, Urovi Spa, Financial Advisory and Safe Haven Apartments based in Warri, Delta State.";
+const { headline: heroHeadline, subtext: heroSubtext } = settings.homeHero;
+---
+<BaseLayout title={pageTitle} description={metaDesc}>
+
+  <Header variant="hub" />
+  <NavModal variant="hub" />
+
+  <main>
+
+    <!-- Hub Hero Section -->
+    <section class="hub-hero">
+      <div class="hero-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+      </div>
+      <div class="container">
+        <h1 class="hero-animate-title" set:html={heroHeadline}></h1>
+        <p class="hero-animate-sub">{heroSubtext}</p>
+      </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar" data-reveal>
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number" data-count="4" data-pad="2">04</span>
+            <p>Branded Houses</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="460" data-suffix="+">460+</span>
+            <p>Reaching financial needs nationwide</p>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="10" data-suffix="k+">10k+</span>
+            <p>More appetite than ever</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Our Branded House Section -->
+    <section class="brands-section" data-reveal>
+      <div class="container">
+
+        <div class="section-header">
+          <h2 class="section-title">Our<br>Branded<br>House</h2>
+          <div class="section-header-meta">
+            <p class="section-meta-brand">The Ovis Effect.</p>
+            <p class="section-meta-desc">Four Businesses for<br>lifestyle, finance and<br>health</p>
+          </div>
+        </div>
+
+        <div class="brand-grid">
+          {hubCards.map((card, i) => <BrandCard {...card} delay={i + 1} />)}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</BaseLayout>

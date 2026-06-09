@@ -1,0 +1,28 @@
+---
+interface Props {
+  href: string;
+  tag: string;
+  tagClass: string;
+  title: string;
+  description: string;
+  linkLabel: string;
+  delay?: number;
+}
+const { href, tag, tagClass, title, description, linkLabel, delay = 1 } = Astro.props;
+---
+<a href={href} class="brand-card" data-reveal="scale" data-delay={delay}>
+  <div class="brand-card-image">
+    <svg class="placeholder-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+    </svg>
+  </div>
+  <div class="brand-card-content">
+    <span class={`brand-tag ${tagClass}`}>{tag}</span>
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <span class="explore-link">
+      {linkLabel}
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-7-7 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </div>
+</a>

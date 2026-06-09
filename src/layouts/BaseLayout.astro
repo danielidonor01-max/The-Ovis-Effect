@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Optional <body> class (e.g. "contact-page") */
+  bodyClass?: string;
+}
+const { title, description, bodyClass = '' } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <slot name="head" />
+</head>
+<body class={bodyClass || undefined}>
+  <!-- header + nav modal + page content -->
+  <slot />
+
+  <Footer />
+
+  <script src="../scripts/main.js"></script>
+  <div class="magic-cursor"></div>
+
+  <!-- page-specific scripts (e.g. image config, form handlers) -->
+  <slot name="scripts" />
+</body>
+</html>

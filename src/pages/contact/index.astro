@@ -1,0 +1,210 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import './style.css';
+---
+<BaseLayout title="Contact | The Ovis Effect" description="Get in touch with The Ovis Effect. Professional services across finance, food, spa, and real estate in Warri, Delta State." bodyClass="contact-page">
+
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </Fragment>
+
+  <Header variant="contact" />
+
+<main class="contact-main">
+    <div class="contact-card-wrap">
+      <div class="contact-card">
+
+        <!-- ── LEFT COLUMN ── -->
+        <div class="contact-left">
+          <div class="contact-left-top">
+            <h1 class="contact-heading">Contact</h1>
+            <div class="contact-social-row">
+              <a href="#" aria-label="Facebook" class="c-social-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" aria-label="Instagram" class="c-social-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              </a>
+              <a href="#" aria-label="TikTok" class="c-social-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="contact-details-block">
+            <p class="c-company">The Ovis Effect.</p>
+            <address class="c-address">
+              TM Mall, Jakpa Road,<br>
+              opposite Aka Avenue,<br>
+              Warri, Delta State.
+            </address>
+          </div>
+
+          <div class="contact-links-block">
+            <a href="mailto:info@theoviseffect.com" class="c-link">info@theoviseffect.com</a>
+            <a href="tel:+2348077125775" class="c-link c-tel">T: +234 807 712 5775</a>
+          </div>
+
+          <!-- Map placeholder -->
+          <div class="contact-map-placeholder" aria-label="Location map">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="map-pin-icon">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <p>Warri, Delta State, Nigeria</p>
+          </div>
+        </div>
+
+        <!-- ── VERTICAL DIVIDER ── -->
+        <div class="contact-vline"></div>
+
+        <!-- ── RIGHT COLUMN ── -->
+        <div class="contact-right">
+          <h2 class="contact-form-heading">Ready to connect?<br>Let's talk.</h2>
+          <div id="form-feedback" class="form-feedback" aria-live="polite" hidden></div>
+
+          <form id="ovis-contact-form" class="ovis-form" novalidate>
+
+            <!-- Name row -->
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" id="first-name" name="first-name" placeholder="FIRST NAME" required autocomplete="given-name">
+                <span class="error-text" hidden>First name is required</span>
+              </div>
+              <div class="form-group">
+                <input type="text" id="last-name" name="last-name" placeholder="LAST NAME" required autocomplete="family-name">
+                <span class="error-text" hidden>Last name is required</span>
+              </div>
+            </div>
+
+            <!-- Contact fields -->
+            <div class="form-group">
+              <input type="tel" id="phone" name="phone" placeholder="TELEPHONE" autocomplete="tel">
+              <span class="error-text" hidden>Invalid phone number</span>
+            </div>
+            <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="EMAIL" required autocomplete="email">
+              <span class="error-text" hidden>Valid email is required</span>
+            </div>
+            <div class="form-group">
+              <textarea id="message" name="message" placeholder="YOUR REQUEST" rows="4" required></textarea>
+              <span class="error-text" hidden>Message cannot be empty</span>
+            </div>
+
+            <!-- Interest -->
+            <div class="form-interest">
+              <span class="form-interest-label">INTEREST</span>
+              <div class="interest-toggles">
+                <label class="interest-btn">
+                  <input type="radio" name="interest" value="food" hidden checked>
+                  <span>Good Food</span>
+                </label>
+                <label class="interest-btn">
+                  <input type="radio" name="interest" value="spa" hidden>
+                  <span>Urovi Spa</span>
+                </label>
+                <label class="interest-btn">
+                  <input type="radio" name="interest" value="finance" hidden>
+                  <span>Finance</span>
+                </label>
+                <label class="interest-btn">
+                  <input type="radio" name="interest" value="haven" hidden>
+                  <span>Safe Haven</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="contact-submit-btn">
+              Send Message
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Global Footer — standard structure matching all sub-brand pages -->
+
+  <Fragment slot="scripts">
+    <script>
+        // Highlight selected interest toggle
+        document.querySelectorAll('.interest-btn input[type="radio"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            document.querySelectorAll('.interest-btn').forEach(btn => btn.classList.remove('selected'));
+            radio.closest('.interest-btn').classList.add('selected');
+          });
+          if (radio.checked) radio.closest('.interest-btn').classList.add('selected');
+        });
+    
+        // Form Validation & Mock Submission
+        const form = document.getElementById('ovis-contact-form');
+        const feedbackBanner = document.getElementById('form-feedback');
+        const submitBtn = document.querySelector('.contact-submit-btn');
+    
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          // Reset states
+          let isValid = true;
+          feedbackBanner.hidden = true;
+          document.querySelectorAll('.error-text').forEach(el => el.hidden = true);
+          document.querySelectorAll('.ovis-form input, .ovis-form textarea').forEach(el => el.classList.remove('is-invalid'));
+    
+          // Validation logic
+          const requiredFields = ['first-name', 'last-name', 'email', 'message'];
+          requiredFields.forEach(id => {
+            const input = document.getElementById(id);
+            if (!input.value.trim()) {
+              input.classList.add('is-invalid');
+              input.nextElementSibling.hidden = false;
+              isValid = false;
+            }
+          });
+    
+          const emailInput = document.getElementById('email');
+          if (emailInput.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+            emailInput.classList.add('is-invalid');
+            emailInput.nextElementSibling.textContent = "Please enter a valid email address";
+            emailInput.nextElementSibling.hidden = false;
+            isValid = false;
+          }
+    
+          if (!isValid) return;
+    
+          // Mock Loading State
+          const originalBtnText = submitBtn.innerHTML;
+          submitBtn.innerHTML = 'Sending... <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>';
+          submitBtn.style.opacity = '0.7';
+          submitBtn.style.pointerEvents = 'none';
+    
+          // Simulate network request
+          setTimeout(() => {
+            // Randomly simulate an internet error 10% of the time for testing
+            const simulateError = Math.random() < 0.1;
+            
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.style.opacity = '1';
+            submitBtn.style.pointerEvents = 'auto';
+    
+            if (simulateError) {
+              feedbackBanner.className = 'form-feedback feedback-error';
+              feedbackBanner.textContent = 'Network error. Please check your internet connection and try again.';
+              feedbackBanner.hidden = false;
+            } else {
+              feedbackBanner.className = 'form-feedback feedback-success';
+              feedbackBanner.textContent = 'Message sent successfully! We will get back to you shortly.';
+              feedbackBanner.hidden = false;
+              form.reset();
+            }
+          }, 1500);
+        });
+      </script>
+  </Fragment>
+</BaseLayout>

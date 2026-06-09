@@ -1,0 +1,404 @@
+---
+import { sanityClient } from "sanity:client";
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import NavModal from '../../components/NavModal.astro';
+import { siteConfig } from '../../lib/siteConfig';
+import './style.css';
+
+let brandData = null;
+try {
+  brandData = await sanityClient.fetch(`*[_type == "brand" && slug.current == "urovi-spa"][0]`);
+} catch (error) {
+  console.warn("Sanity fetch failed:", error.message);
+}
+
+const pageTitle = brandData?.seo?.metaTitle || "Urovi Spa | The Ovis Effect";
+const metaDesc = brandData?.seo?.metaDescription || "A sanctuary of holistic wellness and organic treatments in Warri. Book your spa experience at Urovi Spa.";
+const heroTitleHTML = brandData?.heroHeadline || "Restore your body.<br>Renew your mind.";
+const introText = brandData?.heroSub || "A sanctuary of calm, wellness, and organic restoration.";
+
+const brand = siteConfig.brands.find((b) => b.slug === 'urovi-spa')!;
+const localLinks = [{"href":"#intro","label":"About"},{"href":"#services","label":"Services"},{"href":"#gallery","label":"Gallery"},{"href":"#reviews","label":"Reviews"},{"href":"#footer","label":"Contact"}];
+
+const fallbackReviews = [
+  "I couldn't be more pleased! The entire process went seamlessly and the staff was so supportive every step of the way.",
+  "Amazing staff and great service, they are very knowledgeable and can provide recommendations based off your needs!",
+  "I was blown away by the options they offered and how knowledgeable everyone was.",
+  "The atmosphere is absolutely divine. I left feeling completely relaxed and rejuvenated. Will definitely be returning.",
+  "Best spa experience in Warri by far. The treatments are world-class and the staff truly care about your wellbeing.",
+  "I booked the hydra facial and it was transformative. My skin has never glowed like this. Absolutely exceptional.",
+];
+const reviewQuotes = (brandData?.testimonials ?? []).map((t) => t?.quote).filter(Boolean);
+const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
+---
+<BaseLayout title={pageTitle} description={metaDesc}>
+
+  <Fragment slot="head">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  </Fragment>
+
+  <Header variant="brand" brand={brand} />
+  <NavModal variant="brand" activeSlug="urovi-spa" localLinks={localLinks} />
+
+<main>
+
+
+    <!-- ══════════════════════════════════════════
+         SECTION 1: HERO VIEWPORT
+         ══════════════════════════════════════════ -->
+    <section class="spa-hero-viewport">
+      <div class="container">
+        <div class="spa-hero-wrapper hero-animate-title">
+          <!-- Mobile Logo -->
+          <div class="mobile-hero-logo">
+            <span class="subbrand-logo spa-cormorant-logo">Urovi Spa</span>
+          </div>
+          
+          <!-- Full-width image placeholder -->
+          <div class="spa-hero-image" data-img-key="hero">
+            <svg class="placeholder-icon-lg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="40" height="40" rx="4"/>
+              <circle cx="16" cy="17" r="4"/>
+              <polyline points="44 32 32 20 8 44"/>
+            </svg>
+            <!-- Hero text anchored to bottom-left of image -->
+            <div class="spa-hero-text" set:html={heroTitleHTML}></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 2: INTRO STATEMENT (Text Scrub)
+         ══════════════════════════════════════════ -->
+    <section class="spa-intro-section" id="intro">
+      <div class="container">
+        <div class="spa-intro-inner">
+          <p class="spa-intro-text text-scrub">{introText}</p>
+          <a href="#services" class="spa-intro-link">
+            Explore Therapies
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 3: OVERLAPPING DUO IMAGES
+         ══════════════════════════════════════════ -->
+    <section class="spa-duo-section">
+      <div class="container spa-duo-container">
+        <!-- Back: 548×548, top-left -->
+        <div class="duo-img duo-back" data-img-key="duo_back">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+        <!-- Front: 710×634, bottom-right -->
+        <div class="duo-img duo-front" data-img-key="duo_front">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 4: SERVICE CARDS (4 columns)
+         ══════════════════════════════════════════ -->
+    <section class="spa-services-section" id="services">
+      <div class="container services-row">
+
+        <!-- Card 1: Facials -->
+        <article class="service-card" data-reveal>
+          <div class="service-card-image" data-img-key="service_1">
+            <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="40" height="40" rx="4"/>
+              <circle cx="16" cy="17" r="4"/>
+              <polyline points="44 32 32 20 8 44"/>
+            </svg>
+          </div>
+          <div class="service-card-content">
+            <h3 class="service-card-title">Facials</h3>
+            <p class="service-card-body">Immerse yourself in a beauty and wellness experience with our facials, which range from immediate results to intensive care for your skin.</p>
+          </div>
+        </article>
+
+        <!-- Card 2: Body Treatments -->
+        <article class="service-card" data-reveal>
+          <div class="service-card-image" data-img-key="service_2">
+            <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="40" height="40" rx="4"/>
+              <circle cx="16" cy="17" r="4"/>
+              <polyline points="44 32 32 20 8 44"/>
+            </svg>
+          </div>
+          <div class="service-card-content">
+            <h3 class="service-card-title">Body treatments</h3>
+            <p class="service-card-body">Discover our relaxing rituals, perfect for releasing tension, and body wraps that sculpt and improve your silhouette while nourishing your skin.</p>
+          </div>
+        </article>
+
+        <!-- Card 3: Wellness -->
+        <article class="service-card" data-reveal>
+          <div class="service-card-image" data-img-key="service_3">
+            <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="40" height="40" rx="4"/>
+              <circle cx="16" cy="17" r="4"/>
+              <polyline points="44 32 32 20 8 44"/>
+            </svg>
+          </div>
+          <div class="service-card-content">
+            <h3 class="service-card-title">Wellness</h3>
+            <p class="service-card-body">This section is for deeply immersive, restorative experiences, as well as specialized wellness therapies meant to heal from the inside out.</p>
+          </div>
+        </article>
+
+        <!-- Card 4: Retreat Experiences -->
+        <article class="service-card" data-reveal>
+          <div class="service-card-image" data-img-key="service_4">
+            <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="40" height="40" rx="4"/>
+              <circle cx="16" cy="17" r="4"/>
+              <polyline points="44 32 32 20 8 44"/>
+            </svg>
+          </div>
+          <div class="service-card-content">
+            <h3 class="service-card-title">Retreat Experiences</h3>
+            <p class="service-card-body">Our spa circuit is perfect for finding calm in the city centre.</p>
+          </div>
+        </article>
+
+      </div>
+      <!-- Service carousel dots (mobile only) -->
+      <div class="carousel-dots mobile-only-flex" id="services-dots"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 5: GALLERY (Staircase overflow)
+         ══════════════════════════════════════════ -->
+    <section class="spa-gallery-section" id="gallery">
+      <div class="container">
+        <h2 class="gallery-display-heading">GALLERY</h2>
+      </div>
+      <div class="gallery-overflow-strip">
+        <div class="gallery-stair-item" style="transform: translateY(300px);" data-img-key="gallery_1">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+        <div class="gallery-stair-item" style="transform: translateY(186px);" data-img-key="gallery_2">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+        <div class="gallery-stair-item" style="transform: translateY(279px);" data-img-key="gallery_3">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+        <div class="gallery-stair-item" style="transform: translateY(150px);" data-img-key="gallery_4">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+        <div class="gallery-stair-item" style="transform: translateY(186px);" data-img-key="gallery_5">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+        <div class="gallery-stair-item" style="transform: translateY(0px);" data-img-key="gallery_6">
+          <svg class="placeholder-icon-sm" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="40" height="40" rx="4"/>
+            <circle cx="16" cy="17" r="4"/>
+            <polyline points="44 32 32 20 8 44"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Gallery carousel dots (mobile only) -->
+      <div class="carousel-dots mobile-only-flex" id="gallery-dots"></div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         SECTION 6: CUSTOMER REVIEWS (Carousel)
+         ══════════════════════════════════════════ -->
+    <section class="spa-reviews-section" id="reviews">
+      <div class="reviews-viewport">
+        <div class="reviews-track" id="reviews-track">
+
+          {reviewList.map((quote) => (
+            <article class="review-card">
+              <div class="review-inner">
+                <div class="review-quote-icon">
+                  <svg viewBox="0 0 54 54" fill="currentColor">
+                    <text x="2" y="46" font-size="60" font-family="Georgia, serif" opacity="0.9">"</text>
+                  </svg>
+                </div>
+                <p class="review-text">{quote}</p>
+              </div>
+            </article>
+          ))}
+
+
+        </div>
+      </div>
+
+      <!-- Reviews scroll progress (mobile only) -->
+      <div class="reviews-progress-wrap mobile-only-flex">
+        <div class="reviews-progress-track">
+          <div class="reviews-progress-bar" id="reviews-progress-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CTA: BOOK YOUR SESSION
+         ══════════════════════════════════════════ -->
+    <section class="spa-cta-section" id="book" data-reveal>
+      <div class="container">
+        <div class="spa-cta-inner">
+          <div class="spa-cta-text">
+            <p class="spa-cta-eyebrow">Book Your Session</p>
+            <h2 class="spa-cta-title">Wellness, <em>the way it was meant.</em></h2>
+            <p class="spa-cta-sub">At Urovi Spa, every treatment is a moment of genuine restoration. Step in. Let go. Feel the difference.</p>
+          </div>
+          <div class="spa-cta-action">
+            <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20book%20a%20spa%20session%20at%20Urovi%20Spa..." class="spa-cta-btn">
+              Book via WhatsApp
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <p class="spa-cta-note">Book via WhatsApp · Sessions by appointment</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- Sticky WhatsApp CTA -->
+  <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20book%20a%20spa%20session%20at%20Urovi%20Spa" class="sticky-wa-btn" aria-label="Book via WhatsApp" target="_blank" rel="noopener noreferrer" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+  </a>
+
+  <!-- Global Footer -->
+
+  <Fragment slot="scripts">
+    <script src="../../scripts/urovi-spa-images.js"></script>
+    <script>
+        /* ── MOBILE CAROUSEL HELPERS ── */
+        function buildDots(container, count, onDotClick) {
+          if (!container) return [];
+          container.innerHTML = '';
+          const dots = [];
+          for (let i = 0; i < count; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            btn.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+            btn.addEventListener('click', () => onDotClick(i));
+            container.appendChild(btn);
+            dots.push(btn);
+          }
+          return dots;
+        }
+
+        function setActiveDot(dots, index) {
+          dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        }
+
+        function snapCarousel(track, dotsContainer) {
+          if (!track) return;
+          const items = Array.from(track.children);
+          const dots  = buildDots(dotsContainer, items.length, (i) => {
+            items[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          });
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const idx = items.indexOf(entry.target);
+                setActiveDot(dots, idx);
+              }
+            });
+          }, { root: track.parentElement, threshold: 0.6 });
+
+          items.forEach(item => observer.observe(item));
+        }
+
+        /* ── SERVICE CARDS CAROUSEL (mobile) ── */
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          const servicesRow  = document.querySelector('.services-row');
+          const servicesDots = document.getElementById('services-dots');
+          snapCarousel(servicesRow, servicesDots);
+        }
+
+        /* ── GALLERY CAROUSEL (mobile) ── */
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          const galleryStrip = document.querySelector('.gallery-overflow-strip');
+          const galleryDots  = document.getElementById('gallery-dots');
+          snapCarousel(galleryStrip, galleryDots);
+        }
+
+        /* ── REVIEWS SCROLL-BASED PROGRESS BAR ── */
+        (function () {
+          const track    = document.getElementById('reviews-track');
+          const progBar  = document.getElementById('reviews-progress-bar');
+
+          if (!track) return;
+
+          const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+          if (isMobile) {
+            /* Mobile: native scroll on track, progress bar updates on scroll */
+            track.addEventListener('scroll', () => {
+              if (!progBar) return;
+              const scrollLeft = track.scrollLeft;
+              const maxScroll  = track.scrollWidth - track.clientWidth;
+              const ratio      = maxScroll > 0 ? scrollLeft / maxScroll : 0;
+              progBar.style.width = (40 + ratio * 60) + '%';
+            }, { passive: true });
+          } else {
+            /* Desktop: wheel-driven page carousel (original behaviour) */
+            const CARDS    = track.children.length || 6;
+            const PER_PAGE = 3;
+            const PAGES    = Math.ceil(CARDS / PER_PAGE);
+            let   current  = 0;
+
+            function goTo(index) {
+              current = Math.max(0, Math.min(index, PAGES - 1));
+              const cardWidth = 372;
+              track.style.transform = `translateX(-${current * PER_PAGE * cardWidth}px)`;
+              if (progBar) progBar.style.width = (current / (PAGES - 1) * 60 + 40) + '%';
+            }
+
+            const section = document.getElementById('reviews');
+            let cooldown  = false;
+            section && section.addEventListener('wheel', (e) => {
+              if (cooldown) return;
+              e.preventDefault();
+              cooldown = true;
+              goTo(current + (e.deltaY > 0 ? 1 : -1));
+              setTimeout(() => { cooldown = false; }, 800);
+            }, { passive: false });
+
+            goTo(0);
+          }
+        })();
+      </script>
+  </Fragment>
+</BaseLayout>

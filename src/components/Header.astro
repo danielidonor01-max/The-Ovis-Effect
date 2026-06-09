@@ -1,0 +1,57 @@
+---
+import { siteConfig, type Brand } from '../lib/siteConfig';
+
+interface Props {
+  /** 'hub' = homepage, 'contact' = contact page, 'brand' = sub-brand page */
+  variant: 'hub' | 'contact' | 'brand';
+  /** Required when variant === 'brand' */
+  brand?: Brand;
+}
+const { variant, brand } = Astro.props;
+
+const hamburgerSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>`;
+---
+{variant === 'brand' && brand && (
+  <header class="unified-nav" id="global-header">
+    <div class="container header-inner">
+      <div class="nav-left">
+        <a href="/" class="ovis-logo-text">The Ovis Effect</a>
+      </div>
+      <div class="nav-center">
+        <span class={`subbrand-logo ${brand.navLogo.className}`.trim()} style={brand.navLogo.style || undefined} set:html={brand.navLogo.html}></span>
+      </div>
+      <div class="nav-right">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open Menu">
+          Menu <Fragment set:html={hamburgerSvg} />
+        </button>
+      </div>
+    </div>
+  </header>
+)}
+
+{(variant === 'hub' || variant === 'contact') && (
+  <header class="global-header" id="global-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">OVIS<span>.</span></a>
+      <nav class="global-nav">
+        <ul>
+          {siteConfig.brands.map((b) => (
+            <li><a href={`/${b.slug}/`}>{b.shortName}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <a href="/contact/" class={`nav-contact-btn${variant === 'contact' ? ' active' : ''}`}>Contact Us</a>
+        {variant === 'hub' ? (
+          <button class="menu-toggle" id="hub-menu-toggle" aria-label="Open Menu">
+            Menu <Fragment set:html={hamburgerSvg} />
+          </button>
+        ) : (
+          <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span><span></span><span></span>
+          </button>
+        )}
+      </div>
+    </div>
+  </header>
+)}
