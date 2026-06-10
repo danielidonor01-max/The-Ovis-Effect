@@ -120,22 +120,41 @@ const {
     let dismissed = false;
 
     // --- audio helpers ---
+    let fadeInterval: number | null = null;
     const fadeAudioIn = () => {
       if (!audio) return;
-      audio.volume = 0;
-      audio.play().catch(() => {});
-      const t = setInterval(() => {
+      if (!audio.paused && audio.volume >= 0.5) return; // already playing & at target
+      
+      if (fadeInterval) clearInterval(fadeInterval);
+      
+      if (audio.paused) {
+        audio.volume = 0;
+        audio.play().catch(() => {});
+      }
+      
+      fadeInterval = window.setInterval(() => {
         audio.volume = Math.min(audio.volume + 0.04, 0.5);
-        if (audio.volume >= 0.5) clearInterval(t);
+        if (audio.volume >= 0.5) {
+          clearInterval(fadeInterval!);
+          fadeInterval = null;
+        }
       }, 80);
     };
+
     const fadeAudioOut = () => {
       if (!audio) return;
-      const t = setInterval(() => {
+      if (fadeInterval) clearInterval(fadeInterval);
+      
+      fadeInterval = window.setInterval(() => {
         audio.volume = Math.max(audio.volume - 0.05, 0);
-        if (audio.volume <= 0) { clearInterval(t); audio.pause(); }
+        if (audio.volume <= 0) {
+          clearInterval(fadeInterval!);
+          fadeInterval = null;
+          audio.pause();
+        }
       }, 60);
     };
+
     const showToggle = (soundOn: boolean) => {
       if (!toggle) return;
       toggle.hidden = false;
@@ -184,7 +203,7 @@ const {
     // Subsequent pages: browsers block autoplay on a fresh load, so resume the
     // ambient track on the first user interaction if sound is the saved choice.
     if (mode !== 'welcome' && soundPref === 'on') {
-      const resume = () => { if (audio && audio.paused) audio.play().catch(() => {}); };
+      const resume = () => { if (audio && audio.paused) fadeAudioIn(); };
       document.addEventListener('pointerdown', resume, { once: true });
       document.addEventListener('keydown', resume, { once: true });
     }
