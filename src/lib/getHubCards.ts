@@ -1,5 +1,6 @@
 import { sanityClient } from 'sanity:client';
 import { urlFor } from '../sanity/image';
+import { hotspotPos } from './brandImages';
 
 export interface HubCard {
   href: string;
@@ -9,6 +10,7 @@ export interface HubCard {
   description: string;
   linkLabel: string;
   image: string | null;
+  imagePos: string;
 }
 
 /** Brand slug → design-locked CSS accent class for its hub card tag. */
@@ -24,22 +26,22 @@ const FALLBACK: HubCard[] = [
   {
     href: '/good-food-avenue/', tag: 'Appetite', tagClass: 'tag-food', title: 'Good Food Avenue',
     description: "Warri's favourite spot for premium Nigerian dishes, grills, and fresh fruit drinks. Taste the vibrancy.",
-    linkLabel: 'Explore Menu', image: null,
+    linkLabel: 'Explore Menu', image: null, imagePos: 'center',
   },
   {
     href: '/urovi-spa/', tag: 'Wellbeing', tagClass: 'tag-spa', title: 'Urovi Spa',
     description: 'Calm, organic, and healing. Premium therapies to restore your body and clear your mind.',
-    linkLabel: 'View Therapies', image: null,
+    linkLabel: 'View Therapies', image: null, imagePos: 'center',
   },
   {
     href: '/financial-advisory/', tag: 'Wealth', tagClass: 'tag-finance', title: 'Financial Advisory',
     description: 'Authoritative strategies. Tiered pricing for personalised growth, built on high trust and precision.',
-    linkLabel: 'Explore Menu', image: null,
+    linkLabel: 'Explore Menu', image: null, imagePos: 'center',
   },
   {
     href: '/safe-haven/', tag: 'Exclusive', tagClass: 'tag-safehaven', title: 'Safe Haven Luxury Apartment',
     description: 'The ultimate retreat, hidden in plain sight. Anonymous luxury apartment rentals with exclusive in-house services.',
-    linkLabel: 'Explore Menu', image: null,
+    linkLabel: 'Explore Menu', image: null, imagePos: 'center',
   },
 ];
 
@@ -57,19 +59,23 @@ async function load(): Promise<HubCard[]> {
     console.warn('getHubCards: Sanity fetch failed, using fallback cards:', error?.message);
   }
 
-  const imageMap = new Map<string, string | null>();
+  const imageMap = new Map<string, { url: string; pos: string }>();
   for (const b of brands || []) {
     if (b?.slug && b?.heroImage?.asset) {
-      imageMap.set(b.slug, urlFor(b.heroImage).width(1108).height(800).quality(80).url());
+      imageMap.set(b.slug, {
+        url: urlFor(b.heroImage).width(1108).height(800).quality(80).url(),
+        pos: hotspotPos(b.heroImage),
+      });
     }
   }
 
   return FALLBACK.map((fbCard) => {
     const slug = fbCard.href.replace(/\//g, '');
-    const cmsImage = imageMap.get(slug);
+    const cms = imageMap.get(slug);
     return {
       ...fbCard,
-      image: cmsImage || fbCard.image,
+      image: cms?.url || fbCard.image,
+      imagePos: cms?.pos || fbCard.imagePos,
     };
   });
 }

@@ -2,7 +2,7 @@
  * The Ovis Effect - Global Script
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Detect both .global-header and .unified-nav (sub-brand pages use the latter)

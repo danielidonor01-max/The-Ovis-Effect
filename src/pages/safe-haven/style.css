@@ -801,11 +801,11 @@ body {
     .sh-gallery-item--wide, .sh-gallery-item--tall {
         grid-column: 1 / -1;
         grid-row: auto;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 1 / 1;
     }
 
     .sh-gallery-item {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 1 / 1;
     }
 
     .sh-eco-grid {

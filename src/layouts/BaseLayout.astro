@@ -4,6 +4,7 @@ import Footer from '../components/Footer.astro';
 import Preloader from '../components/Preloader.astro';
 import { siteConfig } from '../lib/siteConfig';
 import { getSiteSettings } from '../lib/getSiteSettings';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -60,6 +61,7 @@ const socialImage = ogImage || settings.ogImage;
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;600;700;800&display=swap">
 
   <slot name="head" />
+  <ClientRouter />
 </head>
 <body class={bodyClass || undefined}>
   <Preloader

@@ -38,6 +38,7 @@ export const brand = defineType({
       type: 'boolean',
       initialValue: true,
       description: 'Display this brand as a card on the homepage.',
+    }),
     defineField({
       name: 'heroHeadline',
       title: 'Hero Headline',

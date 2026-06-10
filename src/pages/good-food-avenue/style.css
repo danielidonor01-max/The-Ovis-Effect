@@ -496,4 +496,10 @@ body {
     .gfa-hero-viewport {
         padding-top: 0; /* Remove top padding to pull logo up */
     }
+
+    /* Keep the hero a banner on phones instead of a fixed-height near-square crop */
+    .hero-image-placeholder {
+        height: auto;
+        aspect-ratio: 16 / 11;
+    }
 }
