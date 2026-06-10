@@ -1377,7 +1377,6 @@ body .contact-submit-btn:active {
     rgba(255, 91, 4, 0.08) 0%,
     transparent 45%
   ), var(--color-hub-bg);
-  cursor: none; /* Hide system cursor only here */
 }
 
 /* Subtle Organic Wavy Blobs */
@@ -1385,8 +1384,8 @@ body .contact-submit-btn:active {
   position: absolute;
   inset: 0;
   z-index: -1;
-  filter: blur(60px); /* Slightly sharper for intensity */
-  opacity: 0.8; /* Increased intensity */
+  filter: blur(80px); /* softer, more ambient */
+  opacity: 0.38;      /* a restrained colour wash, not loud shapes */
 }
 
 .blob {
@@ -1443,42 +1442,6 @@ body .contact-submit-btn:active {
   font-weight: 400;
   line-height: 1.6;
 }
-
-/* ── MAGIC CURSOR ── */
-.magic-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 30px;
-  height: 30px;
-  background-color: #FFFFFF;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: difference;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1), 
-              width 0.3s ease, 
-              height 0.3s ease, 
-              opacity 0.3s ease;
-  opacity: 0; /* Hidden until first move */
-}
-
-.magic-cursor.active {
-  opacity: 1;
-}
-
-.magic-cursor.hovering {
-  width: 80px;
-  height: 80px;
-}
-
-@media (max-width: 768px) {
-  .magic-cursor {
-    display: none;
-  }
-}
-
 
 .gold-text {
   color: var(--color-hub-gold);

@@ -63,7 +63,6 @@ body {
     ), var(--color-wild-sand, #FAFAFA);
     position: relative;
     overflow: hidden;
-    cursor: none; /* Magic cursor active */
 }
 
 /* Centered, type-led hero (matches the minimalist GFA/Spa language) */

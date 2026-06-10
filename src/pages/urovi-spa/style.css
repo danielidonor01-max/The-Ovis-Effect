@@ -65,7 +65,6 @@ body {
         rgba(180, 140, 120, 0.07) 0%,
         transparent 50%
     ), var(--color-wild-sand);
-    cursor: none; /* Hide system cursor when magic cursor active */
     position: relative;
 }
 

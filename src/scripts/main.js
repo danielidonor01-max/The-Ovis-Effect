@@ -60,36 +60,6 @@ document.addEventListener('astro:page-load', () => {
   handleScroll(); // Run once on load
   updateScrollProgress();
 
-  // --- Magic Cursor Tracking ---
-  const cursor = document.querySelector('.magic-cursor');
-
-  document.addEventListener('mousemove', (e) => {
-    if (!cursor) return;
-    
-    // Only show cursor if we are within the hero section
-    const isWithinHero = e.target.closest('.hub-hero, .gfa-hero-viewport, .spa-hero-viewport, .fin-hero-viewport, .sh-hero-viewport');
-    
-    if (isWithinHero) {
-      cursor.classList.add('active');
-    } else {
-      cursor.classList.remove('active');
-    }
-
-    // Move cursor with a tiny bit of smoothing via CSS transition
-    cursor.style.left = `${e.clientX}px`;
-    cursor.style.top = `${e.clientY}px`;
-
-    // Interaction scaling (only if within hero)
-    if (isWithinHero) {
-      const isHoverable = e.target.closest('h1, .gold-text, a, button');
-      if (isHoverable) {
-        cursor.classList.add('hovering');
-      } else {
-        cursor.classList.remove('hovering');
-      }
-    }
-  });
-
   // --- Hero Mouse Interaction (Spotlight) ---
   const heroes = document.querySelectorAll('.hub-hero, .gfa-hero-viewport, .spa-hero-viewport, .fin-hero-viewport, .sh-hero-viewport');
   heroes.forEach(h => {

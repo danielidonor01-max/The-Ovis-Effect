@@ -69,7 +69,6 @@ body {
       rgba(255, 91, 4, 0.08) 0%,
       transparent 45%
     ), var(--color-gfa-bg);
-    cursor: none;
     position: relative;
     overflow: hidden;
 }

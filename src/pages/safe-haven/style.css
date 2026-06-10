@@ -91,7 +91,6 @@ body {
         transparent 50%
     ), var(--sh-bg);
     padding-top: 80px; /* nav height */
-    cursor: none; /* Magic cursor active */
 }
 
 /* Animated background blobs */
@@ -566,6 +565,7 @@ body {
     background-color: rgba(26, 26, 26, 0.6);
     padding: 5px 12px;
     border-radius: 2px;
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     opacity: 0;
     transform: translateY(6px);
