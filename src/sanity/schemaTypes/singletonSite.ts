@@ -18,6 +18,15 @@ export const singletonSite = defineType({
       type: 'seo',
     }),
     defineField({
+      name: 'ambientAudio',
+      title: 'Ambient Audio File',
+      type: 'file',
+      description: 'Upload a calm ambient audio track for the website preloader (mp3/wav/etc.).',
+      options: {
+        accept: 'audio/*',
+      },
+    }),
+    defineField({
       name: 'homeHero',
       title: 'Homepage Hero',
       type: 'object',

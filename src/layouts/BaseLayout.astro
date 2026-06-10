@@ -1,14 +1,37 @@
 ---
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
+import Preloader from '../components/Preloader.astro';
+import { siteConfig } from '../lib/siteConfig';
+import { getSiteSettings } from '../lib/getSiteSettings';
 
 interface Props {
   title: string;
   description: string;
   /** Optional <body> class (e.g. "contact-page") */
   bodyClass?: string;
+  /** Inner-page display name for the preloader (omit on home) */
+  preloaderName?: string;
+  /** Brand slug — drives the nav font + "destination last" cycle order */
+  preloaderSlug?: string;
 }
-const { title, description, bodyClass = '' } = Astro.props;
+const { title, description, bodyClass = '', preloaderName, preloaderSlug } = Astro.props;
+
+// --- Preloader context ---
+const isHome = !preloaderName;
+const brand = preloaderSlug ? siteConfig.brands.find((b) => b.slug === preloaderSlug) : null;
+const others = siteConfig.brands.filter((b) => b.slug !== preloaderSlug).map((b) => b.name);
+// All hubs cycled; the destination brand (if any) saved for last
+const brandOrder = brand ? [...others, brand.name] : siteConfig.brands.map((b) => b.name);
+// Full-width name font, matching each brand's nav-bar identity
+const BRAND_FONT: Record<string, string> = {
+  'good-food-avenue': "font-family: 'Pacifico', cursive;",
+  'urovi-spa': "font-family: 'Cormorant Garamond', serif;",
+  'financial-advisory': "font-family: var(--font-display); color: var(--color-deep-sea);",
+  'safe-haven': "font-family: 'Cormorant Garamond', serif;",
+};
+const nameStyle = preloaderSlug ? (BRAND_FONT[preloaderSlug] || '') : '';
+const settings = await getSiteSettings();
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +49,14 @@ const { title, description, bodyClass = '' } = Astro.props;
   <slot name="head" />
 </head>
 <body class={bodyClass || undefined}>
+  <Preloader
+    isHome={isHome}
+    displayName={preloaderName || 'The Ovis Effect'}
+    nameStyle={nameStyle}
+    brandOrder={brandOrder}
+    audioUrl={settings.ambientAudioUrl}
+  />
+
   <!-- Scroll progress indicator -->
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 

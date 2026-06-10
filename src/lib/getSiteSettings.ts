@@ -16,6 +16,7 @@ export interface SiteSettings {
   defaultSeo: { metaTitle?: string; metaDescription?: string } | null;
   /** Homepage hero content; headline may contain inline HTML. */
   homeHero: { headline: string; subtext: string };
+  ambientAudioUrl: string;
 }
 
 const HOME_HERO_FALLBACK = {
@@ -28,7 +29,10 @@ let cached: Promise<SiteSettings> | null = null;
 async function load(): Promise<SiteSettings> {
   let data: any = null;
   try {
-    data = await sanityClient.fetch(`*[_type == "singletonSite"][0]`);
+    data = await sanityClient.fetch(`*[_type == "singletonSite"][0] {
+      ...,
+      "ambientAudioUrl": ambientAudio.asset->url
+    }`);
   } catch (error: any) {
     console.warn('getSiteSettings: Sanity fetch failed, using siteConfig fallbacks:', error?.message);
   }
@@ -62,6 +66,7 @@ async function load(): Promise<SiteSettings> {
       headline: data?.homeHero?.headline || HOME_HERO_FALLBACK.headline,
       subtext: data?.homeHero?.subtext || HOME_HERO_FALLBACK.subtext,
     },
+    ambientAudioUrl: data?.ambientAudioUrl || '/audio/ovis-ambient.mp3',
   };
 }
 

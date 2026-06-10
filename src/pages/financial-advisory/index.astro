@@ -32,7 +32,7 @@ const fallbackReviews = [
 const reviewQuotes = (brandData?.testimonials ?? []).filter((t) => t?.quote);
 const reviewList = reviewQuotes.length ? reviewQuotes : fallbackReviews;
 ---
-<BaseLayout title={pageTitle} description={metaDesc}>
+<BaseLayout title={pageTitle} description={metaDesc} preloaderName="Financial Advisory" preloaderSlug="financial-advisory">
 
   <Header variant="brand" brand={brand} />
   <NavModal variant="brand" activeSlug="financial-advisory" localLinks={localLinks} />
