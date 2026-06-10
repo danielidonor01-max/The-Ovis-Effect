@@ -764,6 +764,19 @@ body .contact-submit-btn {
               border-color var(--transition-base);
 }
 
+/* One house geometry for the brand section CTAs (pill — the established house
+   style on nav / hero / preloader). Each brand's colour stays in its own CSS. */
+body .gfa-cta-btn,
+body .spa-cta-btn,
+body .sh-cta-btn,
+body .fin-cta-btn {
+  border-radius: var(--radius-full);
+  padding: 16px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
 body .nav-contact-btn:active,
 body .preloader-btn:active,
 body .modal-home-btn:active,
