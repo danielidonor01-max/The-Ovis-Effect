@@ -96,7 +96,7 @@ const {
 </button>
 
 <script>
-  (() => {
+  document.addEventListener('astro:page-load', () => {
     const root   = document.getElementById('ovis-preloader') as HTMLElement | null;
     const toggle = document.getElementById('ovis-audio-toggle') as HTMLButtonElement | null;
     const audio  = document.getElementById('preloader-audio') as HTMLAudioElement | null;
@@ -218,5 +218,5 @@ const {
         if (on) fadeAudioIn(); else fadeAudioOut();
       });
     }
-  })();
+  });
 </script>
