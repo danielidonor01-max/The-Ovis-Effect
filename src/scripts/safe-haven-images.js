@@ -20,7 +20,7 @@ const SAFE_HAVEN_IMAGES = {
 // --- AUTOMATIC IMAGE INJECTION ---
 // Sanity-provided URLs (window.__BRAND_IMAGES__, emitted by the page) override
 // the local fallbacks above, so editors can manage images from the CMS.
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   // Sanity URLs (window.__BRAND_IMAGES__) override the local fallbacks; each
   // value is either a string path or { url, pos } where pos is the hotspot.
   const IMAGES = Object.assign({}, SAFE_HAVEN_IMAGES, window.__BRAND_IMAGES__ || {});

@@ -7,7 +7,7 @@ const FIN_IMAGES = {
     hero: "../assets/images/finance/hero-finance.jpg"
 };
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('astro:page-load', () => {
   // Sanity URLs (window.__BRAND_IMAGES__) override the local fallbacks; each
   // value is either a string path or { url, pos } where pos is the hotspot.
   const IMAGES = Object.assign({}, FIN_IMAGES, window.__BRAND_IMAGES__ || {});
