@@ -15,17 +15,10 @@ export interface SiteSettings {
   address: string;
   social: { facebook: string; instagram: string; tiktok: string };
   defaultSeo: { metaTitle?: string; metaDescription?: string } | null;
-  /** Homepage hero content; headline may contain inline HTML. */
-  homeHero: { headline: string; subtext: string };
   ambientAudioUrl: string;
   /** Default social-share image URL (singletonSite.defaultSeo.openGraphImage) */
   ogImage: string | null;
 }
-
-const HOME_HERO_FALLBACK = {
-  headline: 'Wealth, <span class="gold-text">Appetite</span>,<br>and Wellbeing',
-  subtext: 'One roof. Three worlds. Curated excellence right here in Warri, Delta State.',
-};
 
 let cached: Promise<SiteSettings> | null = null;
 
@@ -65,10 +58,6 @@ async function load(): Promise<SiteSettings> {
       tiktok: socialMap.tiktok || siteConfig.social.tiktok,
     },
     defaultSeo: data?.defaultSeo ?? null,
-    homeHero: {
-      headline: data?.homeHero?.headline || HOME_HERO_FALLBACK.headline,
-      subtext: data?.homeHero?.subtext || HOME_HERO_FALLBACK.subtext,
-    },
     ambientAudioUrl: data?.ambientAudioUrl || '/audio/ovis-ambient.mp3',
     ogImage: data?.defaultSeo?.openGraphImage?.asset
       ? urlFor(data.defaultSeo.openGraphImage).width(1200).height(630).quality(80).url()

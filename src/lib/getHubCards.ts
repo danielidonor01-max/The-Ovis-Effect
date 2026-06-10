@@ -49,27 +49,29 @@ async function load(): Promise<HubCard[]> {
   let brands: any[] = [];
   try {
     brands = await sanityClient.fetch(
-      `*[_type == "brand" && featuredOnHub != false] | order(sortOrder asc, name asc){
-        name, "slug": slug.current, hubCard, heroImage
+      `*[_type == "brand" && featuredOnHub != false] {
+        "slug": slug.current, heroImage
       }`
     );
   } catch (error: any) {
     console.warn('getHubCards: Sanity fetch failed, using fallback cards:', error?.message);
   }
 
-  const cards: HubCard[] = (brands || [])
-    .filter((b) => b?.slug)
-    .map((b) => ({
-      href: `/${b.slug}/`,
-      tag: b.hubCard?.tag || '',
-      tagClass: TAG_CLASS[b.slug] || '',
-      title: b.hubCard?.title || b.name,
-      description: b.hubCard?.description || '',
-      linkLabel: b.hubCard?.ctaLabel || 'Explore',
-      image: b.heroImage?.asset ? urlFor(b.heroImage).width(1108).height(800).quality(80).url() : null,
-    }));
+  const imageMap = new Map<string, string | null>();
+  for (const b of brands || []) {
+    if (b?.slug && b?.heroImage?.asset) {
+      imageMap.set(b.slug, urlFor(b.heroImage).width(1108).height(800).quality(80).url());
+    }
+  }
 
-  return cards.length ? cards : FALLBACK;
+  return FALLBACK.map((fbCard) => {
+    const slug = fbCard.href.replace(/\//g, '');
+    const cmsImage = imageMap.get(slug);
+    return {
+      ...fbCard,
+      image: cmsImage || fbCard.image,
+    };
+  });
 }
 
 /** Hub brand cards from Sanity, falling back to the hardcoded set. Memoised per build. */

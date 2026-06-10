@@ -38,19 +38,6 @@ export const brand = defineType({
       type: 'boolean',
       initialValue: true,
       description: 'Display this brand as a card on the homepage.',
-    }),
-    defineField({
-      name: 'hubCard',
-      title: 'Hub Card',
-      type: 'object',
-      description: 'Content for this brand’s card in the homepage hub grid (design/layout is fixed in code).',
-      fields: [
-        defineField({ name: 'tag', type: 'string', title: 'Eyebrow Tag', description: 'e.g. Appetite, Wellbeing, Wealth, Exclusive' }),
-        defineField({ name: 'title', type: 'string', title: 'Card Title', description: 'Defaults to the brand name if left blank.' }),
-        defineField({ name: 'description', type: 'text', title: 'Card Description', rows: 3 }),
-        defineField({ name: 'ctaLabel', type: 'string', title: 'Link Label', description: 'e.g. Explore Menu, View Therapies' }),
-      ],
-    }),
     defineField({
       name: 'heroHeadline',
       title: 'Hero Headline',

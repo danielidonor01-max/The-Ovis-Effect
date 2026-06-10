@@ -27,16 +27,6 @@ export const singletonSite = defineType({
       },
     }),
     defineField({
-      name: 'homeHero',
-      title: 'Homepage Hero',
-      type: 'object',
-      description: 'Hero content for the hub homepage (layout/animation fixed in code).',
-      fields: [
-        defineField({ name: 'headline', type: 'text', title: 'Headline', rows: 2, description: 'You can use <span class="gold-text">…</span> and <br> for formatting.' }),
-        defineField({ name: 'subtext', type: 'text', title: 'Subtext', rows: 2 }),
-      ],
-    }),
-    defineField({
       name: 'contactInfo',
       title: 'Contact Information',
       type: 'object',

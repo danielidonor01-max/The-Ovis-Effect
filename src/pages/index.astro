@@ -10,7 +10,8 @@ const settings = await getSiteSettings();
 const hubCards = await getHubCards();
 const pageTitle = settings.defaultSeo?.metaTitle || "The Ovis Effect | Warri";
 const metaDesc = settings.defaultSeo?.metaDescription || "The Ovis Effect: A central brand hub for Good Food Avenue, Urovi Spa, Financial Advisory and Safe Haven Apartments based in Warri, Delta State.";
-const { headline: heroHeadline, subtext: heroSubtext } = settings.homeHero;
+const heroHeadline = 'Wealth, <span class="gold-text">Appetite</span>,<br>and Wellbeing';
+const heroSubtext = 'One roof. Three worlds. Curated excellence right here in Warri, Delta State.';
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
