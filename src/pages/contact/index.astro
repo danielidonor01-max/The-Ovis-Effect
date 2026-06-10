@@ -1,7 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
+import { getSiteSettings } from '../../lib/getSiteSettings';
 import './style.css';
+
+const settings = await getSiteSettings();
+const mapQuery = encodeURIComponent(settings.address);
+const mapSrc = `https://maps.google.com/maps?q=${mapQuery}&z=14&output=embed`;
 ---
 <BaseLayout title="Contact | The Ovis Effect" description="Get in touch with The Ovis Effect. Professional services across finance, food, spa, and real estate in Warri, Delta State." bodyClass="contact-page" preloaderName="Contact">
 
@@ -48,13 +53,16 @@ import './style.css';
             <a href="tel:+2348077125775" class="c-link c-tel">T: +234 807 712 5775</a>
           </div>
 
-          <!-- Map placeholder -->
+          <!-- Location map (driven by the CMS address) -->
           <div class="contact-map-placeholder" aria-label="Location map">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" class="map-pin-icon">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-              <circle cx="12" cy="10" r="3"/>
-            </svg>
-            <p>Warri, Delta State, Nigeria</p>
+            <iframe
+              class="contact-map-frame"
+              src={mapSrc}
+              title="The Ovis Effect location"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
 

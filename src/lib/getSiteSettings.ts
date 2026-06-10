@@ -1,5 +1,6 @@
 import { sanityClient } from 'sanity:client';
 import { siteConfig } from './siteConfig';
+import { urlFor } from '../sanity/image';
 
 export interface SiteSettings {
   name: string;
@@ -17,6 +18,8 @@ export interface SiteSettings {
   /** Homepage hero content; headline may contain inline HTML. */
   homeHero: { headline: string; subtext: string };
   ambientAudioUrl: string;
+  /** Default social-share image URL (singletonSite.defaultSeo.openGraphImage) */
+  ogImage: string | null;
 }
 
 const HOME_HERO_FALLBACK = {
@@ -67,6 +70,9 @@ async function load(): Promise<SiteSettings> {
       subtext: data?.homeHero?.subtext || HOME_HERO_FALLBACK.subtext,
     },
     ambientAudioUrl: data?.ambientAudioUrl || '/audio/ovis-ambient.mp3',
+    ogImage: data?.defaultSeo?.openGraphImage?.asset
+      ? urlFor(data.defaultSeo.openGraphImage).width(1200).height(630).quality(80).url()
+      : null,
   };
 }
 

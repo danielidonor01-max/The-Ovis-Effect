@@ -14,8 +14,10 @@ interface Props {
   preloaderName?: string;
   /** Brand slug — drives the nav font + "destination last" cycle order */
   preloaderSlug?: string;
+  /** Optional per-page social-share image URL (falls back to the site default) */
+  ogImage?: string;
 }
-const { title, description, bodyClass = '', preloaderName, preloaderSlug } = Astro.props;
+const { title, description, bodyClass = '', preloaderName, preloaderSlug, ogImage } = Astro.props;
 
 // --- Preloader context ---
 const isHome = !preloaderName;
@@ -32,6 +34,7 @@ const BRAND_FONT: Record<string, string> = {
 };
 const nameStyle = preloaderSlug ? (BRAND_FONT[preloaderSlug] || '') : '';
 const settings = await getSiteSettings();
+const socialImage = ogImage || settings.ogImage;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -40,6 +43,16 @@ const settings = await getSiteSettings();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
+
+  <!-- Social share (Open Graph + Twitter) -->
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  {socialImage && <meta property="og:image" content={socialImage} />}
+  <meta name="twitter:card" content={socialImage ? 'summary_large_image' : 'summary'}>
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  {socialImage && <meta name="twitter:image" content={socialImage} />}
 
   <!-- Site-wide fonts (parallel-loaded; replaces the slower CSS @import) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -17,13 +17,19 @@ interface FieldMap {
 
 export function buildBrandImages(
   brandData: any,
-  options: { gallerySlots?: string[]; extra?: FieldMap[] } = {}
+  options: { gallerySlots?: string[]; extra?: FieldMap[]; singles?: { field: string; slot: string }[] } = {}
 ): Record<string, string> {
   const map: Record<string, string> = {};
   const toUrl = (img: any) => urlFor(img).width(1600).quality(80).url();
 
   if (brandData?.heroImage?.asset) {
     map.hero = urlFor(brandData.heroImage).width(1600).quality(80).url();
+  }
+
+  // Single named image fields (e.g. aboutPortrait -> "about_portrait")
+  for (const { field, slot } of options.singles ?? []) {
+    const img = brandData?.[field];
+    if (img?.asset) map[slot] = toUrl(img);
   }
 
   const slots = options.gallerySlots;

@@ -1622,6 +1622,18 @@ body .contact-submit-btn:active {
   background-color: #D8DBDD;
 }
 
+/* Hub card showing a real (CMS) hero image */
+.brand-card-image.has-image {
+  background-size: cover;
+  background-position: center;
+  transition: transform var(--transition-slow);
+}
+.brand-card:hover .brand-card-image.has-image { transform: scale(1.04); }
+@media (prefers-reduced-motion: reduce) {
+  .brand-card-image.has-image { transition: none; }
+  .brand-card:hover .brand-card-image.has-image { transform: none; }
+}
+
 .placeholder-icon {
   width: 52px;
   height: 52px;

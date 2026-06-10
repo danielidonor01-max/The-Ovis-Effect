@@ -75,6 +75,13 @@ export const brand = defineType({
       type: 'galleryImage',
     }),
     defineField({
+      name: 'aboutPortrait',
+      title: 'About / Founder Portrait',
+      type: 'galleryImage',
+      description: 'Financial Advisory — the founder photo in the About section (portrait, ~4:5).',
+      hidden: ({ document }) => (document?.slug as any)?.current !== 'financial-advisory',
+    }),
+    defineField({
       name: 'menuPdf',
       title: 'Menu / Brochure PDF',
       type: 'menuPdf',
