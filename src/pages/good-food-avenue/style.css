@@ -7,6 +7,7 @@ h1, h2, h3, h4, .gfa-display-type {
 /* Base layout adjustments */
 body {
     background-color: var(--bg-primary);
+    --brand-accent: var(--color-blaze-orange);
 }
 
 /* ── GFA NAVBAR OVERRIDES ──────────────────────────────────────────────────
@@ -24,32 +25,37 @@ body {
     color: var(--color-hub-muted, #6B7B85);
 }
 
-/* "Good Food Avenue" — Pacifico, 24px, dark */
+/* "Good Food Avenue" — Fraunces (premium editorial serif) */
 .unified-nav .subbrand-logo.gfa-pacifico-logo {
-    font-family: 'Pacifico', cursive;
-    font-size: 24px;
-    font-weight: 400;
-    letter-spacing: normal;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     text-transform: none;
-    color: #16232A;
-    line-height: 1.2;
+    color: var(--text-primary);
+    line-height: 1.1;
     text-align: center;
 }
 
-/* Menu button — Inter Medium, dark */
+/* Menu button — Inter Medium */
 .unified-nav .menu-toggle {
     font-family: 'Inter', var(--font-body), sans-serif;
     font-size: 14px;
     font-weight: 500;
     text-transform: none;
     letter-spacing: normal;
-    color: #16232A;
+    color: var(--text-primary);
 }
 
-/* Keep dark on scroll too (no white-to-dark flip needed) */
+/* GFA hero is light (not a dark photo) — keep the nav text + toggle on the
+   primary text color so they read in both light and dark themes. */
 .unified-nav.scrolled .ovis-logo-text,
 .unified-nav.scrolled .menu-toggle {
-    color: #16232A;
+    color: var(--text-primary);
+}
+.unified-nav .theme-toggle {
+    color: var(--text-primary);
+    border-color: var(--border-color);
 }
 
 
@@ -64,11 +70,10 @@ body {
     flex-direction: column;
     padding-top: calc(76px + var(--space-4)); /* Accounting for fixed header */
     padding-bottom: var(--space-6);
-    background: radial-gradient(
-      circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(255, 91, 4, 0.08) 0%,
-      transparent 45%
-    ), var(--color-gfa-bg);
+    /* Static, themed warm wash (mouse-spotlight removed) */
+    background:
+      radial-gradient(58% 50% at 50% 28%, var(--orange-soft) 0%, transparent 70%),
+      var(--color-gfa-bg);
     position: relative;
     overflow: hidden;
 }
@@ -85,7 +90,8 @@ body {
     width: 832px;
     height: 353px;
     max-width: 100%;
-    background-color: #E2E8F0; /* Clean light gray placeholder */
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border-color);
     border-radius: 32px;
     display: flex;
     align-items: center;
@@ -96,7 +102,8 @@ body {
 .placeholder-icon-large {
     width: 64px;
     height: 64px;
-    fill: #94A3B8; /* Muted gray icon */
+    fill: var(--text-muted);
+    opacity: 0.5;
 }
 
 /* Category Sub-Navigation */
@@ -155,7 +162,7 @@ body {
    ─────────────────────────────────────────────── */
 .gfa-intro-section-wrapper {
     width: 100%;
-    background-color: #ffffff;
+    background-color: var(--bg-secondary);
     padding: var(--space-12) 0;
     margin-bottom: var(--space-12);
 }
@@ -256,7 +263,8 @@ body {
     max-width: 100%;
     height: 480px;
     flex-shrink: 0;
-    background-color: #E2E8F0;
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     display: flex;
     align-items: center;
@@ -453,11 +461,399 @@ body {
     display: none;
 }
 
+/* GFA brand name on the mobile hero — match the nav (Fraunces) */
+.mobile-hero-logo .gfa-pacifico-logo {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 34px;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+    color: var(--text-primary);
+    text-align: center;
+}
+
 .intro-actions {
     display: flex;
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUILD YOUR ORDER — interactive menu → WhatsApp
+   ═══════════════════════════════════════════════════════════════ */
+.gfa-order {
+    padding: var(--space-12) 0 var(--space-16);
+}
+
+.gfa-order-head {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-8);
+}
+
+.gfa-order-eyebrow {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gfa-orange);
+    margin: 0 0 var(--space-2);
+}
+
+.gfa-order-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text-primary);
+    margin: 0;
+}
+.gfa-order-title em { font-style: italic; color: var(--color-gfa-orange); }
+
+.gfa-order-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: var(--space-3) auto 0;
+    max-width: 480px;
+}
+
+/* Category chips */
+.order-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: var(--space-6);
+}
+
+.order-chip {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+.order-chip:hover { border-color: var(--color-gfa-orange); color: var(--text-primary); }
+.order-chip.is-active {
+    background: var(--color-gfa-orange);
+    border-color: var(--color-gfa-orange);
+    color: var(--color-on-accent);
+}
+
+/* Item grid */
+.order-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+/* CRITICAL: a `display` rule on these elements would otherwise beat the UA
+   [hidden]{display:none}. Make the hidden attribute win again. */
+.order-item[hidden],
+.oi-add[hidden],
+.oi-step[hidden],
+.food-modal[hidden] { display: none !important; }
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px 12px 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+.order-item:hover { border-color: var(--border-strong); }
+.order-item:focus-visible {
+    outline: 2px solid var(--color-gfa-orange);
+    outline-offset: 2px;
+}
+.order-item.in-cart {
+    border-color: var(--color-gfa-orange);
+    box-shadow: inset 0 0 0 1px var(--color-gfa-orange);
+}
+
+/* Image-ready avatar — shows the icon now, a photo when data-img is set */
+.order-item-avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--orange-soft);
+    color: var(--color-gfa-orange);
+    background-size: cover;
+    background-position: center;
+}
+.order-item-avatar svg { width: 22px; height: 22px; }
+
+.order-item-name {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.order-item-control { flex-shrink: 0; }
+
+.oi-add {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-gfa-orange);
+    background: transparent;
+    color: var(--color-gfa-orange);
+    cursor: pointer;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+.oi-add:hover { background: var(--color-gfa-orange); color: var(--color-on-accent); }
+.oi-add svg { width: 14px; height: 14px; }
+
+.oi-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface-sunken);
+    border-radius: var(--radius-full);
+    padding: 4px;
+}
+.oi-dec, .oi-inc {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter var(--transition-fast);
+}
+.oi-dec { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); }
+.oi-inc { background: var(--color-gfa-orange); color: var(--color-on-accent); }
+.oi-dec:hover, .oi-inc:hover { filter: brightness(0.94); }
+.oi-dec svg, .oi-inc svg { width: 14px; height: 14px; }
+.oi-qty {
+    min-width: 22px;
+    text-align: center;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+/* Sticky order bar */
+.order-bar {
+    position: fixed;
+    left: 50%;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    width: min(560px, calc(100% - 32px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 10px 10px 10px 22px;
+    background: var(--surface-raised);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-lg);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(150%);
+    transition: transform var(--transition-slow), opacity var(--transition-base);
+}
+.order-bar.is-active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+}
+
+.order-bar-info { display: flex; align-items: center; gap: 12px; }
+.order-bar-count {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+.order-bar-clear {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color var(--transition-fast);
+}
+.order-bar-clear:hover { color: var(--text-primary); }
+
+.order-bar-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    padding: 13px 22px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: var(--color-wa-green);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition-fast), filter var(--transition-fast);
+}
+.order-bar-send:hover { filter: brightness(1.05); }
+.order-bar-send:active { transform: scale(0.97); }
+.order-bar-send svg { width: 16px; height: 16px; }
+
+/* Hide the round WhatsApp button while the order bar is up (avoids two CTAs) */
+.sticky-wa-btn.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .order-bar { transition: opacity var(--transition-base); }
+}
+
+@media (max-width: 768px) {
+    .order-grid { grid-template-columns: 1fr; }
+    .order-bar {
+        padding-left: 18px;
+        gap: 10px;
+    }
+    .order-bar-send {
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+    .order-bar-clear { display: none; }
+}
+
+/* ── Food detail modal ── */
+.food-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.food-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+}
+.food-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(440px, 100%);
+    max-height: calc(100dvh - 40px);
+    overflow: auto;
+    background: var(--surface-raised);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    animation: fmIn 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes fmIn {
+    from { opacity: 0; transform: translateY(14px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+}
+.food-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+.food-modal-close:hover { background: rgba(0, 0, 0, 0.6); }
+.food-modal-close svg { width: 18px; height: 18px; }
+
+.food-modal-img {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--orange-soft);
+    color: var(--color-gfa-orange);
+    background-size: cover;
+    background-position: center;
+}
+.food-modal-img.has-img svg { display: none; }
+.food-modal-img svg { width: 64px; height: 64px; opacity: 0.85; }
+
+.food-modal-content { padding: 24px; }
+.food-modal-cat {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-gfa-orange);
+}
+.food-modal-name {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 6px 0 10px;
+}
+.food-modal-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0 0 22px;
+}
+.food-modal-foot {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.food-modal-foot .oi-add { padding: 12px 20px; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+    .food-modal-dialog { animation: none; }
 }
 
 .order-whatsapp-btn {

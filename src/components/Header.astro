@@ -10,6 +10,12 @@ interface Props {
 const { variant, brand } = Astro.props;
 
 const hamburgerSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>`;
+
+// Theme toggle — moon shows in light (→ dark), sun shows in dark (→ light).
+const themeToggleHtml = `<button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</button>`;
 ---
 {variant === 'brand' && brand && (
   <header class="unified-nav" id="global-header">
@@ -21,6 +27,7 @@ const hamburgerSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none
         <span class={`subbrand-logo ${brand.navLogo.className}`.trim()} style={brand.navLogo.style || undefined} set:html={brand.navLogo.html}></span>
       </div>
       <div class="nav-right">
+        <Fragment set:html={themeToggleHtml} />
         <button class="menu-toggle" id="menu-toggle" aria-label="Open Menu">
           Menu <Fragment set:html={hamburgerSvg} />
         </button>
@@ -41,6 +48,7 @@ const hamburgerSvg = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none
         </ul>
       </nav>
       <div class="header-actions">
+        <Fragment set:html={themeToggleHtml} />
         <a href="/contact/" class={`nav-contact-btn${variant === 'contact' ? ' active' : ''}`}>Contact Us</a>
         {variant === 'hub' ? (
           <button class="menu-toggle" id="hub-menu-toggle" aria-label="Open Menu">

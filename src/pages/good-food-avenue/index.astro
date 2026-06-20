@@ -30,12 +30,98 @@ const brandImages = buildBrandImages(brandData, {
     { field: 'gfaCategoryImages', slots: ['main_meal', 'soups_stews', 'proteins', 'snacks_drinks', 'side_dishes'] },
   ],
 });
+
+// ── Order-builder menu (price-optional; ready to source from Sanity later) ──
+// Each item may carry an optional `price` (number, Naira). When present the
+// order bar shows a live total; when absent it sends an itemised order to confirm.
+const fallbackMenu = [
+  { key: 'mains', label: 'Mains', items: [
+    { name: 'Asun Rice',    desc: 'Spicy rice tossed with peppered, smoky goat meat (asun).' },
+    { name: 'Chinese Rice', desc: 'Stir-fried rice with mixed vegetables and a savoury twist.' },
+    { name: 'Native Rice',  desc: "Palm-oil 'concoction' rice cooked with local spices, fish and greens." },
+    { name: 'Jollof Rice',  desc: 'Smoky party-style jollof simmered in a rich pepper-tomato sauce.' },
+    { name: 'Fried Rice',   desc: 'Colourful fried rice with vegetables, liver and sweet corn.' },
+    { name: 'White Rice',   desc: 'Plain steamed long-grain rice — perfect with any stew.' },
+    { name: 'Spaghetti',    desc: 'Nigerian-style peppered spaghetti, jollof or stir-fried.' },
+  ]},
+  { key: 'soups', label: 'Soups & Stews', items: [
+    { name: 'Egusi Soup',         desc: 'Melon-seed soup rich with assorted meat and leafy greens.' },
+    { name: 'Okra Soup',          desc: 'Light, draw okra soup with peppers and assorted meat.' },
+    { name: 'Vegetable Soup',     desc: 'Hearty edikang-ikong-style greens with fish and meat.' },
+    { name: 'Banga Soup',         desc: 'Delta palm-fruit soup with native spices and fresh catfish.' },
+    { name: 'Regular Stew',       desc: 'Classic fried pepper-and-tomato stew.' },
+    { name: 'Buka Peppered Stew', desc: 'Bold, roadside-style buka stew — extra peppered.' },
+    { name: 'Eba',                desc: 'Smooth garri swallow, moulded warm.' },
+    { name: 'Semo',               desc: 'Soft semolina swallow, great with any soup.' },
+  ]},
+  { key: 'proteins', label: 'Proteins', items: [
+    { name: 'Sauced Turkey',        desc: 'Turkey simmered in a spicy tomato-pepper sauce.' },
+    { name: 'Grilled Turkey',       desc: 'Smoky, char-grilled turkey.' },
+    { name: 'Chicken',              desc: 'Tender, well-seasoned chicken.' },
+    { name: 'Sauced Chicken',       desc: 'Chicken in a rich peppered sauce.' },
+    { name: 'Chicken Wings',        desc: 'Crispy seasoned wings.' },
+    { name: 'Sauced Chicken Wings', desc: 'Wings tossed in a spicy sauce.' },
+    { name: 'Gizzard',              desc: 'Peppered gizzard — gizdodo-ready.' },
+    { name: 'Beef',                 desc: 'Soft, seasoned beef cuts.' },
+    { name: 'Fish',                 desc: 'Grilled or fried titus / croaker.' },
+    { name: 'Eggs',                 desc: 'Boiled or fried egg.' },
+  ]},
+  { key: 'snacks', label: 'Snacks & Drinks', items: [
+    { name: 'Ice Cream',     desc: 'Chilled, creamy scoop.' },
+    { name: 'Yoghurt Drink', desc: 'Cold sweet or plain yoghurt.' },
+    { name: 'Fruit Juice',   desc: 'Freshly blended fruit juice.' },
+    { name: 'Tigernut',      desc: 'Chilled tigernut milk (kunu aya).' },
+    { name: 'Beer',          desc: 'Chilled bottle.' },
+    { name: 'Super Roll',    desc: 'Sausage-roll-style savoury snack.' },
+    { name: 'Chicken Pie',   desc: 'Flaky pie with a savoury chicken filling.' },
+    { name: 'Small Chops',   desc: 'Puff-puff, spring rolls, samosa & gizzard mix.' },
+  ]},
+  { key: 'sides', label: 'Sides', items: [
+    { name: 'Salad',    desc: 'Fresh garden salad / coleslaw.' },
+    { name: 'Moi Moi',  desc: 'Steamed bean pudding with pepper and fish or egg.' },
+    { name: 'Plantain', desc: 'Fried sweet plantain (dodo).' },
+  ]},
+];
+const slugify = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+// Prefer live menu items from Sanity; fall back to the built-in list above.
+const CAT_LABELS = { mains: 'Mains', soups: 'Soups & Stews', proteins: 'Proteins', snacks: 'Snacks & Drinks', sides: 'Sides' };
+const CAT_ORDER = ['mains', 'soups', 'proteins', 'snacks', 'sides'];
+let menuDocs = [];
+try {
+  menuDocs = await sanityClient.fetch(`*[_type == "menuItem" && available != false]|order(category asc, sortOrder asc, name asc){
+    name, "id": slug.current, category, description, price, "img": image.asset->url
+  }`);
+} catch (error) {
+  console.warn('menuItem fetch failed; using built-in list:', error.message);
+}
+
+let orderItems, orderMenu;
+if (Array.isArray(menuDocs) && menuDocs.length) {
+  orderItems = menuDocs.map((d) => ({
+    name: d.name,
+    desc: d.description || '',
+    cat: d.category,
+    catLabel: CAT_LABELS[d.category] || d.category,
+    id: d.id || slugify(d.name),
+    price: d.price ?? null,
+    img: d.img || null,
+  }));
+  orderMenu = CAT_ORDER.filter((k) => orderItems.some((i) => i.cat === k)).map((k) => ({ key: k, label: CAT_LABELS[k] }));
+} else {
+  orderItems = fallbackMenu.flatMap((c) =>
+    c.items.map((it) => ({ name: it.name, desc: it.desc, cat: c.key, catLabel: c.label, id: slugify(it.name), price: null, img: null }))
+  );
+  orderMenu = fallbackMenu.map((c) => ({ key: c.key, label: c.label }));
+}
+const waNumber = '2348077125775';
+// Image-ready placeholder avatar (swapped for a real photo when an item has one)
+const bowlIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M7.5 11a4.5 4.5 0 0 1 9 0"/><path d="M12 3.5v1.4"/></svg>`;
 ---
 <BaseLayout title={pageTitle} description={metaDesc} preloaderName="Good Food Avenue" preloaderSlug="good-food-avenue">
 
   <Fragment slot="head">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   </Fragment>
 
   <Header variant="brand" brand={brand} />
@@ -45,11 +131,6 @@ const brandImages = buildBrandImages(brandData, {
 
     <!-- GFA Hero Viewport -->
     <section class="gfa-hero-viewport">
-      <div class="hero-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-      </div>
       <div class="container hero-container">
         <!-- Mobile Logo -->
         <div class="mobile-hero-logo">
@@ -178,23 +259,110 @@ const brandImages = buildBrandImages(brandData, {
     </section>
 
     <!-- ══════════════════════════════════════════
+         BUILD YOUR ORDER — interactive menu → WhatsApp
+         ══════════════════════════════════════════ -->
+    <section class="gfa-order" id="order-builder" data-reveal data-wa={waNumber}>
+      <div class="container">
+        <div class="gfa-order-head">
+          <p class="section-eyebrow">Build Your Order</p>
+          <h2 class="gfa-order-title">Tap. Add. <em>Send.</em></h2>
+          <p class="gfa-order-sub">Pick your dishes and we'll pre-fill your order straight to our kitchen on WhatsApp — no app, no sign-up.</p>
+        </div>
+
+        <div class="order-chips" role="tablist" aria-label="Filter menu by category">
+          <button class="order-chip is-active" type="button" data-cat="all" role="tab" aria-selected="true">All</button>
+          {orderMenu.map((c) => (
+            <button class="order-chip" type="button" data-cat={c.key} role="tab" aria-selected="false">{c.label}</button>
+          ))}
+        </div>
+
+        <div class="order-grid">
+          {orderItems.map((it) => (
+            <article class="order-item" data-cat={it.cat} data-id={it.id} data-name={it.name} data-desc={it.desc} data-catlabel={it.catLabel} data-price={it.price ?? undefined} data-img={it.img ?? undefined} role="button" tabindex="0" aria-label={`View ${it.name} details`}>
+              <span class={`order-item-avatar${it.img ? ' has-img' : ''}`} style={it.img ? `background-image:url("${it.img}")` : undefined} set:html={it.img ? '' : bowlIcon}></span>
+              <span class="order-item-name">{it.name}</span>
+              <div class="order-item-control">
+                <button class="oi-add" type="button" aria-label={`Add ${it.name} to order`}>
+                  Add
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+                <div class="oi-step" hidden>
+                  <button class="oi-dec" type="button" aria-label={`Remove one ${it.name}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                  </button>
+                  <span class="oi-qty" aria-live="polite">0</span>
+                  <button class="oi-inc" type="button" aria-label={`Add one ${it.name}`}>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  </button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Sticky order bar — appears once the cart has items -->
+    <div class="order-bar" id="order-bar" role="region" aria-label="Your order">
+      <div class="order-bar-info">
+        <span class="order-bar-count">0 items</span>
+        <button class="order-bar-clear" type="button">Clear</button>
+      </div>
+      <button class="order-bar-send" type="button">
+        Send order on WhatsApp
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Food detail modal -->
+    <div class="food-modal" id="food-modal" hidden>
+      <div class="food-modal-backdrop" data-close></div>
+      <div class="food-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="fm-name">
+        <button class="food-modal-close" type="button" data-close aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+        <div class="food-modal-img" id="fm-img">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M7.5 11a4.5 4.5 0 0 1 9 0"/><path d="M12 3.5v1.4"/></svg>
+        </div>
+        <div class="food-modal-content">
+          <span class="food-modal-cat" id="fm-cat"></span>
+          <h3 class="food-modal-name" id="fm-name"></h3>
+          <p class="food-modal-desc" id="fm-desc"></p>
+          <div class="food-modal-foot">
+            <div class="order-item-control" id="fm-control">
+              <button class="oi-add" type="button">
+                Add to order
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+              <div class="oi-step" hidden>
+                <button class="oi-dec" type="button" aria-label="Remove one">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </button>
+                <span class="oi-qty" aria-live="polite">0</span>
+                <button class="oi-inc" type="button" aria-label="Add one">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
          CTA: ORDER NOW
          ══════════════════════════════════════════ -->
-    <section class="gfa-cta-section" id="order" data-reveal>
+    <section class="cta-band" id="order" data-reveal>
       <div class="container">
-        <div class="gfa-cta-inner">
-          <div class="gfa-cta-text">
-            <p class="gfa-cta-eyebrow">Order Now</p>
-            <h2 class="gfa-cta-title">Hungry? We've got <em>just the thing.</em></h2>
-            <p class="gfa-cta-sub">Fresh, authentic Nigerian food prepared with love and delivered directly to you in Warri. Just say the word.</p>
-          </div>
-          <div class="gfa-cta-action">
-            <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20place%20a%20food%20order%20from%20Good%20Food%20Avenue..." class="gfa-cta-btn">
-              Place Your Order
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <p class="gfa-cta-note">Via WhatsApp · Mon–Sun, 8am–10pm</p>
-          </div>
+        <div class="cta-band__inner">
+          <p class="cta-band__eyebrow">Order Now</p>
+          <h2 class="cta-band__title">Hungry? We've got <em>just the thing.</em></h2>
+          <p class="cta-band__sub">Fresh, authentic Nigerian food prepared with love and delivered directly to you in Warri. Just say the word.</p>
+          <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20place%20a%20food%20order%20from%20Good%20Food%20Avenue..." class="cta-band__btn">
+            Place Your Order
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="cta-band__note">Via WhatsApp · Mon–Sun, 8am–10pm</p>
         </div>
       </div>
     </section>
@@ -212,5 +380,6 @@ const brandImages = buildBrandImages(brandData, {
   <Fragment slot="scripts">
     <script is:inline define:vars={{ brandImages }}>window.__BRAND_IMAGES__ = brandImages;</script>
     <script src="../../scripts/good-food-avenue-images.js"></script>
+    <script src="../../scripts/good-food-avenue-order.js"></script>
   </Fragment>
 </BaseLayout>

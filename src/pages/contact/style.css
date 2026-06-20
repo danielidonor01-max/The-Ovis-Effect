@@ -6,7 +6,7 @@
 
 /* ── PAGE BASE ── */
 .contact-page {
-  background-color: var(--color-wild-sand);
+  background-color: var(--bg-primary);
   min-height: 100vh;
 }
 
@@ -24,7 +24,7 @@
 
 /* ── THE CARD ── */
 .contact-card {
-  background-color: #FFFFFF;
+  background-color: var(--bg-secondary);
   border-radius: 24px;
   display: grid;
   grid-template-columns: 2fr auto 3fr;
@@ -55,7 +55,7 @@
   font-size: clamp(36px, 5vw, 56px);
   font-weight: 700;
   line-height: 1;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   margin: 0;
   letter-spacing: -0.03em;
 }
@@ -71,18 +71,18 @@
   width: 36px;
   height: 36px;
   border-radius: var(--radius-sm);
-  border: 1px solid rgba(22, 35, 42, 0.15);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   transition: all var(--transition-fast);
 }
 
 .c-social-btn:hover {
-  background-color: var(--color-mirage);
-  color: #fff;
-  border-color: var(--color-mirage);
+  background-color: var(--text-primary);
+  color: var(--bg-secondary);
+  border-color: var(--text-primary);
 }
 
 .c-social-btn svg {
@@ -101,7 +101,7 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -126,22 +126,22 @@
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(22, 35, 42, 0.2);
+  text-decoration-color: var(--border-strong);
   transition: text-decoration-color var(--transition-fast);
 }
 
 .c-link:hover {
-  text-decoration-color: var(--color-mirage);
+  text-decoration-color: var(--text-primary);
 }
 
 /* Map placeholder */
 .contact-map-placeholder {
   flex: 1;
   min-height: 180px;
-  background-color: var(--color-wild-sand);
+  background-color: var(--surface-sunken);
   border-radius: 12px;
   overflow: hidden;
   display: flex;
@@ -164,7 +164,7 @@
 .map-pin-icon {
   width: 32px;
   height: 32px;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   opacity: 0.4;
 }
 
@@ -183,7 +183,7 @@
    ════════════════════════════════════════════════════ */
 .contact-vline {
   width: 1px;
-  background-color: rgba(22, 35, 42, 0.08);
+  background-color: var(--border-color);
   align-self: stretch;
 }
 
@@ -202,7 +202,7 @@
   font-size: 34px;
   font-weight: 700;
   line-height: 1.15;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   margin: 0;
   letter-spacing: -0.03em;
 }
@@ -229,8 +229,8 @@
 .ovis-form input,
 .ovis-form textarea {
   width: 100%;
-  background-color: var(--color-wild-sand);
-  border: 1px solid rgba(22, 35, 42, 0.1);
+  background-color: var(--surface-sunken);
+  border: 1px solid var(--border-color);
   border-radius: 10px;
   padding: 16px 18px;
   font-family: 'Inter', sans-serif;
@@ -238,7 +238,7 @@
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   outline: none;
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
   box-sizing: border-box;
@@ -246,13 +246,13 @@
 
 .ovis-form input::placeholder,
 .ovis-form textarea::placeholder {
-  color: rgba(22, 35, 42, 0.35);
+  color: var(--text-muted);
 }
 
 .ovis-form input:focus,
 .ovis-form textarea:focus {
-  border-color: rgba(22, 35, 42, 0.4);
-  background-color: #fff;
+  border-color: var(--border-strong);
+  background-color: var(--bg-secondary);
 }
 
 .ovis-form textarea {
@@ -325,11 +325,11 @@
   display: inline-block;
   padding: 10px 20px;
   border-radius: 10px;
-  border: 1px solid rgba(22, 35, 42, 0.15);
+  border: 1px solid var(--border-color);
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-mirage);
+  color: var(--text-primary);
   cursor: pointer;
   transition: all var(--transition-fast);
   background-color: transparent;
@@ -338,13 +338,13 @@
 
 .interest-btn input:checked + span,
 .interest-btn.selected span {
-  background-color: var(--color-mirage);
-  color: #fff;
-  border-color: var(--color-mirage);
+  background-color: var(--text-primary);
+  color: var(--bg-secondary);
+  border-color: var(--text-primary);
 }
 
 .interest-btn span:hover {
-  border-color: var(--color-mirage);
+  border-color: var(--text-primary);
 }
 
 /* Submit button */
@@ -353,8 +353,8 @@
   align-items: center;
   gap: 10px;
   align-self: flex-start;
-  background-color: var(--color-mirage);
-  color: #fff;
+  background-color: var(--text-primary);
+  color: var(--bg-secondary);
   border: none;
   border-radius: 10px;
   padding: 16px 32px;

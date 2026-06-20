@@ -1,8 +1,6 @@
 ---
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
-import Preloader from '../components/Preloader.astro';
-import { siteConfig } from '../lib/siteConfig';
 import { getSiteSettings } from '../lib/getSiteSettings';
 import { ClientRouter } from 'astro:transitions';
 
@@ -11,29 +9,15 @@ interface Props {
   description: string;
   /** Optional <body> class (e.g. "contact-page") */
   bodyClass?: string;
-  /** Inner-page display name for the preloader (omit on home) */
-  preloaderName?: string;
-  /** Brand slug — drives the nav font + "destination last" cycle order */
-  preloaderSlug?: string;
   /** Optional per-page social-share image URL (falls back to the site default) */
   ogImage?: string;
+  /** @deprecated Preloader removed — still accepted so pages need no edits. */
+  preloaderName?: string;
+  /** @deprecated Preloader removed — still accepted so pages need no edits. */
+  preloaderSlug?: string;
 }
-const { title, description, bodyClass = '', preloaderName, preloaderSlug, ogImage } = Astro.props;
+const { title, description, bodyClass = '', ogImage } = Astro.props;
 
-// --- Preloader context ---
-const isHome = !preloaderName;
-const brand = preloaderSlug ? siteConfig.brands.find((b) => b.slug === preloaderSlug) : null;
-const others = siteConfig.brands.filter((b) => b.slug !== preloaderSlug).map((b) => b.name);
-// All hubs cycled; the destination brand (if any) saved for last
-const brandOrder = brand ? [...others, brand.name] : siteConfig.brands.map((b) => b.name);
-// Full-width name font, matching each brand's nav-bar identity
-const BRAND_FONT: Record<string, string> = {
-  'good-food-avenue': "font-family: 'Pacifico', cursive;",
-  'urovi-spa': "font-family: 'Cormorant Garamond', serif;",
-  'financial-advisory': "font-family: var(--font-display); color: var(--color-deep-sea);",
-  'safe-haven': "font-family: 'Cormorant Garamond', serif;",
-};
-const nameStyle = preloaderSlug ? (BRAND_FONT[preloaderSlug] || '') : '';
 const settings = await getSiteSettings();
 const socialImage = ogImage || settings.ogImage;
 ---
@@ -42,6 +26,27 @@ const socialImage = ogImage || settings.ogImage;
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Theme: apply saved choice before paint to avoid a flash. Light is the
+       default (no attribute). Re-applied after each view-transition swap. -->
+  <script is:inline>
+    (function () {
+      function applyTheme() {
+        try {
+          var t = localStorage.getItem('ovis-theme');
+          var root = document.documentElement;
+          if (t === 'dark') root.setAttribute('data-theme', 'dark');
+          else root.removeAttribute('data-theme');
+          var meta = document.getElementById('theme-color-meta');
+          if (meta) meta.setAttribute('content', t === 'dark' ? '#0F171C' : '#F5F6F6');
+        } catch (e) {}
+      }
+      applyTheme();
+      document.addEventListener('astro:after-swap', applyTheme);
+    })();
+  </script>
+  <meta name="theme-color" content="#F5F6F6" id="theme-color-meta">
+
   <title>{title}</title>
   <meta name="description" content={description}>
 
@@ -58,19 +63,12 @@ const socialImage = ogImage || settings.ogImage;
   <!-- Site-wide fonts (parallel-loaded; replaces the slower CSS @import) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap">
 
   <slot name="head" />
   <ClientRouter />
 </head>
 <body class={bodyClass || undefined}>
-  <Preloader
-    isHome={isHome}
-    displayName={preloaderName || 'The Ovis Effect'}
-    nameStyle={nameStyle}
-    brandOrder={brandOrder}
-    audioUrl={settings.ambientAudioUrl}
-  />
 
   <!-- Scroll progress indicator -->
   <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>

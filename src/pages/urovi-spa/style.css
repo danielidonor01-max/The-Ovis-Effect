@@ -5,8 +5,9 @@
 
 /* ── PAGE BASE ── */
 body {
-    background-color: var(--color-wild-sand);
+    background-color: var(--bg-primary);
     --scroll-accent: var(--color-deep-sea); /* calm progress accent */
+    --brand-accent: var(--color-deep-sea);
 }
 
 /* ── SPA NAVBAR OVERRIDES ──────────────────────────────────────────────────
@@ -30,7 +31,7 @@ body {
     font-style: italic;
     letter-spacing: normal;
     text-transform: none;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     line-height: 1.2;
 }
 
@@ -40,12 +41,18 @@ body {
     font-weight: 500;
     text-transform: none;
     letter-spacing: normal;
-    color: var(--color-mirage);
+    color: var(--text-primary);
 }
 
 .unified-nav.scrolled .ovis-logo-text,
 .unified-nav.scrolled .menu-toggle {
-    color: var(--color-mirage);
+    color: var(--text-primary);
+}
+
+/* Spa hero is light — keep the theme toggle on the primary text color */
+.unified-nav .theme-toggle {
+    color: var(--text-primary);
+    border-color: var(--border-color);
 }
 
 
@@ -60,11 +67,10 @@ body {
     justify-content: center;
     padding-top: calc(76px + 32px); /* Fixed nav + breathing room */
     padding-bottom: var(--space-8);
-    background: radial-gradient(
-        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(180, 140, 120, 0.07) 0%,
-        transparent 50%
-    ), var(--color-wild-sand);
+    /* Static, themed warm wash (mouse-spotlight removed) */
+    background:
+      radial-gradient(58% 50% at 50% 32%, var(--sea-soft) 0%, transparent 70%),
+      var(--bg-primary);
     position: relative;
 }
 
@@ -79,7 +85,7 @@ body {
     max-width: 1116px;
     height: 580px;
     border-radius: 32px;
-    background-color: #DDD8D2; /* Warm greige placeholder */
+    background-color: var(--surface-sunken); /* Warm greige placeholder */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,13 +95,13 @@ body {
 .placeholder-icon-lg {
     width: 64px;
     height: 64px;
-    color: #B8B0A8;
+    color: var(--text-muted);
 }
 
 .placeholder-icon-sm {
     width: 40px;
     height: 40px;
-    color: #B8B0A8;
+    color: var(--text-muted);
 }
 
 /* Hero text: bottom-left of the image */
@@ -108,7 +114,7 @@ body {
     font-weight: 500;
     font-style: normal;
     line-height: 1.25;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     pointer-events: none;
 }
 
@@ -118,7 +124,7 @@ body {
    ════════════════════════════════════════════════════════ */
 .spa-intro-section {
     padding: 120px 0 100px;
-    background-color: #FFFFFF;
+    background-color: var(--bg-secondary);
 }
 
 .spa-intro-inner {
@@ -135,7 +141,7 @@ body {
     font-weight: 400;
     line-height: 71px;
     letter-spacing: -0.02em;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     max-width: 780px;
     text-align: center;
 }
@@ -170,7 +176,7 @@ body {
 }
 
 .spa-intro-link:hover {
-    color: var(--color-mirage);
+    color: var(--text-primary);
     gap: var(--space-2);
 }
 
@@ -184,7 +190,7 @@ body {
    ════════════════════════════════════════════════════════ */
 .spa-duo-section {
     padding: var(--space-section) 0 var(--space-macro);
-    background-color: var(--color-wild-sand);
+    background-color: var(--bg-primary);
 }
 
 .spa-duo-container {
@@ -200,7 +206,7 @@ body {
     width: 548px;
     height: 548px;
     border-radius: 16px;
-    background-color: #DDD8D2;
+    background-color: var(--surface-sunken);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -215,7 +221,7 @@ body {
     width: 710px;
     height: 634px;
     border-radius: 16px;
-    background-color: #CCC7C0;
+    background-color: var(--surface-sunken);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -228,7 +234,7 @@ body {
    ════════════════════════════════════════════════════════ */
 .spa-services-section {
     padding: var(--space-section) 0 var(--space-macro);
-    background-color: var(--color-wild-sand);
+    background-color: var(--bg-primary);
 }
 
 .services-row {
@@ -251,7 +257,7 @@ body {
     width: 100%;
     height: 300px;
     border-radius: 16px;  /* All 4 sides — it's a standalone image container */
-    background-color: #DDD8D2;
+    background-color: var(--surface-sunken);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -270,7 +276,7 @@ body {
     font-weight: 400;
     font-style: italic;
     line-height: 1.1;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -290,7 +296,7 @@ body {
 .spa-gallery-section {
     padding-top: var(--space-section);
     padding-bottom: 0;
-    background-color: var(--color-wild-sand);
+    background-color: var(--bg-primary);
     overflow: visible;
 }
 
@@ -300,7 +306,7 @@ body {
     font-weight: 300;
     line-height: 1;
     letter-spacing: -0.03em;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     text-align: center;
     margin: 0 0 var(--space-8);
 }
@@ -323,7 +329,7 @@ body {
     height: 300px;
     flex-shrink: 0;
     border-radius: 0;
-    background-color: #DDD8D2;
+    background-color: var(--surface-sunken);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -335,7 +341,7 @@ body {
    ════════════════════════════════════════════════════════ */
 .spa-reviews-section {
     padding: var(--space-section) 0 var(--space-8);
-    background-color: var(--color-wild-sand);
+    background-color: var(--bg-primary);
     overflow: hidden;
 }
 
@@ -407,7 +413,7 @@ body {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.55;
-    color: var(--color-mirage);
+    color: var(--text-primary);
 }
 
 /* Progress indicator */
@@ -422,7 +428,7 @@ body {
 .reviews-progress-bar {
     width: 120px;
     height: 4px;
-    background-color: rgba(22, 35, 42, 0.12);
+    background-color: var(--border-strong);
     border-radius: 2px;
     position: relative;
     cursor: pointer;
@@ -435,7 +441,7 @@ body {
     left: 0;
     width: 50%; /* 2 pages = 50% width each */
     height: 100%;
-    background-color: var(--color-mirage);
+    background-color: var(--text-primary);
     border-radius: 2px;
     transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -581,7 +587,7 @@ body {
         font-size: 28px;
         font-weight: 400;
         font-style: italic;
-        color: var(--color-mirage);
+        color: var(--text-primary);
         line-height: 1.25;
         max-width: 220px;
     }
@@ -759,7 +765,7 @@ body {
         width: 100%;
         max-width: 280px;
         height: 3px;
-        background-color: rgba(0,0,0,0.12);
+        background-color: var(--border-strong);
         border-radius: 2px;
         overflow: hidden;
     }
@@ -767,7 +773,7 @@ body {
     .reviews-progress-bar {
         height: 100%;
         width: 40%;
-        background-color: var(--color-mirage);
+        background-color: var(--text-primary);
         border-radius: 2px;
         transition: width 0.2s ease;
     }

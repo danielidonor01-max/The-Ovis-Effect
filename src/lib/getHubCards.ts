@@ -26,22 +26,22 @@ const FALLBACK: HubCard[] = [
   {
     href: '/good-food-avenue/', tag: 'Appetite', tagClass: 'tag-food', title: 'Good Food Avenue',
     description: "Warri's favourite spot for premium Nigerian dishes, grills, and fresh fruit drinks. Taste the vibrancy.",
-    linkLabel: 'Explore Menu', image: null, imagePos: 'center',
+    linkLabel: 'Order food', image: null, imagePos: 'center',
   },
   {
     href: '/urovi-spa/', tag: 'Wellbeing', tagClass: 'tag-spa', title: 'Urovi Spa',
     description: 'Calm, organic, and healing. Premium therapies to restore your body and clear your mind.',
-    linkLabel: 'View Therapies', image: null, imagePos: 'center',
+    linkLabel: 'Book a session', image: null, imagePos: 'center',
   },
   {
     href: '/financial-advisory/', tag: 'Wealth', tagClass: 'tag-finance', title: 'Financial Advisory',
     description: 'Authoritative strategies. Tiered pricing for personalised growth, built on high trust and precision.',
-    linkLabel: 'Explore Menu', image: null, imagePos: 'center',
+    linkLabel: 'Get advice', image: null, imagePos: 'center',
   },
   {
     href: '/safe-haven/', tag: 'Exclusive', tagClass: 'tag-safehaven', title: 'Safe Haven Luxury Apartment',
     description: 'The ultimate retreat, hidden in plain sight. Anonymous luxury apartment rentals with exclusive in-house services.',
-    linkLabel: 'Explore Menu', image: null, imagePos: 'center',
+    linkLabel: 'Find a suite', image: null, imagePos: 'center',
   },
 ];
 

@@ -11,7 +11,7 @@ const hubCards = await getHubCards();
 const pageTitle = settings.defaultSeo?.metaTitle || "The Ovis Effect | Warri";
 const metaDesc = settings.defaultSeo?.metaDescription || "The Ovis Effect: A central brand hub for Good Food Avenue, Urovi Spa, Financial Advisory and Safe Haven Apartments based in Warri, Delta State.";
 const heroHeadline = 'Wealth, <span class="gold-text">Appetite</span>,<br>and Wellbeing';
-const heroSubtext = 'One roof. Three worlds. Curated excellence right here in Warri, Delta State.';
+const heroSubtext = 'One roof, four houses — food, calm, comfort and capital.';
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
@@ -22,14 +22,14 @@ const heroSubtext = 'One roof. Three worlds. Curated excellence right here in Wa
 
     <!-- Hub Hero Section -->
     <section class="hub-hero">
-      <div class="hero-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-      </div>
       <div class="container">
         <h1 class="hero-animate-title" set:html={heroHeadline}></h1>
         <p class="hero-animate-sub">{heroSubtext}</p>
+
+        <a href="#brands" class="hub-scroll-cue hero-animate-cta">
+          Explore the houses
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </a>
       </div>
     </section>
 
@@ -39,36 +39,51 @@ const heroSubtext = 'One roof. Three worlds. Curated excellence right here in Wa
         <div class="stats-grid">
           <div class="stat-item">
             <span class="stat-number" data-count="4" data-pad="2">04</span>
-            <p>Branded Houses</p>
+            <p>Branded houses, one standard</p>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
             <span class="stat-number" data-count="460" data-suffix="+">460+</span>
-            <p>Reaching financial needs nationwide</p>
+            <p>Clients guided nationwide</p>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
             <span class="stat-number" data-count="10" data-suffix="k+">10k+</span>
-            <p>More appetite than ever</p>
+            <p>Guests served &amp; counting</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Our Branded House Section -->
-    <section class="brands-section" data-reveal>
+    <section class="brands-section" id="brands" data-reveal>
       <div class="container">
 
         <div class="section-header">
-          <h2 class="section-title">Our<br>Branded<br>House</h2>
+          <h2 class="section-title">Our<br>Branded<br>Houses</h2>
           <div class="section-header-meta">
             <p class="section-meta-brand">The Ovis Effect.</p>
-            <p class="section-meta-desc">Four Businesses for<br>lifestyle, finance and<br>health</p>
+            <p class="section-meta-desc">Four businesses for lifestyle, finance, and wellbeing.</p>
           </div>
         </div>
 
         <div class="brand-grid">
           {hubCards.map((card, i) => <BrandCard {...card} delay={i + 1} />)}
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing CTA — shared .cta-band (hub uses the default orange accent) -->
+    <section class="cta-band" data-reveal>
+      <div class="container">
+        <div class="cta-band__inner">
+          <p class="cta-band__eyebrow">The Ovis Effect</p>
+          <h2 class="cta-band__title">One standard across <em>every house.</em></h2>
+          <p class="cta-band__sub">Not sure which house you need? Send a message — we're in Warri, Delta State, and always happy to help.</p>
+          <a href="/contact/" class="cta-band__btn">
+            Get in touch
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </section>

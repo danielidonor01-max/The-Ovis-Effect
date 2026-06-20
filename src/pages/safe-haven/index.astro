@@ -44,13 +44,6 @@ const brandImages = buildBrandImages(brandData, {
          SECTION 1: HERO — FULL VIEWPORT
          ══════════════════════════════════════════ -->
     <section class="sh-hero-viewport" id="home">
-      <!-- Animated background blobs for light theme -->
-      <div class="sh-hero-blobs">
-        <div class="sh-blob sh-blob-1"></div>
-        <div class="sh-blob sh-blob-2"></div>
-        <div class="sh-blob sh-blob-3"></div>
-      </div>
-
       <div class="container sh-hero-inner">
         <!-- Mobile Logo -->
         <div class="mobile-hero-logo">
@@ -129,7 +122,7 @@ const brandImages = buildBrandImages(brandData, {
 
           <!-- Right: Info + Amenities -->
           <div class="sh-apartment-info">
-            <p class="sh-eyebrow">The Apartment</p>
+            <p class="section-eyebrow">The Apartment</p>
             <h3 class="sh-apartment-name">Safe Haven</h3>
             <p class="sh-apartment-desc">A fully furnished, self-contained luxury apartment in the heart of Warri — curated for absolute comfort, total privacy, and complete discretion. Every detail has been considered so you don't have to.</p>
 
@@ -259,21 +252,17 @@ const brandImages = buildBrandImages(brandData, {
     <!-- ══════════════════════════════════════════
          SECTION 6: BOOKING CTA
          ══════════════════════════════════════════ -->
-    <section class="sh-booking-section" id="booking" data-reveal>
+    <section class="cta-band" id="booking" data-reveal style="--cta-accent:#D4B47A">
       <div class="container">
-        <div class="sh-booking-inner">
-          <div class="sh-booking-text">
-            <p class="sh-eyebrow">Reservations Only</p>
-            <h2 class="sh-booking-title">Ready to experience<br><em>refined privacy?</em></h2>
-            <p class="sh-booking-sub">Our concierge team will guide you through the booking process. No public listings. No walk-ins. Pure, curated access.</p>
-          </div>
-          <div class="sh-booking-action">
-            <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20inquire%20about%20availability%20at%20Safe%20Haven%20Luxury%20Apartments..." class="sh-cta-btn sh-cta-btn--dark">
-              Chat with our Concierge
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <p class="sh-booking-note">Via WhatsApp · Mon–Sat, 8am–10pm</p>
-          </div>
+        <div class="cta-band__inner">
+          <p class="cta-band__eyebrow">Reservations Only</p>
+          <h2 class="cta-band__title">Ready to experience <em>refined privacy?</em></h2>
+          <p class="cta-band__sub">Our concierge team will guide you through the booking process. No public listings. No walk-ins. Pure, curated access.</p>
+          <a href="https://wa.me/2348077125775?text=Hi,%20I'd%20like%20to%20inquire%20about%20availability%20at%20Safe%20Haven%20Luxury%20Apartments..." class="cta-band__btn">
+            Chat with our Concierge
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="cta-band__note">Via WhatsApp · Mon–Sat, 8am–10pm</p>
         </div>
       </div>
     </section>

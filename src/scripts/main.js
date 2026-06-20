@@ -5,6 +5,25 @@
 document.addEventListener('astro:page-load', () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // ── Theme toggle (persisted; light is the default) ──────────────────────────
+  const themeToggles = document.querySelectorAll('.theme-toggle');
+  const themeMeta = document.getElementById('theme-color-meta');
+  const setTheme = (mode) => {
+    const root = document.documentElement;
+    if (mode === 'dark') root.setAttribute('data-theme', 'dark');
+    else root.removeAttribute('data-theme');
+    try { localStorage.setItem('ovis-theme', mode); } catch (e) {}
+    if (themeMeta) themeMeta.setAttribute('content', mode === 'dark' ? '#0F171C' : '#F5F6F6');
+    themeToggles.forEach((b) => b.setAttribute('aria-pressed', String(mode === 'dark')));
+  };
+  themeToggles.forEach((btn) => {
+    btn.setAttribute('aria-pressed', String(document.documentElement.getAttribute('data-theme') === 'dark'));
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  });
+
   // Detect both .global-header and .unified-nav (sub-brand pages use the latter)
   const header = document.getElementById('global-header');
 
@@ -59,20 +78,6 @@ document.addEventListener('astro:page-load', () => {
   }, { passive: true });
   handleScroll(); // Run once on load
   updateScrollProgress();
-
-  // --- Hero Mouse Interaction (Spotlight) ---
-  const heroes = document.querySelectorAll('.hub-hero, .gfa-hero-viewport, .spa-hero-viewport, .fin-hero-viewport, .sh-hero-viewport');
-  heroes.forEach(h => {
-    h.addEventListener('mousemove', (e) => {
-      const rect = h.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      
-      // Update CSS variables for the spotlight effect
-      h.style.setProperty('--mouse-x', `${x}%`);
-      h.style.setProperty('--mouse-y', `${y}%`);
-    });
-  });
 
   // --- Global Hub Mobile Menu Logic ---
   const mobileMenuBtns = document.querySelectorAll('.mobile-menu-btn');

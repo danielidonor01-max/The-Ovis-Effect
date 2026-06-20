@@ -5,14 +5,14 @@
 
 /* ── CUSTOM TOKENS ── */
 :root {
-    --sh-bg:          #FAFAFA;
-    --sh-bg-alt:      #F2EFE9;
-    --sh-text:        #1A1A1A;
-    --sh-muted:       #6B6B6B;
-    --sh-gold:        #B8975A;
+    --sh-bg:          var(--bg-primary);
+    --sh-bg-alt:      var(--surface-sunken);
+    --sh-text:        var(--text-primary);
+    --sh-muted:       var(--text-muted);
+    --sh-gold:        #B8975A;   /* brand gold — fixed in both themes */
     --sh-gold-light:  #D4B47A;
-    --sh-border:      rgba(26, 26, 26, 0.1);
-    --sh-card-bg:     #FFFFFF;
+    --sh-border:      var(--border-color);
+    --sh-card-bg:     var(--bg-secondary);
     --font-cormorant: 'Cormorant Garamond', Georgia, serif;
     --font-inter:     'Inter', sans-serif;
     --sh-wa-green: #25D366;
@@ -22,6 +22,7 @@
 body {
     background-color: var(--sh-bg);
     color: var(--sh-text);
+    --brand-accent: var(--sh-gold);
 }
 
 /* ── Sticky WhatsApp button ── */
@@ -67,6 +68,12 @@ body {
     color: var(--sh-text);
 }
 
+/* Safe Haven hero is light — keep the theme toggle on the primary text color */
+.unified-nav .theme-toggle {
+    color: var(--sh-text);
+    border-color: var(--sh-border);
+}
+
 /* ── SUBBRAND LOGO ── */
 .sh-cormorant-logo {
     font-family: var(--font-cormorant) !important;
@@ -85,62 +92,11 @@ body {
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: radial-gradient(
-        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(184, 151, 90, 0.1) 0%,
-        transparent 50%
-    ), var(--sh-bg);
+    /* Static, themed gold wash (mouse-spotlight + blobs removed) */
+    background:
+      radial-gradient(58% 50% at 50% 32%, rgba(184, 151, 90, 0.10) 0%, transparent 70%),
+      var(--sh-bg);
     padding-top: 80px; /* nav height */
-}
-
-/* Animated background blobs */
-.sh-hero-blobs {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.sh-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.3;
-    animation: sh-blob-drift 12s ease-in-out infinite alternate;
-}
-
-.sh-blob-1 {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle, #D4B47A 0%, transparent 70%);
-    top: -100px;
-    right: -100px;
-    animation-duration: 14s;
-}
-
-.sh-blob-2 {
-    width: 350px;
-    height: 350px;
-    background: radial-gradient(circle, #B8975A 0%, transparent 70%);
-    bottom: 100px;
-    left: -80px;
-    animation-duration: 10s;
-    animation-delay: -4s;
-}
-
-.sh-blob-3 {
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, #F2EFE9 0%, transparent 70%);
-    top: 40%;
-    left: 40%;
-    animation-duration: 16s;
-    animation-delay: -8s;
-}
-
-@keyframes sh-blob-drift {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(30px, 20px) scale(1.08); }
 }
 
 /* Hero inner layout */
@@ -202,7 +158,7 @@ body {
     gap: 10px;
     padding: 14px 28px;
     background-color: var(--sh-text);
-    color: #FFFFFF;
+    color: var(--sh-bg);
     font-family: var(--font-inter);
     font-size: 13px;
     font-weight: 500;
@@ -238,7 +194,7 @@ body {
 .sh-img-placeholder {
     width: 100%;
     height: 100%;
-    background-color: #E8E2D9;
+    background-color: var(--surface-sunken);
     border-radius: 4px;
     display: flex;
     align-items: center;
@@ -249,7 +205,7 @@ body {
 .sh-img-placeholder svg {
     width: 48px;
     height: 48px;
-    color: #B0A898;
+    color: var(--text-muted);
 }
 
 /* Full-size placeholder variant */
@@ -669,7 +625,7 @@ body {
    ═══════════════════════════════════════════════════════════════ */
 .sh-booking-section {
     padding: 120px 0;
-    background-color: var(--sh-text);
+    background-color: var(--color-mirage);
 }
 
 .sh-booking-inner {
@@ -729,7 +685,7 @@ body {
 
 .sh-booking-action .sh-cta-btn--dark {
     background-color: #FFFFFF;
-    color: var(--sh-text);
+    color: var(--color-mirage);
 }
 
 .sh-booking-action .sh-cta-btn--dark:hover {

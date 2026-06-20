@@ -2,10 +2,11 @@
 
 /* ── PAGE BASE ── */
 body {
-    background-color: var(--color-wild-sand, #FAFAFA); /* Light theme */
+    background-color: var(--bg-primary); /* Light theme */
     /* Single source for the FA accent — the deep-sea brand token (#125C54). */
     --fin-accent: var(--color-fin-gold);
     --scroll-accent: var(--fin-accent);
+    --brand-accent: var(--fin-accent);
 }
 
 /* ── NAVBAR OVERRIDES ──
@@ -27,7 +28,7 @@ body {
     font-weight: 600;
     letter-spacing: -0.01em;
     text-transform: none;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
     line-height: 1.2;
 }
 
@@ -37,12 +38,18 @@ body {
     font-weight: 500;
     text-transform: none;
     letter-spacing: normal;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
 }
 
 .unified-nav.scrolled .ovis-logo-text,
 .unified-nav.scrolled .menu-toggle {
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
+}
+
+/* Finance hero is light — keep the theme toggle on the primary text color */
+.unified-nav .theme-toggle {
+    color: var(--text-primary);
+    border-color: var(--border-color);
 }
 
 /* ───────────────────────────────────────────────
@@ -56,11 +63,10 @@ body {
     justify-content: center;
     padding-top: calc(76px + var(--space-4));
     padding-bottom: var(--space-6);
-    background: radial-gradient(
-        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-        rgba(18, 92, 84, 0.10) 0%,
-        transparent 50%
-    ), var(--color-wild-sand, #FAFAFA);
+    /* Static, themed deep-sea wash (mouse-spotlight removed) */
+    background:
+      radial-gradient(56% 50% at 50% 30%, var(--sea-soft) 0%, transparent 70%),
+      var(--bg-primary);
     position: relative;
     overflow: hidden;
 }
@@ -94,10 +100,10 @@ body {
     gap: 12px;
     width: 224px;
     padding: 14px 16px;
-    background: rgba(255, 255, 255, 0.92);
+    background: var(--surface-raised);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(22, 35, 42, 0.06);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     box-shadow: 0 18px 44px rgba(18, 92, 84, 0.13);
     opacity: 0;
@@ -120,7 +126,7 @@ body {
 
 .fc-body { display: flex; flex-direction: column; gap: 1px; }
 .fc-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--color-hub-muted); }
-.fc-amount { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--color-mirage); }
+.fc-amount { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
 .fc-amount.pos { color: var(--fin-accent); }
 .fc-status { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; color: var(--fin-accent); }
 
@@ -155,7 +161,7 @@ body {
     font-size: clamp(38px, 6vw, 66px);
     font-weight: 700;
     text-align: center;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
     line-height: 1.06;
     letter-spacing: -0.03em;
     max-width: 860px;
@@ -243,7 +249,7 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: clamp(28px, 4vw, 40px);
     font-weight: 700;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
     letter-spacing: -0.04em;
     line-height: 1;
     margin: 0 0 var(--space-2);
@@ -429,7 +435,7 @@ body {
    ─────────────────────────────────────────────── */
 .fin-pricing-section {
     padding: var(--space-8) 0 var(--space-macro);
-    background-color: var(--color-wild-sand, #FAFAFA);
+    background-color: var(--bg-primary);
 }
 
 .pricing-title {
@@ -438,7 +444,7 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     text-align: left !important;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
     max-width: 619px;
     margin: 0 0 var(--space-8) 0 !important;
     letter-spacing: -0.01em;
@@ -449,7 +455,7 @@ body {
     max-width: 1116px;
     height: 922px;
     margin: 0 auto;
-    background-color: #FFFFFF;
+    background-color: var(--bg-secondary);
     display: grid;
     grid-template-columns: repeat(3, 372px);
     grid-template-rows: repeat(2, 461px);
@@ -461,8 +467,8 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding-top: 48px; /* Padding down from top row edge */
-    border-right: 1px solid rgba(22, 35, 42, 0.1);
-    border-bottom: 1px solid rgba(22, 35, 42, 0.1);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* Clear outer right/bottom borders if requested, however user said 1 horizontal divider and 2 vertical dividers. 
@@ -489,7 +495,7 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 700;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
     margin: 0;
 }
 
@@ -514,7 +520,7 @@ body {
     font-family: var(--font-display);
     font-size: 24px;
     font-weight: 600;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
 }
 
 .cell-amount .dur {
@@ -528,8 +534,8 @@ body {
     display: inline-block;
     padding: 12px 16px;
     border-radius: 4px;
-    background-color: var(--color-mirage, #16232A);
-    color: #FFFFFF;
+    background-color: var(--text-primary);
+    color: var(--bg-secondary);
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 600;
@@ -539,7 +545,8 @@ body {
 }
 
 .cell-btn:hover {
-    background-color: #3b5059;
+    background-color: var(--fin-accent);
+    color: #fff;
 }
 
 .cell-list {
@@ -554,7 +561,7 @@ body {
     font-size: 12px;
     font-weight: 400;
     line-height: 22px;
-    color: var(--color-mirage, #16232A);
+    color: var(--text-primary);
     position: relative;
     padding-left: 12px;
     margin-bottom: 8px;
@@ -564,7 +571,7 @@ body {
     content: "•";
     position: absolute;
     left: 0;
-    color: #A0AAB2; /* Subtle minimalist bullet */
+    color: var(--text-muted); /* Subtle minimalist bullet */
 }
 
 /* ───────────────────────────────────────────────
@@ -572,7 +579,7 @@ body {
    ─────────────────────────────────────────────── */
 .fin-about-section {
     padding: var(--space-section) 0;
-    background-color: #FFFFFF;
+    background-color: var(--bg-secondary);
 }
 
 .fin-about-inner {
@@ -645,7 +652,7 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: clamp(28px, 3.6vw, 44px);
     font-weight: 700;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     line-height: 1.1;
     letter-spacing: -0.02em;
     margin: 0;
@@ -671,7 +678,7 @@ body {
     font-family: 'Inter', sans-serif;
     font-size: 28px;
     font-weight: 700;
-    color: var(--color-mirage);
+    color: var(--text-primary);
     letter-spacing: -0.02em;
 }
 .point-label {
@@ -686,7 +693,7 @@ body {
 /* Reviews carousel — identical to Urovi Spa */
 .spa-reviews-section {
     padding: var(--space-section) 0 var(--space-8);
-    background-color: var(--color-wild-sand);
+    background-color: var(--bg-primary);
     overflow: hidden;
 }
 
@@ -751,7 +758,7 @@ body {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.55;
-    color: var(--color-mirage);
+    color: var(--text-primary);
 }
 
 .reviews-progress-wrap {
@@ -765,7 +772,7 @@ body {
 .reviews-progress-bar {
     width: 120px;
     height: 4px;
-    background-color: rgba(22, 35, 42, 0.12);
+    background-color: var(--border-strong);
     border-radius: 2px;
     position: relative;
     cursor: pointer;
@@ -778,7 +785,7 @@ body {
     left: 0;
     width: 50%;
     height: 100%;
-    background-color: var(--color-mirage);
+    background-color: var(--text-primary);
     border-radius: 2px;
     transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -850,7 +857,7 @@ body {
         border-right: none;
     }
     .pricing-cell {
-        border-bottom: 1px solid rgba(22, 35, 42, 0.1);
+        border-bottom: 1px solid var(--border-color);
         padding-bottom: 32px;
     }
 }
@@ -873,7 +880,7 @@ body {
     }
     .stat-item {
         border-right: none;
-        border-bottom: 1px solid rgba(22, 35, 42, 0.1);
+        border-bottom: 1px solid var(--border-color);
         padding-bottom: 24px;
     }
     .stat-item:last-child {
@@ -1059,14 +1066,14 @@ body {
         width: 100%;
         max-width: 280px;
         height: 3px;
-        background-color: rgba(0, 0, 0, 0.12);
+        background-color: var(--border-strong);
         border-radius: 2px;
         overflow: hidden;
     }
     .reviews-progress-bar {
         height: 100%;
         width: 40%;
-        background-color: var(--color-mirage);
+        background-color: var(--text-primary);
         border-radius: 2px;
         transition: width 0.2s ease;
     }

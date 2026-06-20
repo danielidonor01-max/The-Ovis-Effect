@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "seed:menu": "node sanity/seed/seed-menu.mjs"
   },
   "dependencies": {
     "@astrojs/react": "^5.0.7",
