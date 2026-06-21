@@ -1,0 +1,93 @@
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
+import { Container, Section, SectionIntro } from "@/components/primitives";
+import { HouseEditorialCard } from "@/components/house-editorial-card";
+import { CtaCard } from "@/components/cta-card";
+import { houses } from "@/data/site";
+
+const stats: [string, string][] = [
+  ["04", "Branded houses, one standard"],
+  ["460+", "Clients guided nationwide"],
+  ["10k+", "Guests served & counting"],
+];
+
+export default function HomePage() {
+  return (
+    <>
+      {/* Hero — full viewport, text + buttons only */}
+      <section className="flex min-h-[calc(100dvh-4rem)] items-center">
+        <Container>
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-[5.25rem]">
+              Wealth, <span className="text-brand">Appetite</span> &amp; Wellbeing
+            </h1>
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
+              One roof, four houses — food, calm, comfort and capital, curated to
+              a single standard right here in Warri.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <Link href="#houses" className={cn(buttonVariants(), "h-11 rounded-lg px-6")}>
+                Explore the houses
+              </Link>
+              <Link
+                href="/contact"
+                className={cn(buttonVariants({ variant: "outline" }), "h-11 rounded-lg px-6")}
+              >
+                Get in touch
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Stats */}
+      <Section className="py-12 sm:py-16">
+        <Container>
+          <div className="grid grid-cols-1 gap-10 border-y border-border py-10 sm:grid-cols-3 sm:gap-6">
+            {stats.map(([n, l]) => (
+              <div key={l} className="text-center">
+                <p className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
+                  {n}
+                </p>
+                <p className="mx-auto mt-2 max-w-[16rem] text-sm text-muted-foreground">
+                  {l}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Branded houses */}
+      <Section id="houses" soft className="scroll-mt-20">
+        <Container>
+          <SectionIntro
+            center
+            eyebrow="Our branded houses"
+            title="Four businesses, one standard"
+            lead="Each house is its own world — food, wellness, finance and stays. Step into the one you need."
+          />
+          <div className="mt-8 flex flex-col divide-y divide-border md:mt-12">
+            {houses.map((h, i) => (
+              <HouseEditorialCard
+                key={h.slug}
+                house={h}
+                position={i % 2 === 0 ? "left" : "right"}
+              />
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* Closing CTA */}
+      <CtaCard
+        eyebrow="The Ovis Effect"
+        title="One standard across every house."
+        sub="Not sure which house you need? Send a message — we're in Warri, Delta State, and always happy to help."
+        ctaLabel="Get in touch"
+        ctaHref="/contact"
+      />
+    </>
+  );
+}
