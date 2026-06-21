@@ -638,16 +638,6 @@ body {
     gap: 18px;
 }
 
-.fin-about-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--fin-accent);
-    margin: 0;
-}
-
 .fin-about-title {
     font-family: 'Inter', sans-serif;
     font-size: clamp(28px, 3.6vw, 44px);
@@ -825,25 +815,6 @@ body {
 }
 
 /* Floating WA CTA Button */
-.sticky-wa-btn {
-    position: fixed;
-    bottom: var(--space-8);
-    right: var(--space-8);
-    background-color: var(--color-wa-green);
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    z-index: 100;
-    transition: transform var(--transition-fast);
-}
-
-.sticky-wa-btn:hover { transform: scale(1.1); }
-.sticky-wa-btn svg { width: 32px; height: 32px; fill: currentColor; }
 
 /* ───────────────────────────────────────────────
    RESPONSIVE
@@ -893,118 +864,12 @@ body {
         border-right: none;
     }
 
-    .fin-cta-inner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--space-6);
-    }
     
-    .fin-cta-section {
-        padding: 80px 0;
-    }
 }
 
 /* ═══════════════════════════════════════════════════════════════
    CTA SECTION — LET'S TALK
    ═══════════════════════════════════════════════════════════════ */
-.fin-cta-section {
-    padding: 120px 0;
-    background-color: #16232A;
-}
-
-.fin-cta-inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 40px;
-}
-
-.fin-cta-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    max-width: 640px;
-}
-
-.fin-cta-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--fin-accent);
-    margin: 0;
-}
-
-.fin-cta-title {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(32px, 5vw, 54px);
-    font-weight: 700;
-    line-height: 1.1;
-    color: #FFFFFF;
-    letter-spacing: -0.02em;
-    margin: 0;
-}
-
-.fin-cta-title em {
-    font-style: italic;
-    color: var(--fin-accent);
-    font-weight: 600;
-}
-
-.fin-cta-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.65;
-    margin: 0;
-}
-
-.fin-cta-action {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
-    flex-shrink: 0;
-}
-
-.fin-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background-color: #FFFFFF;
-    color: #16232A;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 250ms ease, transform 250ms ease;
-}
-
-.fin-cta-btn:hover {
-    background-color: var(--fin-accent);
-    color: #FFFFFF;
-    transform: translateY(-2px);
-}
-
-.fin-cta-note {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.04em;
-    margin: 0;
-}
 
 /* ── Responsive: About + Testimonials (reviews identical to Urovi Spa) ── */
 @media (max-width: 900px) {

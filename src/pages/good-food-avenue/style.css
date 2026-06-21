@@ -58,8 +58,6 @@ body {
     border-color: var(--border-color);
 }
 
-
-
 /* ───────────────────────────────────────────────
    1. VIEWPORT HERO SECTION
    ─────────────────────────────────────────────── */
@@ -156,7 +154,6 @@ body {
     color: var(--color-gfa-orange);
 }
 
-
 /* ───────────────────────────────────────────────
    2. INTRO TEXT & CTA
    ─────────────────────────────────────────────── */
@@ -206,7 +203,6 @@ body {
     color: var(--color-gfa-orange);
     gap: var(--space-3); /* Slight slide effect on arrow */
 }
-
 
 /* ───────────────────────────────────────────────
    3. ZIG-ZAG MENU LAYOUT
@@ -308,16 +304,7 @@ body {
         gap: 8px; /* reduce gap to ensure items wrap nicely without overflow */
     }
     
-    .gfa-cta-inner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--space-6);
-    }
     
-    .gfa-cta-section {
-        padding: 80px 0;
-    }
 
     /* Center (not justify) the intro tagline on mobile */
     .intro-text {
@@ -328,133 +315,10 @@ body {
 }
 
 /* WA CTA */
-.sticky-wa-btn {
-    position: fixed;
-    bottom: var(--space-8);
-    right: var(--space-8);
-    background-color: var(--color-wa-green);
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: var(--shadow-diffused);
-    z-index: 100;
-    transition: transform var(--transition-fast);
-}
-
-.sticky-wa-btn:hover {
-    transform: scale(1.1);
-}
-
-.sticky-wa-btn svg {
-    width: 32px;
-    height: 32px;
-    fill: currentColor;
-}
 
 /* ═══════════════════════════════════════════════════════════════
    CTA SECTION — ORDER NOW
    ═══════════════════════════════════════════════════════════════ */
-.gfa-cta-section {
-    padding: 120px 0;
-    background-color: #1C1008;
-}
-
-.gfa-cta-inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 40px;
-}
-
-.gfa-cta-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    max-width: 640px;
-}
-
-.gfa-cta-eyebrow {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #F4A947;
-    margin: 0;
-}
-
-.gfa-cta-title {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 800;
-    line-height: 1.1;
-    color: #FFFFFF;
-    letter-spacing: -0.02em;
-    margin: 0;
-}
-
-.gfa-cta-title em {
-    font-style: italic;
-    color: #F4A947;
-    font-weight: 700;
-}
-
-.gfa-cta-sub {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.65;
-    margin: 0;
-}
-
-.gfa-cta-action {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
-    flex-shrink: 0;
-}
-
-.gfa-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background-color: #FFFFFF;
-    color: #1C1008;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    border-radius: 100px;
-    text-decoration: none;
-    transition: background-color 250ms ease, transform 250ms ease;
-}
-
-.gfa-cta-btn:hover {
-    background-color: #F4A947;
-    color: #1C1008;
-    transform: translateY(-2px);
-}
-
-.gfa-cta-note {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.04em;
-    margin: 0;
-}
 
 /* Mobile Hero UI specific styles */
 .mobile-hero-logo {
@@ -490,16 +354,6 @@ body {
     text-align: center;
     max-width: 600px;
     margin: 0 auto var(--space-8);
-}
-
-.gfa-order-eyebrow {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-gfa-orange);
-    margin: 0 0 var(--space-2);
 }
 
 .gfa-order-title {

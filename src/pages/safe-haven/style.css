@@ -26,33 +26,6 @@ body {
 }
 
 /* ── Sticky WhatsApp button ── */
-.sticky-wa-btn {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    background-color: var(--sh-wa-green, #25D366);
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    z-index: 200;
-    transition: transform 150ms ease;
-}
-
-.sticky-wa-btn:hover {
-    transform: scale(1.1);
-}
-
-.sticky-wa-btn svg {
-    width: 28px;
-    height: 28px;
-    fill: currentColor;
-    flex-shrink: 0;
-}
 
 /* ── NAV OVERRIDES — light background page ──
    Global style.css defaults nav text to #FFFFFF (for dark hero pages).
@@ -172,10 +145,6 @@ body {
 .sh-cta-btn:hover {
     background-color: var(--sh-gold);
     transform: translateY(-2px);
-}
-
-.sh-cta-btn--dark {
-    background-color: var(--sh-text);
 }
 
 /* Right image column */
@@ -623,83 +592,6 @@ body {
 /* ═══════════════════════════════════════════════════════════════
    SECTION 6: BOOKING CTA
    ═══════════════════════════════════════════════════════════════ */
-.sh-booking-section {
-    padding: 120px 0;
-    background-color: var(--color-mirage);
-}
-
-.sh-booking-inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 40px;
-}
-
-.sh-booking-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    max-width: 640px;
-}
-
-.sh-booking-section .sh-eyebrow {
-    color: var(--sh-gold-light);
-}
-
-.sh-booking-title {
-    font-family: var(--font-cormorant);
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 400;
-    line-height: 1.1;
-    color: #FFFFFF;
-    letter-spacing: -0.01em;
-    margin: 0;
-}
-
-.sh-booking-title em {
-    font-style: italic;
-    color: var(--sh-gold-light);
-    font-weight: 300;
-}
-
-.sh-booking-sub {
-    font-family: var(--font-inter);
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.65;
-    margin: 0;
-}
-
-.sh-booking-action {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
-    flex-shrink: 0;
-}
-
-.sh-booking-action .sh-cta-btn--dark {
-    background-color: #FFFFFF;
-    color: var(--color-mirage);
-}
-
-.sh-booking-action .sh-cta-btn--dark:hover {
-    background-color: var(--sh-gold);
-    color: #FFFFFF;
-}
-
-.sh-booking-note {
-    font-family: var(--font-inter);
-    font-size: 11px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.04em;
-}
 
 /* Mobile Hero Logo */
 .mobile-hero-logo {
@@ -768,14 +660,4 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .sh-booking-inner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--space-6);
-    }
-
-    .sh-booking-section {
-        padding: 80px 0;
-    }
 }

@@ -1625,6 +1625,31 @@ body .contact-submit-btn:active {
   .cta-band__btn:hover { transform: none; }
 }
 
+/* ── Floating WhatsApp button — ONE shared component for every brand page
+   (previously duplicated 4× with drifting size/position/shadow/z-index). ── */
+.sticky-wa-btn {
+  position: fixed;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-wa-green);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  z-index: 150;
+  transition: transform var(--transition-fast), box-shadow var(--transition-base);
+}
+.sticky-wa-btn:hover { transform: scale(1.08); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.24); }
+.sticky-wa-btn:active { transform: scale(0.96); }
+.sticky-wa-btn svg { width: 28px; height: 28px; fill: currentColor; flex-shrink: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .sticky-wa-btn:hover { transform: none; }
+}
+
 
 /* ── FOOTER ── */
 .global-footer {

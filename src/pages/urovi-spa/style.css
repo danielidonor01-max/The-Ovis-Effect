@@ -55,7 +55,6 @@ body {
     border-color: var(--border-color);
 }
 
-
 /* ════════════════════════════════════════════════════════
    SECTION 1: HERO VIEWPORT
    ════════════════════════════════════════════════════════ */
@@ -117,7 +116,6 @@ body {
     color: var(--text-primary);
     pointer-events: none;
 }
-
 
 /* ════════════════════════════════════════════════════════
    SECTION 2: INTRO STATEMENT (Text Scrub)
@@ -184,7 +182,6 @@ body {
     transform: translateX(4px);
 }
 
-
 /* ════════════════════════════════════════════════════════
    SECTION 3: OVERLAPPING DUO IMAGES
    ════════════════════════════════════════════════════════ */
@@ -227,7 +224,6 @@ body {
     justify-content: center;
     z-index: 2;
 }
-
 
 /* ════════════════════════════════════════════════════════
    SECTION 4: SERVICE CARDS
@@ -289,7 +285,6 @@ body {
     margin: 12px 0 0;
 }
 
-
 /* ════════════════════════════════════════════════════════
    SECTION 5: GALLERY (Staircase overflow strip)
    ════════════════════════════════════════════════════════ */
@@ -334,7 +329,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 
 /* ════════════════════════════════════════════════════════
    SECTION 6: CUSTOMER REVIEWS CAROUSEL
@@ -446,37 +440,9 @@ body {
     transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
 /* ════════════════════════════════════════════════════════
    STICKY WHATSAPP BUTTON
    ════════════════════════════════════════════════════════ */
-.sticky-wa-btn {
-    position: fixed;
-    bottom: var(--space-8);
-    right: var(--space-8);
-    background-color: var(--color-wa-green);
-    color: #fff;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: var(--shadow-diffused);
-    z-index: 100;
-    transition: transform var(--transition-fast);
-}
-
-.sticky-wa-btn:hover {
-    transform: scale(1.1);
-}
-
-.sticky-wa-btn svg {
-    width: 32px;
-    height: 32px;
-    fill: currentColor;
-}
-
 
 /* ════════════════════════════════════════════════════════
    HERO ANIMATION (fade-up on load, same as GFA + hub)
@@ -493,7 +459,6 @@ body {
         transform: translateY(0);
     }
 }
-
 
 /* ════════════════════════════════════════════════════════
    RESPONSIVE
@@ -779,116 +744,10 @@ body {
     }
 
     /* CTA */
-    .spa-cta-inner {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--space-6);
-    }
     
-    .spa-cta-section {
-        padding: 80px 0;
-    }
 }
 
 /* ═══════════════════════════════════════════════════════════════
    CTA SECTION — BOOK YOUR SESSION
    ═══════════════════════════════════════════════════════════════ */
-.spa-cta-section {
-    padding: 120px 0;
-    background-color: #111A16;
-}
-
-.spa-cta-inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 40px;
-}
-
-.spa-cta-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    max-width: 640px;
-}
-
-.spa-cta-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #8BAF8A;
-    margin: 0;
-}
-
-.spa-cta-title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 400;
-    line-height: 1.1;
-    color: #FFFFFF;
-    letter-spacing: -0.01em;
-    margin: 0;
-}
-
-.spa-cta-title em {
-    font-style: italic;
-    color: #8BAF8A;
-    font-weight: 300;
-}
-
-.spa-cta-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.6);
-    line-height: 1.65;
-    margin: 0;
-}
-
-.spa-cta-action {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 16px;
-    flex-shrink: 0;
-}
-
-.spa-cta-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 32px;
-    background-color: #FFFFFF;
-    color: #111A16;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 250ms ease, transform 250ms ease;
-}
-
-.spa-cta-btn:hover {
-    background-color: #8BAF8A;
-    color: #111A16;
-    transform: translateY(-2px);
-}
-
-.spa-cta-note {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.04em;
-    margin: 0;
-}
 
