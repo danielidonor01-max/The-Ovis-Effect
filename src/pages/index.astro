@@ -10,8 +10,16 @@ const settings = await getSiteSettings();
 const hubCards = await getHubCards();
 const pageTitle = settings.defaultSeo?.metaTitle || "The Ovis Effect | Warri";
 const metaDesc = settings.defaultSeo?.metaDescription || "The Ovis Effect: A central brand hub for Good Food Avenue, Urovi Spa, Financial Advisory and Safe Haven Apartments based in Warri, Delta State.";
-const heroHeadline = 'Wealth, <span class="gold-text">Appetite</span>,<br>and Wellbeing';
+const heroHeadline = 'Wealth, <span class="gold-text">Appetite</span> &amp; Wellbeing';
 const heroSubtext = 'One roof, four houses — food, calm, comfort and capital.';
+
+// Interactive hero panels — one per house, tinted with its brand accent.
+const houses = [
+  { href: '/good-food-avenue/',   name: 'Good Food Avenue',   tag: 'Appetite',  desc: 'Premium Nigerian dishes, grills & fresh drinks.', accent: '#FF5B04' },
+  { href: '/urovi-spa/',          name: 'Urovi Spa',          tag: 'Wellbeing', desc: 'Therapies to restore your body and mind.',       accent: '#8BAF8A' },
+  { href: '/financial-advisory/', name: 'Financial Advisory', tag: 'Wealth',    desc: 'Strategies for growth, built on trust.',         accent: '#8FE3D2' },
+  { href: '/safe-haven/',         name: 'Safe Haven',         tag: 'Exclusive', desc: 'Discreet luxury apartment stays.',               accent: '#D4B47A' },
+];
 ---
 <BaseLayout title={pageTitle} description={metaDesc}>
 
@@ -20,16 +28,27 @@ const heroSubtext = 'One roof, four houses — food, calm, comfort and capital.'
 
   <main>
 
-    <!-- Hub Hero Section -->
-    <section class="hub-hero">
-      <div class="container">
-        <h1 class="hero-animate-title" set:html={heroHeadline}></h1>
-        <p class="hero-animate-sub">{heroSubtext}</p>
+    <!-- Hero: interactive Four Houses -->
+    <section class="houses-hero">
+      <div class="houses-hero-intro">
+        <h1 class="houses-hero-title hero-animate-title" set:html={heroHeadline}></h1>
+        <p class="houses-hero-sub hero-animate-sub">{heroSubtext}</p>
+      </div>
 
-        <a href="#brands" class="hub-scroll-cue hero-animate-cta">
-          Explore the houses
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-        </a>
+      <div class="houses-panels">
+        {houses.map((h, i) => (
+          <a href={h.href} class="house-panel" style={`--house-accent:${h.accent}; --i:${i}`} aria-label={`Enter ${h.name}`}>
+            <span class="house-panel-tag">{h.tag}</span>
+            <span class="house-panel-body">
+              <span class="house-panel-name">{h.name}</span>
+              <span class="house-panel-desc">{h.desc}</span>
+              <span class="house-panel-enter">
+                Enter
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+            </span>
+          </a>
+        ))}
       </div>
     </section>
 
@@ -59,12 +78,10 @@ const heroSubtext = 'One roof, four houses — food, calm, comfort and capital.'
     <section class="brands-section" id="brands" data-reveal>
       <div class="container">
 
-        <div class="section-header">
-          <h2 class="section-title">Our<br>Branded<br>Houses</h2>
-          <div class="section-header-meta">
-            <p class="section-meta-brand">The Ovis Effect.</p>
-            <p class="section-meta-desc">Four businesses for lifestyle, finance, and wellbeing.</p>
-          </div>
+        <div class="section-header section-intro--center">
+          <p class="section-eyebrow">The Ovis Effect</p>
+          <h2 class="section-heading">Our Branded Houses</h2>
+          <p class="section-lead">Four businesses for lifestyle, finance, and wellbeing.</p>
         </div>
 
         <div class="brand-grid">

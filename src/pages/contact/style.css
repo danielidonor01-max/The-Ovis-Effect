@@ -8,12 +8,14 @@
 .contact-page {
   background-color: var(--bg-primary);
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* ── MAIN WRAPPER ── */
 .contact-main {
   padding: calc(76px + 48px) 0 80px;
   min-height: calc(100vh - 80px);
+  min-height: calc(100dvh - 80px);
 }
 
 .contact-card-wrap {
@@ -356,7 +358,7 @@
   background-color: var(--text-primary);
   color: var(--bg-secondary);
   border: none;
-  border-radius: 10px;
+  border-radius: var(--radius-button);
   padding: 16px 32px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
