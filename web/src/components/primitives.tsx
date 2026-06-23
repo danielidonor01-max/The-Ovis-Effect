@@ -42,12 +42,14 @@ export function SectionIntro({
   lead,
   center,
   className,
+  as: Heading = "h2",
 }: {
   eyebrow?: string;
   title: React.ReactNode;
   lead?: React.ReactNode;
   center?: boolean;
   className?: string;
+  as?: "h1" | "h2";
 }) {
   return (
     <div className={cn("max-w-2xl", center && "mx-auto text-center", className)}>
@@ -56,9 +58,9 @@ export function SectionIntro({
           {eyebrow}
         </p>
       )}
-      <h2 className="mt-3 font-heading text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
+      <Heading className="mt-3 font-heading text-2xl font-semibold tracking-tight text-balance sm:text-3xl">
         {title}
-      </h2>
+      </Heading>
       {lead && (
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
           {lead}

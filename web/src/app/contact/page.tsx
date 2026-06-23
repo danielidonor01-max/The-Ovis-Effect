@@ -14,6 +14,7 @@ export default function ContactPage() {
     <Section className="pt-28 pb-24 sm:pt-32">
       <Container>
         <SectionIntro
+          as="h1"
           eyebrow="Get in touch"
           title="Let's talk."
           lead="Not sure which house you need? Send a message and we'll point you the right way."

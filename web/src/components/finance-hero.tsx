@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "motion/react";
 import { TrendingUp, ShieldCheck, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -11,14 +14,21 @@ const rows: { label: string; val: string; up: boolean }[] = [
   { label: "VAT remittance", val: "−₦27,400", up: false },
 ];
 
+const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
+
 export function FinanceHero({ house }: { house: House }) {
   const accent = house.accent;
   return (
     <section className="flex min-h-[calc(100dvh-4rem)] items-center py-16">
       <Container>
         <div className="grid items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-          {/* Left — hero text (unchanged) + avatar social proof */}
-          <div className="max-w-2xl">
+          {/* Left — hero text (unchanged copy) + avatar social proof */}
+          <motion.div
+            className="max-w-2xl"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease }}
+          >
             <p
               className="text-xs font-semibold uppercase tracking-[0.3em]"
               style={{ color: accent }}
@@ -51,11 +61,14 @@ export function FinanceHero({ house }: { house: House }) {
             <div className="mt-12 flex items-center gap-4">
               <div className="flex -space-x-3">
                 {[0.22, 0.4, 0.6, 0.85].map((o, i) => (
-                  <span
+                  <motion.span
                     key={i}
                     className="inline-block size-10 rounded-full border-2 border-background ring-1 ring-black/5"
                     style={{ backgroundColor: accent, opacity: o }}
                     aria-hidden="true"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: o, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease }}
                   />
                 ))}
               </div>
@@ -64,12 +77,17 @@ export function FinanceHero({ house }: { house: House }) {
                 across Delta State trust us with their numbers.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right — organized transaction cards (placeholders) */}
           <div className="relative mx-auto w-full max-w-sm pb-12 pl-12 lg:mx-0 lg:max-w-md">
             {/* Main statement card */}
-            <div className="rounded-3xl border border-border bg-card p-6 shadow-xl shadow-black/[0.06]">
+            <motion.div
+              className="rounded-3xl border border-border bg-card p-6 shadow-xl shadow-black/[0.06]"
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease }}
+            >
               <div className="flex items-start justify-between">
                 <div>
                   <p className="text-sm text-muted-foreground">Monthly revenue</p>
@@ -86,24 +104,34 @@ export function FinanceHero({ house }: { house: House }) {
                 </span>
               </div>
 
-              {/* Bar chart */}
+              {/* Bar chart — grows from the baseline */}
               <div className="mt-6 flex h-24 items-end gap-2" aria-hidden="true">
                 {bars.map((h, i) => (
-                  <div
+                  <motion.div
                     key={i}
                     className="flex-1 rounded-t-md"
                     style={{
                       height: `${h}%`,
+                      transformOrigin: "bottom",
                       backgroundColor: i === 5 ? accent : `${accent}26`,
                     }}
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.06, ease }}
                   />
                 ))}
               </div>
 
               {/* Transaction rows */}
               <div className="mt-5 space-y-3 border-t border-border pt-4">
-                {rows.map((r) => (
-                  <div key={r.label} className="flex items-center justify-between">
+                {rows.map((r, i) => (
+                  <motion.div
+                    key={r.label}
+                    className="flex items-center justify-between"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.45, delay: 0.95 + i * 0.1, ease }}
+                  >
                     <div className="flex items-center gap-2.5">
                       <span
                         className="grid size-8 place-items-center rounded-full"
@@ -118,21 +146,24 @@ export function FinanceHero({ house }: { house: House }) {
                       <span className="text-sm font-medium">{r.label}</span>
                     </div>
                     <span className="text-sm font-semibold tabular-nums">{r.val}</span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Floating compliance card */}
-            <div
+            {/* Floating compliance card — pops in last */}
+            <motion.div
               className="absolute bottom-0 left-0 w-44 rounded-2xl p-5 text-white shadow-xl shadow-black/10"
               style={{ backgroundColor: accent }}
+              initial={{ opacity: 0, scale: 0.85, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.1, ease }}
             >
               <ShieldCheck className="size-5" />
               <p className="mt-3 text-sm font-medium leading-snug">
                 Tax compliance, filed on time.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </Container>

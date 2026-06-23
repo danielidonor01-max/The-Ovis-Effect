@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section, SectionIntro } from "@/components/primitives";
-import { BrandHero } from "@/components/brand-hero";
+import { SafeHavenHero } from "@/components/safe-haven-hero";
 import { FeatureGrid } from "@/components/feature-grid";
 import { PlaceholderImage } from "@/components/placeholder-image";
 import { CtaCard } from "@/components/cta-card";
@@ -26,7 +26,7 @@ const amenities = [
 export default function SafeHavenPage() {
   return (
     <>
-      <BrandHero house={house} ctaLabel="Enquire now" ctaHref="#gallery" />
+      <SafeHavenHero house={house} />
 
       <Section>
         <Container>
