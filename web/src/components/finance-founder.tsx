@@ -1,6 +1,6 @@
 import { Quote } from "lucide-react";
 import { Container, Section } from "@/components/primitives";
-import { PlaceholderImage } from "@/components/placeholder-image";
+import { ParallaxImage } from "@/components/parallax-image";
 import { Reveal } from "@/components/reveal";
 
 const credentials = [
@@ -15,7 +15,7 @@ export function FinanceFounder({ accent = "#125c54" }: { accent?: string }) {
       <Container>
         <div className="grid items-center gap-10 md:grid-cols-[2fr_3fr] md:gap-14">
           <Reveal>
-            <PlaceholderImage
+            <ParallaxImage
               accent={accent}
               label="Founder"
               className="aspect-[4/5] w-full max-w-sm md:mx-0"

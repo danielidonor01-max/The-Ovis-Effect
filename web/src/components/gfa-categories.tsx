@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Container, Section, SectionIntro } from "@/components/primitives";
-import { PlaceholderImage } from "@/components/placeholder-image";
+import { ParallaxImage } from "@/components/parallax-image";
 import { Reveal } from "@/components/reveal";
 import { gfaMenu } from "@/data/site";
 
@@ -28,7 +28,7 @@ export function GfaCategories() {
               )}
             >
               <Reveal className="md:w-2/5">
-                <PlaceholderImage
+                <ParallaxImage
                   accent={ACCENT}
                   className="mx-auto aspect-[3/4] w-full max-w-sm"
                   label={c.label}

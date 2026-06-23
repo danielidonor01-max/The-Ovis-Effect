@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { SliderHero } from "@/components/slider-hero";
 import { FeatureGrid } from "@/components/feature-grid";
-import { PlaceholderImage } from "@/components/placeholder-image";
+import { ParallaxImage } from "@/components/parallax-image";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
@@ -48,11 +48,11 @@ export default function SafeHavenPage() {
           <SectionIntro eyebrow="The apartment" title="Your private retreat" />
           <div className="mt-10 grid gap-4 md:grid-cols-3 md:grid-rows-2">
             <Reveal className="md:col-span-2 md:row-span-2">
-              <PlaceholderImage accent={house.accent} className="h-full min-h-[260px] md:min-h-[420px]" label="Living room" />
+              <ParallaxImage accent={house.accent} className="h-full min-h-[260px] md:min-h-[420px]" label="Living room" />
             </Reveal>
             {["Bedroom", "Kitchen", "Bathroom", "City view"].map((label, i) => (
               <Reveal key={label} delay={i * 0.05}>
-                <PlaceholderImage accent={house.accent} className="aspect-square" label={label} />
+                <ParallaxImage accent={house.accent} className="aspect-square" label={label} />
               </Reveal>
             ))}
           </div>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { SliderHero } from "@/components/slider-hero";
-import { PlaceholderImage } from "@/components/placeholder-image";
+import { ParallaxImage } from "@/components/parallax-image";
 import { GalleryCarousel } from "@/components/gallery-carousel";
 import { Reviews } from "@/components/reviews";
 import { CtaCard } from "@/components/cta-card";
@@ -88,7 +88,7 @@ export default function UroviSpaPage() {
                 )}
               >
                 <Reveal className="md:w-2/5">
-                  <PlaceholderImage
+                  <ParallaxImage
                     accent={house.accent}
                     className="mx-auto aspect-[3/4] w-full max-w-sm"
                     label={c.title}
