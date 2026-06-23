@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { houses, site } from "@/data/site";
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -38,22 +40,36 @@ export function Navbar() {
         <div className="flex h-16 items-center justify-between gap-4">
           <Link
             href="/"
-            className="font-heading text-lg font-bold tracking-tight"
+            className="font-heading text-lg font-bold tracking-tight transition-opacity hover:opacity-70"
             onClick={() => setOpen(false)}
           >
             The Ovis Effect
           </Link>
 
           <nav className="hidden items-center gap-7 lg:flex">
-            {houses.map((h) => (
-              <Link
-                key={h.slug}
-                href={`/${h.slug}`}
-                className="font-heading text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {h.name}
-              </Link>
-            ))}
+            {houses.map((h) => {
+              const active =
+                pathname === `/${h.slug}` || pathname.startsWith(`/${h.slug}/`);
+              return (
+                <Link
+                  key={h.slug}
+                  href={`/${h.slug}`}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "group relative font-heading text-sm transition-colors",
+                    active ? "text-foreground" : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {h.name}
+                  <span
+                    className={cn(
+                      "absolute -bottom-1.5 left-0 h-px bg-foreground transition-all duration-300 ease-out",
+                      active ? "w-full" : "w-0 group-hover:w-full",
+                    )}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2">

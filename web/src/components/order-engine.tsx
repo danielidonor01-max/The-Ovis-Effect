@@ -129,7 +129,7 @@ export function OrderEngine() {
             <button
               type="button"
               onClick={sendOrder}
-              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 font-heading text-sm font-semibold text-white transition-transform active:scale-95"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-[0.98]"
             >
               Send on WhatsApp <ArrowRight className="size-4" />
             </button>
