@@ -23,12 +23,6 @@ const services = [
   { title: "Financial Planning", desc: "Personalised plans built on precision and high trust." },
 ];
 
-const stats: [string, string][] = [
-  ["₦240k+", "PAYE generated for clients"],
-  ["100+", "Tax advisory sessions"],
-  ["270+", "Happy clients nationwide"],
-];
-
 // FS 4 packages — the firm's published advisory plans.
 const tiers: Tier[] = [
   {
@@ -153,23 +147,6 @@ export default function FinancialAdvisoryPage() {
           />
           <div className="mt-12">
             <Pricing tiers={tiers} accent={house.accent} />
-          </div>
-        </Container>
-      </Section>
-
-      <Section>
-        <Container>
-          <div className="grid grid-cols-1 gap-10 border-y border-border py-10 sm:grid-cols-3 sm:gap-6">
-            {stats.map(([n, l]) => (
-              <div key={l} className="text-center">
-                <p className="font-heading text-4xl font-semibold tracking-tight sm:text-5xl">
-                  {n}
-                </p>
-                <p className="mx-auto mt-2 max-w-[16rem] text-sm text-muted-foreground">
-                  {l}
-                </p>
-              </div>
-            ))}
           </div>
         </Container>
       </Section>

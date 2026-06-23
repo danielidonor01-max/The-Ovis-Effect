@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import { Container, Section, SectionIntro } from "@/components/primitives";
-import { BrandHero } from "@/components/brand-hero";
+import { SliderHero } from "@/components/slider-hero";
 import { PlaceholderImage } from "@/components/placeholder-image";
 import { GalleryCarousel } from "@/components/gallery-carousel";
 import { Reviews } from "@/components/reviews";
@@ -55,7 +55,12 @@ const reviews = [
 export default function UroviSpaPage() {
   return (
     <>
-      <BrandHero house={house} ctaLabel="Book a session" ctaHref="#services" />
+      <SliderHero
+        house={house}
+        slides={["Treatment room", "Relaxation lounge", "Steam & sauna", "Reception"]}
+        ctaLabel="Book a session"
+        ctaHref="#services"
+      />
 
       <Section>
         <Container>

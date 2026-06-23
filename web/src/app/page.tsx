@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Container, Section, SectionIntro } from "@/components/primitives";
+import { FadeIn } from "@/components/fade-in";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
 import { houses } from "@/data/site";
@@ -18,7 +19,7 @@ export default function HomePage() {
       {/* Hero — full viewport, text + buttons only */}
       <section className="flex min-h-[calc(100dvh-4rem)] items-center">
         <Container>
-          <div className="mx-auto max-w-4xl text-center">
+          <FadeIn className="mx-auto max-w-4xl text-center">
             <h1 className="font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-[5.25rem]">
               Wealth, <span className="text-brand">Appetite</span> &amp; Wellbeing
             </h1>
@@ -37,7 +38,7 @@ export default function HomePage() {
                 Get in touch
               </Link>
             </div>
-          </div>
+          </FadeIn>
         </Container>
       </section>
 

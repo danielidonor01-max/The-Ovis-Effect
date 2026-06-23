@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { TrendingUp, ShieldCheck, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { EASE } from "@/lib/motion";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
 import type { House } from "@/data/site";
@@ -13,8 +14,6 @@ const rows: { label: string; val: string; up: boolean }[] = [
   { label: "PAYE filing", val: "+₦120,000", up: true },
   { label: "VAT remittance", val: "−₦27,400", up: false },
 ];
-
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
 export function FinanceHero({ house }: { house: House }) {
   const accent = house.accent;
@@ -27,7 +26,7 @@ export function FinanceHero({ house }: { house: House }) {
             className="max-w-2xl"
             initial={{ opacity: 0, y: 22 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease }}
+            transition={{ duration: 0.6, ease: EASE }}
           >
             <p
               className="text-xs font-semibold uppercase tracking-[0.3em]"
@@ -68,7 +67,7 @@ export function FinanceHero({ house }: { house: House }) {
                     aria-hidden="true"
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: o, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease }}
+                    transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
                   />
                 ))}
               </div>
@@ -86,7 +85,7 @@ export function FinanceHero({ house }: { house: House }) {
               className="rounded-3xl border border-border bg-card p-6 shadow-xl shadow-black/[0.06]"
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15, ease }}
+              transition={{ duration: 0.6, delay: 0.15, ease: EASE }}
             >
               <div className="flex items-start justify-between">
                 <div>
@@ -117,7 +116,7 @@ export function FinanceHero({ house }: { house: House }) {
                     }}
                     initial={{ scaleY: 0 }}
                     animate={{ scaleY: 1 }}
-                    transition={{ duration: 0.5, delay: 0.5 + i * 0.06, ease }}
+                    transition={{ duration: 0.5, delay: 0.5 + i * 0.06, ease: EASE }}
                   />
                 ))}
               </div>
@@ -130,7 +129,7 @@ export function FinanceHero({ house }: { house: House }) {
                     className="flex items-center justify-between"
                     initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.45, delay: 0.95 + i * 0.1, ease }}
+                    transition={{ duration: 0.45, delay: 0.95 + i * 0.1, ease: EASE }}
                   >
                     <div className="flex items-center gap-2.5">
                       <span
@@ -157,7 +156,7 @@ export function FinanceHero({ house }: { house: House }) {
               style={{ backgroundColor: accent }}
               initial={{ opacity: 0, scale: 0.85, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.1, ease }}
+              transition={{ duration: 0.5, delay: 1.1, ease: EASE }}
             >
               <ShieldCheck className="size-5" />
               <p className="mt-3 text-sm font-medium leading-snug">

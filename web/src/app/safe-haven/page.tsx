@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container, Section, SectionIntro } from "@/components/primitives";
-import { SafeHavenHero } from "@/components/safe-haven-hero";
+import { SliderHero } from "@/components/slider-hero";
 import { FeatureGrid } from "@/components/feature-grid";
 import { PlaceholderImage } from "@/components/placeholder-image";
 import { CtaCard } from "@/components/cta-card";
@@ -26,7 +26,12 @@ const amenities = [
 export default function SafeHavenPage() {
   return (
     <>
-      <SafeHavenHero house={house} />
+      <SliderHero
+        house={house}
+        slides={["Living room", "Master bedroom", "Kitchen", "City view"]}
+        ctaLabel="Enquire now"
+        ctaHref="#gallery"
+      />
 
       <Section>
         <Container>

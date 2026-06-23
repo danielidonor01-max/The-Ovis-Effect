@@ -6,6 +6,7 @@ import { ArrowRight, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
+import { FadeIn } from "@/components/fade-in";
 import { gfaMenu } from "@/data/site";
 
 const ACCENT = "#ff5b04";
@@ -25,7 +26,7 @@ export function GfaHero() {
       <Container>
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:justify-between">
           {/* Left — text */}
-          <div className="w-full text-center lg:w-[46%] lg:text-left">
+          <FadeIn className="w-full text-center lg:w-[46%] lg:text-left">
             <p
               className="text-xs font-semibold uppercase tracking-[0.3em]"
               style={{ color: ACCENT }}
@@ -55,7 +56,7 @@ export function GfaHero() {
                 View categories
               </button>
             </div>
-          </div>
+          </FadeIn>
 
           {/* Right — image accordion (desktop) */}
           <div className="hidden lg:block lg:w-1/2">
