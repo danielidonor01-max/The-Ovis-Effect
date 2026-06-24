@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils";
 import { EASE } from "@/lib/motion";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
+import { HeroHeading } from "@/components/hero-heading";
 import type { House } from "@/data/site";
+import type { HeroContent } from "@/sanity/lib/data";
 
 const bars = [38, 60, 46, 72, 55, 92, 64];
 const rows: { label: string; val: string; up: boolean }[] = [
@@ -15,7 +17,13 @@ const rows: { label: string; val: string; up: boolean }[] = [
   { label: "VAT remittance", val: "−₦27,400", up: false },
 ];
 
-export function FinanceHero({ house }: { house: House }) {
+export function FinanceHero({
+  house,
+  hero,
+}: {
+  house: House;
+  hero?: HeroContent | null;
+}) {
   const accent = house.accent;
   return (
     <section className="flex min-h-[calc(100dvh-4rem)] items-center py-16">
@@ -32,21 +40,27 @@ export function FinanceHero({ house }: { house: House }) {
               className="text-xs font-semibold uppercase tracking-[0.3em]"
               style={{ color: accent }}
             >
-              {house.tag}
+              {hero?.eyebrow || house.tag}
             </p>
-            <h1 className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-7xl">
-              {house.name}
+            <h1
+              className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-7xl"
+              style={{
+                color: hero?.titleColor || undefined,
+                fontWeight: hero?.titleWeight ? Number(hero.titleWeight) : undefined,
+              }}
+            >
+              <HeroHeading text={hero?.heading || house.name} accent={accent} />
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              {house.blurb}
+              {hero?.subtitle || house.blurb}
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
-                href="#pricing"
+                href={hero?.ctaHref || "#pricing"}
                 className={cn(buttonVariants(), "h-11 rounded-lg px-6 text-white")}
                 style={{ backgroundColor: accent }}
               >
-                See our plans
+                {hero?.ctaLabel || "See our plans"}
               </Link>
               <Link
                 href="/contact"

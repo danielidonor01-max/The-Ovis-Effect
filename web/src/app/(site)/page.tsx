@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
+import { HeroHeading } from "@/components/hero-heading";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
 import { houses } from "@/data/site";
+import { getHero } from "@/sanity/lib/data";
 
 const stats: [string, string][] = [
   ["04", "Branded houses, one standard"],
@@ -13,23 +15,35 @@ const stats: [string, string][] = [
   ["10k+", "Guests served & counting"],
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+  const hero = await getHero("home");
+  const heading = hero?.heading || "Wealth, *Appetite* & Wellbeing";
+
   return (
     <>
       {/* Hero — full viewport, text + buttons only */}
       <section className="flex min-h-[calc(100dvh-4rem)] items-center">
         <Container>
           <FadeIn className="mx-auto max-w-4xl text-center">
-            <h1 className="font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-[5.25rem]">
-              Wealth, <span className="text-brand">Appetite</span> &amp; Wellbeing
+            <h1
+              className="font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-[5.25rem]"
+              style={{
+                color: hero?.titleColor || undefined,
+                fontWeight: hero?.titleWeight ? Number(hero.titleWeight) : undefined,
+              }}
+            >
+              <HeroHeading text={heading} accent="#FF5B04" />
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              One roof, four houses — food, calm, comfort and capital, curated to
-              a single standard right here in Warri.
+              {hero?.subtitle ||
+                "One roof, four houses — food, calm, comfort and capital, curated to a single standard right here in Warri."}
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-              <Link href="#houses" className={cn(buttonVariants(), "h-11 rounded-lg px-6")}>
-                Explore the houses
+              <Link
+                href={hero?.ctaHref || "#houses"}
+                className={cn(buttonVariants(), "h-11 rounded-lg px-6")}
+              >
+                {hero?.ctaLabel || "Explore the houses"}
               </Link>
               <Link
                 href="/contact"

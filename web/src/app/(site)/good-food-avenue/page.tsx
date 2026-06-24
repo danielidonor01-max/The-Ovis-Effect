@@ -3,6 +3,7 @@ import { GfaHero } from "@/components/gfa-hero";
 import { GfaCategories } from "@/components/gfa-categories";
 import { CtaCard } from "@/components/cta-card";
 import { houseBySlug } from "@/data/site";
+import { getHero } from "@/sanity/lib/data";
 
 const house = houseBySlug("good-food-avenue")!;
 
@@ -11,10 +12,11 @@ export const metadata: Metadata = {
   description: house.blurb,
 };
 
-export default function GoodFoodAvenuePage() {
+export default async function GoodFoodAvenuePage() {
+  const hero = await getHero("good-food-avenue");
   return (
     <>
-      <GfaHero />
+      <GfaHero hero={hero} />
       <GfaCategories />
       <CtaCard
         eyebrow="Ready to eat?"

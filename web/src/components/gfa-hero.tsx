@@ -7,7 +7,9 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
+import { HeroHeading } from "@/components/hero-heading";
 import { gfaMenu } from "@/data/site";
+import type { HeroContent } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
 const cats = gfaMenu.map((c) => ({ key: c.key, label: c.label }));
@@ -18,7 +20,7 @@ function scrollToCat(key: string) {
     ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-export function GfaHero() {
+export function GfaHero({ hero }: { hero?: HeroContent | null }) {
   const [active, setActive] = useState(cats.length - 1);
 
   return (
@@ -31,22 +33,28 @@ export function GfaHero() {
               className="text-xs font-semibold uppercase tracking-[0.3em]"
               style={{ color: ACCENT }}
             >
-              Appetite · Good Food Avenue
+              {hero?.eyebrow || "Appetite · Good Food Avenue"}
             </p>
-            <h1 className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl">
-              Taste the <span style={{ color: ACCENT }}>vibrancy.</span>
+            <h1
+              className="mt-5 font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl"
+              style={{
+                color: hero?.titleColor || undefined,
+                fontWeight: hero?.titleWeight ? Number(hero.titleWeight) : undefined,
+              }}
+            >
+              <HeroHeading text={hero?.heading || "Taste the *vibrancy.*"} accent={ACCENT} />
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground lg:mx-0">
-              Premium Nigerian dishes, grills and fresh fruit drinks — prepared
-              with authentic spices and delivered across Warri.
+              {hero?.subtitle ||
+                "Premium Nigerian dishes, grills and fresh fruit drinks — prepared with authentic spices and delivered across Warri."}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <Link
-                href="/good-food-avenue/order"
+                href={hero?.ctaHref || "/good-food-avenue/order"}
                 className={cn(buttonVariants(), "h-11 gap-2 rounded-lg px-6 text-white")}
                 style={{ backgroundColor: ACCENT }}
               >
-                Order now <ArrowRight className="size-4" />
+                {hero?.ctaLabel || "Order now"} <ArrowRight className="size-4" />
               </Link>
               <button
                 type="button"

@@ -1,7 +1,7 @@
-import imageUrlBuilder from "@sanity/image-url";
+import { createImageUrlBuilder } from "@sanity/image-url";
 import { client } from "./client";
 
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 // Derive the accepted source type from the builder (avoids version-specific
 // deep type imports).

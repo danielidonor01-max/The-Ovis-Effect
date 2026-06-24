@@ -6,6 +6,7 @@ import { ParallaxImage } from "@/components/parallax-image";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
+import { getHero } from "@/sanity/lib/data";
 
 const house = houseBySlug("safe-haven")!;
 
@@ -23,7 +24,8 @@ const amenities = [
   { title: "Secure & Gated", desc: "Round-the-clock security and controlled, private entry." },
 ];
 
-export default function SafeHavenPage() {
+export default async function SafeHavenPage() {
+  const hero = await getHero("safe-haven");
   return (
     <>
       <SliderHero
@@ -31,6 +33,7 @@ export default function SafeHavenPage() {
         slides={["Living room", "Master bedroom", "Kitchen", "City view"]}
         ctaLabel="Enquire now"
         ctaHref="#gallery"
+        hero={hero}
       />
 
       <Section>

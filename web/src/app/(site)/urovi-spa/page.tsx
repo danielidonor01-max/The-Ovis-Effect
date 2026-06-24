@@ -8,6 +8,7 @@ import { Reviews } from "@/components/reviews";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
+import { getHero } from "@/sanity/lib/data";
 
 const house = houseBySlug("urovi-spa")!;
 
@@ -52,7 +53,8 @@ const reviews = [
   "I come every month now — it's the one hour that's completely, blissfully mine.",
 ];
 
-export default function UroviSpaPage() {
+export default async function UroviSpaPage() {
+  const hero = await getHero("urovi-spa");
   return (
     <>
       <SliderHero
@@ -60,6 +62,7 @@ export default function UroviSpaPage() {
         slides={["Treatment room", "Relaxation lounge", "Steam & sauna", "Reception"]}
         ctaLabel="Book a session"
         ctaHref="#services"
+        hero={hero}
       />
 
       <Section>

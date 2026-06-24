@@ -6,6 +6,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { CtaCard } from "@/components/cta-card";
 import { Pricing, type Tier } from "@/components/pricing";
 import { houseBySlug, waLink } from "@/data/site";
+import { getHero } from "@/sanity/lib/data";
 
 const house = houseBySlug("financial-advisory")!;
 
@@ -115,10 +116,11 @@ const tiers: Tier[] = [
   },
 ];
 
-export default function FinancialAdvisoryPage() {
+export default async function FinancialAdvisoryPage() {
+  const hero = await getHero("financial-advisory");
   return (
     <>
-      <FinanceHero house={house} />
+      <FinanceHero house={house} hero={hero} />
 
       <Section soft id="services" className="scroll-mt-20">
         <Container>
