@@ -1,8 +1,9 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, ImageIcon } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { urlForImage } from "@/sanity/lib/image";
 import type { House } from "@/data/site";
@@ -23,6 +24,15 @@ export function HouseEditorialCard({
   const src = image?.asset?._ref
     ? urlForImage(image).width(680).height(920).url()
     : null;
+
+  // Scroll parallax for the portrait (matches the other pages' feature images).
+  const frameRef = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: frameRef,
+    offset: ["start end", "end start"],
+  });
+  const driftY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
   const parts = house.name.split(" ");
   const last = parts.pop()!;
   const first = parts.join(" ");
@@ -49,6 +59,7 @@ export function HouseEditorialCard({
       <div className="flex flex-col gap-7 md:flex-row md:items-center md:justify-end md:gap-0">
         {/* Portrait placeholder */}
         <motion.div
+          ref={frameRef}
           initial={{ opacity: 0, scale: 0.96, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -58,23 +69,29 @@ export function HouseEditorialCard({
             right && "md:order-1",
           )}
         >
-          {src ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={src}
-              alt={house.name}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div
-              className="grid h-full w-full place-items-center bg-muted"
-              style={{
-                backgroundImage: `linear-gradient(135deg, ${house.accent}1f, transparent 62%)`,
-              }}
-            >
-              <ImageIcon className="size-9 text-muted-foreground/30" />
-            </div>
-          )}
+          {/* parallax drift layer (over-tall so no gap at the extremes) */}
+          <motion.div
+            style={{ y: reduce ? 0 : driftY }}
+            className="absolute inset-x-0 -top-12 h-[calc(100%+96px)]"
+          >
+            {src ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={src}
+                alt={house.name}
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <div
+                className="grid h-full w-full place-items-center bg-muted"
+                style={{
+                  backgroundImage: `linear-gradient(135deg, ${house.accent}1f, transparent 62%)`,
+                }}
+              >
+                <ImageIcon className="size-9 text-muted-foreground/30" />
+              </div>
+            )}
+          </motion.div>
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/15 via-transparent to-transparent" />
         </motion.div>
 
