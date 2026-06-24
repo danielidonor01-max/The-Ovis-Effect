@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/primitives";
+import { urlForImage } from "@/sanity/lib/image";
 import type { MenuCategoryDoc } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
@@ -12,6 +13,7 @@ export function GfaOrderHero({ menu }: { menu: MenuCategoryDoc[] }) {
   const slides = menu.map((c) => ({
     key: c.key,
     label: c.label,
+    image: c.image,
     sample: c.items.slice(0, 3).map((i) => i.name).join(" · "),
   }));
   const [i, setI] = useState(0);
@@ -39,13 +41,24 @@ export function GfaOrderHero({ menu }: { menu: MenuCategoryDoc[] }) {
                 idx === i ? "opacity-100" : "opacity-0",
               )}
             >
-              <div
-                className="absolute inset-0"
-                style={{ background: `linear-gradient(125deg, ${ACCENT}cc, #16232a)` }}
-              />
-              <div className="absolute inset-0 grid place-items-center">
-                <ImageIcon className="size-12 text-white/15" />
-              </div>
+              {s.image?.asset?._ref ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={urlForImage(s.image).width(1600).height(900).url()}
+                  alt=""
+                  className="absolute inset-0 size-full object-cover"
+                />
+              ) : (
+                <>
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: `linear-gradient(125deg, ${ACCENT}cc, #16232a)` }}
+                  />
+                  <div className="absolute inset-0 grid place-items-center">
+                    <ImageIcon className="size-12 text-white/15" />
+                  </div>
+                </>
+              )}
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
               <div className="absolute inset-x-7 bottom-7 text-white sm:inset-x-9 sm:bottom-9">
                 <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/80">

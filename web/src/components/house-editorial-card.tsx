@@ -4,18 +4,25 @@ import Link from "next/link";
 import { ArrowRight, ImageIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import { urlForImage } from "@/sanity/lib/image";
 import type { House } from "@/data/site";
+import type { SanityImage } from "@/sanity/lib/data";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function HouseEditorialCard({
   house,
   position,
+  image,
 }: {
   house: House;
   position: "left" | "right";
+  image?: SanityImage;
 }) {
   const right = position === "right";
+  const src = image?.asset?._ref
+    ? urlForImage(image).width(680).height(920).url()
+    : null;
   const parts = house.name.split(" ");
   const last = parts.pop()!;
   const first = parts.join(" ");
@@ -51,14 +58,23 @@ export function HouseEditorialCard({
             right && "md:order-1",
           )}
         >
-          <div
-            className="grid h-full w-full place-items-center bg-muted"
-            style={{
-              backgroundImage: `linear-gradient(135deg, ${house.accent}1f, transparent 62%)`,
-            }}
-          >
-            <ImageIcon className="size-9 text-muted-foreground/30" />
-          </div>
+          {src ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={src}
+              alt={house.name}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div
+              className="grid h-full w-full place-items-center bg-muted"
+              style={{
+                backgroundImage: `linear-gradient(135deg, ${house.accent}1f, transparent 62%)`,
+              }}
+            >
+              <ImageIcon className="size-9 text-muted-foreground/30" />
+            </div>
+          )}
           <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/15 via-transparent to-transparent" />
         </motion.div>
 

@@ -85,6 +85,22 @@ export async function getHero(page: string): Promise<HeroContent | null> {
   }
 }
 
+/** Map of page-slug → homepage card image (for the branded-houses section). */
+export async function getHouseCards(): Promise<Record<string, SanityImage>> {
+  try {
+    const rows: { page: string; cardImage?: SanityImage }[] = await client.fetch(
+      `*[_type=="pageHero" && defined(cardImage)]{ "page": page, cardImage }`,
+      {},
+      opts,
+    );
+    const map: Record<string, SanityImage> = {};
+    for (const r of rows) if (r.cardImage) map[r.page] = r.cardImage;
+    return map;
+  } catch {
+    return {};
+  }
+}
+
 export async function getSiteSettings(): Promise<SiteSettings | null> {
   try {
     return await client.fetch(SITE, {}, opts);

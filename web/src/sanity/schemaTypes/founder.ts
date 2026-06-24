@@ -39,6 +39,8 @@ export const founder = defineType({
       title: "Portrait",
       type: "image",
       options: { hotspot: true },
+      description:
+        "📐 Recommended: ~1080×1350px portrait (4:5) · keep under ~700 KB.",
     }),
   ],
   preview: {

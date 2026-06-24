@@ -163,7 +163,7 @@ const menu = {
   ],
 };
 
-const galleries = ["spa-gallery", "safe-haven-gallery"];
+const galleries = ["spa-therapies", "spa-gallery", "safe-haven-gallery"];
 
 async function run() {
   const tx = client.transaction();

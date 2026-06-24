@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
 import { HeroHeading } from "@/components/hero-heading";
+import { urlForImage } from "@/sanity/lib/image";
 import type { HeroContent, MenuCategoryDoc } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
@@ -25,7 +26,7 @@ export function GfaHero({
   hero?: HeroContent | null;
   menu: MenuCategoryDoc[];
 }) {
-  const cats = menu.map((c) => ({ key: c.key, label: c.label }));
+  const cats = menu.map((c) => ({ key: c.key, label: c.label, image: c.image }));
   const [active, setActive] = useState(cats.length - 1);
 
   return (
@@ -90,13 +91,24 @@ export function GfaHero({
                     i === active ? "w-[300px]" : "w-[64px]",
                   )}
                 >
-                  <span
-                    className="absolute inset-0"
-                    style={{ background: `linear-gradient(150deg, ${ACCENT}cc, #16232a)` }}
-                  />
-                  <span className="absolute inset-0 grid place-items-center">
-                    <ImageIcon className="size-7 text-white/25" />
-                  </span>
+                  {c.image?.asset?._ref ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={urlForImage(c.image).width(600).height(880).url()}
+                      alt=""
+                      className="absolute inset-0 size-full object-cover"
+                    />
+                  ) : (
+                    <>
+                      <span
+                        className="absolute inset-0"
+                        style={{ background: `linear-gradient(150deg, ${ACCENT}cc, #16232a)` }}
+                      />
+                      <span className="absolute inset-0 grid place-items-center">
+                        <ImageIcon className="size-7 text-white/25" />
+                      </span>
+                    </>
+                  )}
                   <span className="absolute inset-0 bg-black/30" />
                   <span
                     className={cn(
@@ -122,13 +134,24 @@ export function GfaHero({
                   aria-label={`View ${c.label}`}
                   className="relative h-44 w-36 shrink-0 overflow-hidden rounded-2xl"
                 >
-                  <span
-                    className="absolute inset-0"
-                    style={{ background: `linear-gradient(150deg, ${ACCENT}cc, #16232a)` }}
-                  />
-                  <span className="absolute inset-0 grid place-items-center">
-                    <ImageIcon className="size-6 text-white/25" />
-                  </span>
+                  {c.image?.asset?._ref ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={urlForImage(c.image).width(360).height(440).url()}
+                      alt=""
+                      className="absolute inset-0 size-full object-cover"
+                    />
+                  ) : (
+                    <>
+                      <span
+                        className="absolute inset-0"
+                        style={{ background: `linear-gradient(150deg, ${ACCENT}cc, #16232a)` }}
+                      />
+                      <span className="absolute inset-0 grid place-items-center">
+                        <ImageIcon className="size-6 text-white/25" />
+                      </span>
+                    </>
+                  )}
                   <span className="absolute inset-0 bg-black/25" />
                   <span className="absolute bottom-3 left-3 font-heading text-sm font-semibold text-white">
                     {c.label}

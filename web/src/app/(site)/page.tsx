@@ -7,7 +7,7 @@ import { HeroHeading } from "@/components/hero-heading";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
 import { houses } from "@/data/site";
-import { getHero } from "@/sanity/lib/data";
+import { getHero, getHouseCards } from "@/sanity/lib/data";
 
 const stats: [string, string][] = [
   ["04", "Branded houses, one standard"],
@@ -16,7 +16,7 @@ const stats: [string, string][] = [
 ];
 
 export default async function HomePage() {
-  const hero = await getHero("home");
+  const [hero, cards] = await Promise.all([getHero("home"), getHouseCards()]);
   const heading = hero?.heading || "Wealth, *Appetite* & Wellbeing";
 
   return (
@@ -89,6 +89,7 @@ export default async function HomePage() {
                 key={h.slug}
                 house={h}
                 position={i % 2 === 0 ? "left" : "right"}
+                image={cards[h.slug]}
               />
             ))}
           </div>

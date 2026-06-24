@@ -59,7 +59,8 @@ export const pageHero = defineType({
       title: "Hero / slider images",
       type: "array",
       description:
-        "Used by the Spa and Safe Haven slider heroes (add several to rotate). Other pages can leave this empty.",
+        "Used by the Spa and Safe Haven slider heroes (add several to rotate). Other pages can leave this empty. " +
+        "📐 Recommended: ~1600×1100px landscape (3:2) · keep under ~800 KB.",
       of: [
         defineArrayMember({
           type: "image",
@@ -69,6 +70,15 @@ export const pageHero = defineType({
           ],
         }),
       ],
+    }),
+    defineField({
+      name: "cardImage",
+      title: "Homepage card image",
+      type: "image",
+      options: { hotspot: true },
+      description:
+        "The photo shown for this house on the homepage 'branded houses' section. (Home page can leave this empty.) " +
+        "📐 Recommended: ~1080×1440px portrait (3:4) · keep under ~600 KB.",
     }),
   ],
   preview: {

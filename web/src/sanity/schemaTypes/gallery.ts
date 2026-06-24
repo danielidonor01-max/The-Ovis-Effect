@@ -2,6 +2,7 @@ import { defineType, defineField, defineArrayMember } from "sanity";
 import { ImagesIcon } from "@sanity/icons";
 
 const GALLERY_KEYS = [
+  { title: "Spa — Therapy categories (4, in order)", value: "spa-therapies" },
   { title: "Spa — Gallery", value: "spa-gallery" },
   { title: "Safe Haven — Gallery", value: "safe-haven-gallery" },
 ];
@@ -24,6 +25,8 @@ export const gallery = defineType({
       name: "images",
       title: "Images",
       type: "array",
+      description:
+        "📐 Recommended: ~1080×1350px portrait (4:5) · keep under ~700 KB each.",
       of: [
         defineArrayMember({
           type: "image",

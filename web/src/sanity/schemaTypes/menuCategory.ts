@@ -26,7 +26,9 @@ export const menuCategory = defineType({
       title: "Showcase image",
       type: "image",
       options: { hotspot: true },
-      description: "Shown in the category showcase on the Good Food Avenue page.",
+      description:
+        "Shown in the category showcase, the Order-page hero, and the hero accordion on Good Food Avenue. " +
+        "📐 Recommended: ~1080×1440px portrait (3:4) · keep under ~600 KB.",
     }),
     defineField({
       name: "order",

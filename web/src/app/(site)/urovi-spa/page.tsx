@@ -53,11 +53,15 @@ const reviews = [
 ];
 
 export default async function UroviSpaPage() {
-  const [hero, settings, spaGallery] = await Promise.all([
+  const [hero, settings, spaGallery, therapyGallery] = await Promise.all([
     getHero("urovi-spa"),
     getSiteSettings(),
     getGallery("spa-gallery"),
+    getGallery("spa-therapies"),
   ]);
+  const therapyImgs = (therapyGallery?.images || []).filter(
+    (im) => im?.asset?._ref,
+  );
   return (
     <>
       <JsonLd data={houseLd("urovi-spa", house.name, house.blurb, settings)} />
@@ -97,6 +101,7 @@ export default async function UroviSpaPage() {
                 <Reveal className="md:w-2/5">
                   <ParallaxImage
                     accent={house.accent}
+                    image={therapyImgs[i]}
                     className="mx-auto aspect-[3/4] w-full max-w-sm"
                     label={c.title}
                   />

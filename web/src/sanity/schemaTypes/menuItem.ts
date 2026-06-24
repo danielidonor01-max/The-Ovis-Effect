@@ -26,7 +26,9 @@ export const menuItem = defineType({
       title: "Avatar image",
       type: "image",
       options: { hotspot: true },
-      description: "The small image shown on the item card and in its detail view.",
+      description:
+        "The small image shown on the item card and in its detail view. " +
+        "📐 Recommended: ~800×800px square (1:1) · keep under ~300 KB.",
     }),
     defineField({
       name: "category",
