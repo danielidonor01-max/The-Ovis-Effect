@@ -33,6 +33,22 @@ const siteSettings = {
   address: "TM Mall, Jakpa Road, opposite Aka Avenue, Warri, Delta State.",
 };
 
+// ── Founder / leadership ──
+const founder = {
+  _id: "founder",
+  _type: "founder",
+  eyebrow: "Leadership",
+  quote:
+    "We don't just file your taxes — we help you understand your numbers, so every decision you make is a confident one. Precision and trust are non-negotiable here.",
+  name: "Founder & Lead Advisor",
+  role: "The Ovis Effect · Financial Advisory",
+  credentials: [
+    "15+ years in finance & advisory",
+    "Chartered, regulator-compliant practice",
+    "Hundreds of Delta-State businesses served",
+  ],
+};
+
 // ── Page heroes (white titles on the slider heroes) ──
 const heroes = [
   {
@@ -147,12 +163,13 @@ const menu = {
   ],
 };
 
-const galleries = ["spa-gallery", "safe-haven-gallery", "finance-founder"];
+const galleries = ["spa-gallery", "safe-haven-gallery"];
 
 async function run() {
   const tx = client.transaction();
 
   tx.createOrReplace(siteSettings);
+  tx.createOrReplace(founder);
 
   heroes.forEach((h) =>
     tx.createOrReplace({ _id: `hero-${h.page}`, _type: "pageHero", ...h }),
@@ -190,7 +207,7 @@ async function run() {
 
   await tx.commit();
   console.log(
-    `Seeded: siteSettings, ${heroes.length} heroes, ${categories.length} categories, ${n} items, ${galleries.length} galleries.`,
+    `Seeded: siteSettings, founder, ${heroes.length} heroes, ${categories.length} categories, ${n} items, ${galleries.length} galleries.`,
   );
 }
 

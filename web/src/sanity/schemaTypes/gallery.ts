@@ -4,7 +4,6 @@ import { ImagesIcon } from "@sanity/icons";
 const GALLERY_KEYS = [
   { title: "Spa — Gallery", value: "spa-gallery" },
   { title: "Safe Haven — Gallery", value: "safe-haven-gallery" },
-  { title: "Finance — Founder portrait", value: "finance-founder" },
 ];
 
 export const gallery = defineType({

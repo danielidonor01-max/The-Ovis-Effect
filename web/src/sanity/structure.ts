@@ -5,6 +5,7 @@ import {
   TagIcon,
   BasketIcon,
   ImagesIcon,
+  UserIcon,
 } from "@sanity/icons";
 
 // A tidy, sectioned Studio: Site Settings · Page Heroes · Food Menu · Galleries.
@@ -28,6 +29,16 @@ export const structure: StructureResolver = (S) =>
         .title("Page Heroes")
         .icon(DocumentIcon)
         .child(S.documentTypeList("pageHero").title("Page Heroes")),
+
+      S.listItem()
+        .title("Founder / Leadership")
+        .icon(UserIcon)
+        .child(
+          S.document()
+            .schemaType("founder")
+            .documentId("founder")
+            .title("Founder / Leadership"),
+        ),
 
       S.divider(),
 

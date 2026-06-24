@@ -2,21 +2,37 @@ import { Quote } from "lucide-react";
 import { Container, Section } from "@/components/primitives";
 import { ParallaxImage } from "@/components/parallax-image";
 import { Reveal } from "@/components/reveal";
-import type { SanityImage } from "@/sanity/lib/data";
+import type { FounderDoc } from "@/sanity/lib/data";
 
-const credentials = [
-  "15+ years in finance & advisory",
-  "Chartered, regulator-compliant practice",
-  "Hundreds of Delta-State businesses served",
-];
+const FALLBACK = {
+  eyebrow: "Leadership",
+  quote:
+    "We don’t just file your taxes — we help you understand your numbers, so every decision you make is a confident one. Precision and trust are non-negotiable here.",
+  name: "Founder & Lead Advisor",
+  role: "The Ovis Effect · Financial Advisory",
+  credentials: [
+    "15+ years in finance & advisory",
+    "Chartered, regulator-compliant practice",
+    "Hundreds of Delta-State businesses served",
+  ],
+};
 
 export function FinanceFounder({
   accent = "#125c54",
-  image,
+  founder,
 }: {
   accent?: string;
-  image?: SanityImage;
+  founder?: FounderDoc;
 }) {
+  const eyebrow = founder?.eyebrow || FALLBACK.eyebrow;
+  const quote = founder?.quote || FALLBACK.quote;
+  const name = founder?.name || FALLBACK.name;
+  const role = founder?.role || FALLBACK.role;
+  const credentials =
+    founder?.credentials && founder.credentials.length
+      ? founder.credentials
+      : FALLBACK.credentials;
+
   return (
     <Section>
       <Container>
@@ -24,7 +40,7 @@ export function FinanceFounder({
           <Reveal>
             <ParallaxImage
               accent={accent}
-              image={image}
+              image={founder?.image}
               label="Founder"
               className="aspect-[4/5] w-full max-w-sm md:mx-0"
             />
@@ -36,7 +52,7 @@ export function FinanceFounder({
                 className="text-xs font-semibold uppercase tracking-[0.3em]"
                 style={{ color: accent }}
               >
-                Leadership
+                {eyebrow}
               </p>
               <Quote
                 className="mt-5 size-8"
@@ -44,19 +60,12 @@ export function FinanceFounder({
                 aria-hidden="true"
               />
               <blockquote className="mt-3 font-heading text-2xl font-light leading-snug text-balance sm:text-3xl">
-                “We don’t just file your taxes — we help you understand your
-                numbers, so every decision you make is a confident one. Precision
-                and trust are non-negotiable here.”
+                {`“${quote}”`}
               </blockquote>
 
               <div className="mt-6">
-                {/* TODO: replace with the founder's real name + portrait */}
-                <p className="font-heading text-lg font-semibold">
-                  Founder &amp; Lead Advisor
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  The Ovis Effect · Financial Advisory
-                </p>
+                <p className="font-heading text-lg font-semibold">{name}</p>
+                <p className="text-sm text-muted-foreground">{role}</p>
               </div>
 
               <ul className="mt-7 flex flex-wrap gap-2">
