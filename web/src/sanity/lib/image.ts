@@ -1,0 +1,13 @@
+import imageUrlBuilder from "@sanity/image-url";
+import { client } from "./client";
+
+const builder = imageUrlBuilder(client);
+
+// Derive the accepted source type from the builder (avoids version-specific
+// deep type imports).
+type ImageSource = Parameters<typeof builder.image>[0];
+
+/** Build a CDN URL for a Sanity image (with hotspot/crop support). */
+export function urlForImage(source: ImageSource) {
+  return builder.image(source).auto("format").fit("max");
+}
