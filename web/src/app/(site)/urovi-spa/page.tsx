@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { houseMetadata } from "@/lib/site-config";
+import { houseLd } from "@/lib/structured-data";
 import { cn } from "@/lib/utils";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { SliderHero } from "@/components/slider-hero";
@@ -12,10 +14,7 @@ import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
 
 const house = houseBySlug("urovi-spa")!;
 
-export const metadata: Metadata = {
-  title: "Urovi Spa",
-  description: house.blurb,
-};
+export const metadata = houseMetadata("urovi-spa");
 
 const therapyCategories: { title: string; items: string[] }[] = [
   {
@@ -61,6 +60,7 @@ export default async function UroviSpaPage() {
   ]);
   return (
     <>
+      <JsonLd data={houseLd("urovi-spa", house.name, house.blurb, settings)} />
       <SliderHero
         house={house}
         slides={["Treatment room", "Relaxation lounge", "Steam & sauna", "Reception"]}

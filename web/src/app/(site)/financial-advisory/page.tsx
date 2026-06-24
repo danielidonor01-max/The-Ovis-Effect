@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { houseMetadata } from "@/lib/site-config";
+import { houseLd } from "@/lib/structured-data";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { FinanceHero } from "@/components/finance-hero";
 import { FinanceFounder } from "@/components/finance-founder";
@@ -10,10 +12,7 @@ import { getHero, getSiteSettings, getFounder } from "@/sanity/lib/data";
 
 const house = houseBySlug("financial-advisory")!;
 
-export const metadata: Metadata = {
-  title: "Financial Advisory",
-  description: house.blurb,
-};
+export const metadata = houseMetadata("financial-advisory");
 
 const services = [
   { title: "Tax Advisory & Compliance", desc: "PAYE, VAT and filings handled accurately, on time, every time." },
@@ -124,6 +123,7 @@ export default async function FinancialAdvisoryPage() {
   ]);
   return (
     <>
+      <JsonLd data={houseLd("financial-advisory", house.name, house.blurb, settings)} />
       <FinanceHero house={house} hero={hero} />
 
       <Section soft id="services" className="scroll-mt-20">

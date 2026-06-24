@@ -1,16 +1,15 @@
-import type { Metadata } from "next";
 import { GfaHero } from "@/components/gfa-hero";
 import { GfaCategories } from "@/components/gfa-categories";
 import { CtaCard } from "@/components/cta-card";
+import { JsonLd } from "@/components/json-ld";
+import { houseMetadata } from "@/lib/site-config";
+import { houseLd } from "@/lib/structured-data";
 import { houseBySlug } from "@/data/site";
 import { getHero, getMenuOrFallback } from "@/sanity/lib/data";
 
 const house = houseBySlug("good-food-avenue")!;
 
-export const metadata: Metadata = {
-  title: "Good Food Avenue",
-  description: house.blurb,
-};
+export const metadata = houseMetadata("good-food-avenue");
 
 export default async function GoodFoodAvenuePage() {
   const [hero, menu] = await Promise.all([
@@ -19,6 +18,7 @@ export default async function GoodFoodAvenuePage() {
   ]);
   return (
     <>
+      <JsonLd data={houseLd("good-food-avenue", house.name, house.blurb)} />
       <GfaHero hero={hero} menu={menu} />
       <GfaCategories menu={menu} />
       <CtaCard

@@ -9,9 +9,10 @@ import { getMenuOrFallback, getSiteSettings } from "@/sanity/lib/data";
 const house = houseBySlug("good-food-avenue")!;
 
 export const metadata: Metadata = {
-  title: "Order · Good Food Avenue",
+  title: "Order Food Online · Good Food Avenue",
   description:
-    "Build your Good Food Avenue order and send it straight to our kitchen on WhatsApp.",
+    "Build your Good Food Avenue order in Warri and send it straight to our kitchen on WhatsApp — jollof, native soups, grills, sides and drinks.",
+  alternates: { canonical: "/good-food-avenue/order" },
 };
 
 export default async function GfaOrderPage() {

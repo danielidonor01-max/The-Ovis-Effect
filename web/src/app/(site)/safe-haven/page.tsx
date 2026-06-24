@@ -1,4 +1,6 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { houseMetadata } from "@/lib/site-config";
+import { houseLd } from "@/lib/structured-data";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { SliderHero } from "@/components/slider-hero";
 import { FeatureGrid } from "@/components/feature-grid";
@@ -10,10 +12,7 @@ import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
 
 const house = houseBySlug("safe-haven")!;
 
-export const metadata: Metadata = {
-  title: "Safe Haven",
-  description: house.blurb,
-};
+export const metadata = houseMetadata("safe-haven");
 
 const amenities = [
   { title: "Fully Serviced", desc: "Housekeeping, fresh linen and discreet in-house attention throughout your stay." },
@@ -33,6 +32,7 @@ export default async function SafeHavenPage() {
   const gimgs = (gallery?.images || []).filter((im) => im?.asset?._ref);
   return (
     <>
+      <JsonLd data={houseLd("safe-haven", house.name, house.blurb, settings)} />
       <SliderHero
         house={house}
         slides={["Living room", "Master bedroom", "Kitchen", "City view"]}

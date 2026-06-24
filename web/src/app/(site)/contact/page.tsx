@@ -7,7 +7,9 @@ import { getSiteSettings } from "@/sanity/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with The Ovis Effect — Warri, Delta State.",
+  description:
+    "Get in touch with The Ovis Effect in Warri, Delta State — food, spa, financial advisory and luxury stays. Call, email or message us on WhatsApp.",
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {
