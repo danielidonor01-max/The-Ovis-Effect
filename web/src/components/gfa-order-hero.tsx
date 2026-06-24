@@ -4,22 +4,22 @@ import { useEffect, useState } from "react";
 import { ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Container } from "@/components/primitives";
-import { gfaMenu } from "@/data/site";
+import type { MenuCategoryDoc } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
-const slides = gfaMenu.map((c) => ({
-  key: c.key,
-  label: c.label,
-  sample: c.items.slice(0, 3).map((i) => i.name).join(" · "),
-}));
 
-export function GfaOrderHero() {
+export function GfaOrderHero({ menu }: { menu: MenuCategoryDoc[] }) {
+  const slides = menu.map((c) => ({
+    key: c.key,
+    label: c.label,
+    sample: c.items.slice(0, 3).map((i) => i.name).join(" · "),
+  }));
   const [i, setI] = useState(0);
 
   useEffect(() => {
     const t = setInterval(() => setI((p) => (p + 1) % slides.length), 4000);
     return () => clearInterval(t);
-  }, []);
+  }, [slides.length]);
 
   return (
     <section className="pt-24 pb-6 sm:pt-28">
@@ -33,7 +33,7 @@ export function GfaOrderHero() {
           {slides.map((s, idx) => (
             <div
               key={s.key}
-              aria-hidden={idx === i ? undefined : "true"}
+              aria-hidden={idx !== i || undefined}
               className={cn(
                 "absolute inset-0 transition-opacity duration-700 ease-in-out",
                 idx === i ? "opacity-100" : "opacity-0",

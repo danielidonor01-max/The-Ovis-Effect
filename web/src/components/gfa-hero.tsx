@@ -8,11 +8,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
 import { HeroHeading } from "@/components/hero-heading";
-import { gfaMenu } from "@/data/site";
-import type { HeroContent } from "@/sanity/lib/data";
+import type { HeroContent, MenuCategoryDoc } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
-const cats = gfaMenu.map((c) => ({ key: c.key, label: c.label }));
 
 function scrollToCat(key: string) {
   document
@@ -20,7 +18,14 @@ function scrollToCat(key: string) {
     ?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-export function GfaHero({ hero }: { hero?: HeroContent | null }) {
+export function GfaHero({
+  hero,
+  menu,
+}: {
+  hero?: HeroContent | null;
+  menu: MenuCategoryDoc[];
+}) {
+  const cats = menu.map((c) => ({ key: c.key, label: c.label }));
   const [active, setActive] = useState(cats.length - 1);
 
   return (

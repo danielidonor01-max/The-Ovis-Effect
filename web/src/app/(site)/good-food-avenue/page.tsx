@@ -3,7 +3,7 @@ import { GfaHero } from "@/components/gfa-hero";
 import { GfaCategories } from "@/components/gfa-categories";
 import { CtaCard } from "@/components/cta-card";
 import { houseBySlug } from "@/data/site";
-import { getHero } from "@/sanity/lib/data";
+import { getHero, getMenuOrFallback } from "@/sanity/lib/data";
 
 const house = houseBySlug("good-food-avenue")!;
 
@@ -13,11 +13,14 @@ export const metadata: Metadata = {
 };
 
 export default async function GoodFoodAvenuePage() {
-  const hero = await getHero("good-food-avenue");
+  const [hero, menu] = await Promise.all([
+    getHero("good-food-avenue"),
+    getMenuOrFallback(),
+  ]);
   return (
     <>
-      <GfaHero hero={hero} />
-      <GfaCategories />
+      <GfaHero hero={hero} menu={menu} />
+      <GfaCategories menu={menu} />
       <CtaCard
         eyebrow="Ready to eat?"
         title="Build your order in seconds."

@@ -3,15 +3,28 @@
 import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PlaceholderImage } from "@/components/placeholder-image";
+import { urlForImage } from "@/sanity/lib/image";
+import type { SanityImage } from "@/sanity/lib/data";
 
 export function GalleryCarousel({
   items,
+  images,
   accent = "#3e7c66",
 }: {
   items: string[];
+  images?: SanityImage[];
   accent?: string;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
+
+  const cmsImages = (images || []).filter((im) => im?.asset?._ref);
+  const cards = cmsImages.length
+    ? cmsImages.map((im, i) => ({
+        key: `img-${i}`,
+        label: im?.caption || "",
+        url: urlForImage(im!).width(700).height(900).url(),
+      }))
+    : items.map((label) => ({ key: label, label, url: null as string | null }));
 
   const nudge = (dir: 1 | -1) => {
     const track = trackRef.current;
@@ -27,22 +40,33 @@ export function GalleryCarousel({
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((label, i) => (
+        {cards.map((c, i) => (
           <div
-            key={label}
+            key={c.key}
             data-card
             className="w-[78%] shrink-0 snap-start sm:w-[46%] lg:w-[31.5%]"
           >
-            <PlaceholderImage
-              accent={accent}
-              label={label}
-              className={i % 2 === 0 ? "aspect-[3/4]" : "aspect-[4/5]"}
-            />
+            {c.url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={c.url}
+                alt={c.label}
+                className={
+                  "w-full rounded-2xl object-cover " +
+                  (i % 2 === 0 ? "aspect-[3/4]" : "aspect-[4/5]")
+                }
+              />
+            ) : (
+              <PlaceholderImage
+                accent={accent}
+                label={c.label}
+                className={i % 2 === 0 ? "aspect-[3/4]" : "aspect-[4/5]"}
+              />
+            )}
           </div>
         ))}
       </div>
 
-      {/* Arrows — sit over the edges, hidden on touch-first small screens */}
       <button
         type="button"
         onClick={() => nudge(-1)}

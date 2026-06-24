@@ -3,37 +3,53 @@
 import { useEffect, useState } from "react";
 import { Plus, Minus, ArrowRight, X, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { gfaMenu, slugify, waLink } from "@/data/site";
+import { waLink } from "@/data/site";
+import { urlForImage } from "@/sanity/lib/image";
+import type { MenuCategoryDoc, SanityImage } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
 
-const cats = [
-  { key: "all", label: "All" },
-  ...gfaMenu.map((c) => ({ key: c.key, label: c.label })),
-];
+const naira = (n: number) => `₦${Number(n).toLocaleString()}`;
 
-const allItems = gfaMenu.flatMap((c) =>
-  c.items.map((it) => ({ ...it, cat: c.key, catLabel: c.label, id: slugify(it.name) })),
-);
-type Item = (typeof allItems)[number];
+type SetQty = (id: string, name: string, qty: number, price?: number) => void;
 
-type SetQty = (id: string, name: string, qty: number) => void;
+export function OrderEngine({
+  menu,
+  whatsapp,
+}: {
+  menu: MenuCategoryDoc[];
+  whatsapp?: string;
+}) {
+  const cats = [
+    { key: "all", label: "All" },
+    ...menu.map((c) => ({ key: c.key, label: c.label })),
+  ];
 
-export function OrderEngine() {
+  const allItems = menu.flatMap((c) =>
+    c.items.map((it) => ({ ...it, cat: c.key, catLabel: c.label })),
+  );
+  type Item = (typeof allItems)[number];
+
   const [active, setActive] = useState("all");
-  const [cart, setCart] = useState<Record<string, { name: string; qty: number }>>({});
+  const [cart, setCart] = useState<
+    Record<string, { name: string; qty: number; price?: number }>
+  >({});
   const [open, setOpen] = useState<Item | null>(null);
 
   const qtyOf = (id: string) => cart[id]?.qty ?? 0;
-  const setQty: SetQty = (id, name, qty) =>
+  const setQty: SetQty = (id, name, qty, price) =>
     setCart((prev) => {
       const next = { ...prev };
       if (qty <= 0) delete next[id];
-      else next[id] = { name, qty };
+      else next[id] = { name, qty, price };
       return next;
     });
 
   const total = Object.values(cart).reduce((s, v) => s + v.qty, 0);
+  const estTotal = Object.values(cart).reduce(
+    (s, v) => s + (v.price ? v.price * v.qty : 0),
+    0,
+  );
   const visible = allItems.filter((it) => active === "all" || it.cat === active);
 
   useEffect(() => {
@@ -49,12 +65,16 @@ export function OrderEngine() {
   }, [open]);
 
   const sendOrder = () => {
-    const lines = Object.values(cart).map((v) => `• ${v.qty}× ${v.name}`);
+    const lines = Object.values(cart).map(
+      (v) => `• ${v.qty}× ${v.name}${v.price ? ` (${naira(v.price)})` : ""}`,
+    );
+    const totalLine = estTotal ? `\n\nEstimated total: ${naira(estTotal)}` : "";
     const msg =
       "Hi Good Food Avenue! I'd like to place an order:\n\n" +
       lines.join("\n") +
+      totalLine +
       "\n\nPlease confirm availability and total. Thank you!";
-    window.open(waLink(msg), "_blank", "noopener,noreferrer");
+    window.open(waLink(msg, whatsapp), "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -99,12 +119,24 @@ export function OrderEngine() {
                 q > 0 ? "border-brand" : "border-border hover:border-foreground/20",
               )}
             >
-              <Avatar />
+              <Avatar image={it.image} />
               <div className="min-w-0 flex-1">
                 <p className="truncate font-medium">{it.name}</p>
-                <p className="truncate text-xs text-muted-foreground">{it.desc}</p>
+                <p className="truncate text-xs text-muted-foreground">{it.description}</p>
+                {it.price ? (
+                  <p className="mt-0.5 text-xs font-semibold" style={{ color: ACCENT }}>
+                    {naira(it.price)}
+                  </p>
+                ) : null}
               </div>
-              <Control id={it.id} name={it.name} qty={q} setQty={setQty} stop />
+              <Control
+                id={it.id}
+                name={it.name}
+                price={it.price}
+                qty={q}
+                setQty={setQty}
+                stop
+              />
             </div>
           );
         })}
@@ -117,6 +149,7 @@ export function OrderEngine() {
             <div className="flex items-center gap-3">
               <span className="text-sm font-bold tabular-nums">
                 {total} item{total > 1 ? "s" : ""}
+                {estTotal ? ` · ${naira(estTotal)}` : ""}
               </span>
               <button
                 type="button"
@@ -161,12 +194,21 @@ export function OrderEngine() {
             >
               <X className="size-4" />
             </button>
-            <div
-              className="grid aspect-[16/10] place-items-center"
-              style={{ background: `linear-gradient(135deg, ${ACCENT}33, transparent 65%)` }}
-            >
-              <ImageIcon className="size-10 text-muted-foreground/30" />
-            </div>
+            {open.image?.asset?._ref ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={urlForImage(open.image).width(800).height(500).url()}
+                alt={open.name}
+                className="aspect-[16/10] w-full object-cover"
+              />
+            ) : (
+              <div
+                className="grid aspect-[16/10] place-items-center"
+                style={{ background: `linear-gradient(135deg, ${ACCENT}33, transparent 65%)` }}
+              >
+                <ImageIcon className="size-10 text-muted-foreground/30" />
+              </div>
+            )}
             <div className="p-6">
               <span
                 className="text-[11px] font-semibold uppercase tracking-[0.16em]"
@@ -174,17 +216,25 @@ export function OrderEngine() {
               >
                 {open.catLabel}
               </span>
-              <h3 className="mt-1.5 font-heading text-2xl font-semibold tracking-tight">
-                {open.name}
-              </h3>
+              <div className="mt-1.5 flex items-baseline justify-between gap-3">
+                <h3 className="font-heading text-2xl font-semibold tracking-tight">
+                  {open.name}
+                </h3>
+                {open.price ? (
+                  <span className="font-heading text-lg font-semibold" style={{ color: ACCENT }}>
+                    {naira(open.price)}
+                  </span>
+                ) : null}
+              </div>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {open.desc}
+                {open.description}
               </p>
               <div className="mt-6 flex items-center justify-between">
                 <span className="text-sm text-muted-foreground">Add to your order</span>
                 <Control
                   id={open.id}
                   name={open.name}
+                  price={open.price}
                   qty={qtyOf(open.id)}
                   setQty={setQty}
                   big
@@ -198,7 +248,17 @@ export function OrderEngine() {
   );
 }
 
-function Avatar() {
+function Avatar({ image }: { image?: SanityImage }) {
+  if (image?.asset?._ref) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={urlForImage(image).width(112).height(112).url()}
+        alt=""
+        className="size-14 shrink-0 rounded-lg object-cover"
+      />
+    );
+  }
   return (
     <span
       className="grid size-14 shrink-0 place-items-center overflow-hidden rounded-lg"
@@ -212,6 +272,7 @@ function Avatar() {
 function Control({
   id,
   name,
+  price,
   qty,
   setQty,
   stop,
@@ -219,6 +280,7 @@ function Control({
 }: {
   id: string;
   name: string;
+  price?: number;
   qty: number;
   setQty: SetQty;
   stop?: boolean;
@@ -231,7 +293,7 @@ function Control({
         aria-label={`Add ${name}`}
         onClick={(e) => {
           if (stop) e.stopPropagation();
-          setQty(id, name, 1);
+          setQty(id, name, 1, price);
         }}
         className={cn(
           "inline-flex shrink-0 items-center gap-1.5 rounded-full border border-brand font-heading text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white",
@@ -254,7 +316,7 @@ function Control({
         aria-label={`Remove one ${name}`}
         onClick={(e) => {
           if (stop) e.stopPropagation();
-          setQty(id, name, qty - 1);
+          setQty(id, name, qty - 1, price);
         }}
         className={cn("grid place-items-center rounded-full bg-card text-foreground", big ? "size-9" : "size-8")}
       >
@@ -268,7 +330,7 @@ function Control({
         aria-label={`Add one ${name}`}
         onClick={(e) => {
           if (stop) e.stopPropagation();
-          setQty(id, name, qty + 1);
+          setQty(id, name, qty + 1, price);
         }}
         className={cn("grid place-items-center rounded-full bg-brand text-white", big ? "size-9" : "size-8")}
       >

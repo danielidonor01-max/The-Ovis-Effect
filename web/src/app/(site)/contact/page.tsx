@@ -3,13 +3,20 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { ContactForm } from "@/components/contact-form";
 import { site, waLink } from "@/data/site";
+import { getSiteSettings } from "@/sanity/lib/data";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with The Ovis Effect — Warri, Delta State.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSiteSettings();
+  const email = settings?.email || site.email;
+  const phone = settings?.phoneDisplay || site.phoneDisplay;
+  const address = settings?.address || site.address;
+  const whatsapp = settings?.whatsapp || site.whatsapp;
+
   return (
     <Section className="pt-28 pb-24 sm:pt-32">
       <Container>
@@ -25,19 +32,19 @@ export default function ContactPage() {
             <ContactRow
               icon={<Mail className="size-5" />}
               label="Email"
-              value={site.email}
-              href={`mailto:${site.email}`}
+              value={email}
+              href={`mailto:${email}`}
             />
             <ContactRow
               icon={<Phone className="size-5" />}
               label="Phone · WhatsApp"
-              value={site.phoneDisplay}
-              href={waLink("Hi The Ovis Effect! I'd like to get in touch.")}
+              value={phone}
+              href={waLink("Hi The Ovis Effect! I'd like to get in touch.", whatsapp)}
             />
             <ContactRow
               icon={<MapPin className="size-5" />}
               label="Visit"
-              value={site.address}
+              value={address}
             />
             <div className="mt-3 rounded-2xl border border-border bg-surface p-6">
               <p className="font-heading text-sm font-semibold">Opening hours</p>
@@ -47,7 +54,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <ContactForm />
+          <ContactForm whatsapp={whatsapp} />
         </div>
       </Container>
     </Section>

@@ -13,8 +13,8 @@ export const site = {
   social: { instagram: "#", facebook: "#", tiktok: "#" },
 } as const;
 
-export function waLink(text: string) {
-  return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(text)}`;
+export function waLink(text: string, number: string = site.whatsapp) {
+  return `https://wa.me/${number}?text=${encodeURIComponent(text)}`;
 }
 
 export type House = {

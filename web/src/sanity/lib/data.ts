@@ -1,4 +1,5 @@
 import { client } from "./client";
+import { gfaMenu, slugify } from "@/data/site";
 
 // Image as returned from GROQ (asset ref kept so urlForImage can size/crop it).
 export type SanityImage = {
@@ -87,6 +88,25 @@ export async function getMenu(): Promise<MenuCategoryDoc[]> {
   } catch {
     return [];
   }
+}
+
+/** Hardcoded menu mapped to the CMS shape — used when the CMS has no items. */
+export function menuFallback(): MenuCategoryDoc[] {
+  return gfaMenu.map((c) => ({
+    key: c.key,
+    label: c.label,
+    items: c.items.map((it) => ({
+      id: slugify(it.name),
+      name: it.name,
+      description: it.desc,
+    })),
+  }));
+}
+
+/** Menu from the CMS, or the hardcoded fallback if the CMS is empty. */
+export async function getMenuOrFallback(): Promise<MenuCategoryDoc[]> {
+  const menu = await getMenu();
+  return menu.length ? menu : menuFallback();
 }
 
 export async function getGallery(key: string): Promise<GalleryDoc> {

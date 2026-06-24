@@ -24,7 +24,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
-export function ContactForm() {
+export function ContactForm({ whatsapp }: { whatsapp?: string }) {
   const [sent, setSent] = useState(false);
   const {
     register,
@@ -44,7 +44,7 @@ export function ContactForm() {
       `Hi The Ovis Effect! I'm ${values.name} (${values.email}` +
       `${values.phone ? `, ${values.phone}` : ""}).\n` +
       `Interested in: ${values.interest}.\n\n${values.message}`;
-    window.open(waLink(text), "_blank", "noopener,noreferrer");
+    window.open(waLink(text, whatsapp), "_blank", "noopener,noreferrer");
     setSent(true);
   }
 

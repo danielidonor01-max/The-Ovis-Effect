@@ -2,6 +2,7 @@ import { Quote } from "lucide-react";
 import { Container, Section } from "@/components/primitives";
 import { ParallaxImage } from "@/components/parallax-image";
 import { Reveal } from "@/components/reveal";
+import type { SanityImage } from "@/sanity/lib/data";
 
 const credentials = [
   "15+ years in finance & advisory",
@@ -9,7 +10,13 @@ const credentials = [
   "Hundreds of Delta-State businesses served",
 ];
 
-export function FinanceFounder({ accent = "#125c54" }: { accent?: string }) {
+export function FinanceFounder({
+  accent = "#125c54",
+  image,
+}: {
+  accent?: string;
+  image?: SanityImage;
+}) {
   return (
     <Section>
       <Container>
@@ -17,6 +24,7 @@ export function FinanceFounder({ accent = "#125c54" }: { accent?: string }) {
           <Reveal>
             <ParallaxImage
               accent={accent}
+              image={image}
               label="Founder"
               className="aspect-[4/5] w-full max-w-sm md:mx-0"
             />

@@ -6,7 +6,7 @@ import { ParallaxImage } from "@/components/parallax-image";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
 
 const house = houseBySlug("safe-haven")!;
 
@@ -25,7 +25,12 @@ const amenities = [
 ];
 
 export default async function SafeHavenPage() {
-  const hero = await getHero("safe-haven");
+  const [hero, settings, gallery] = await Promise.all([
+    getHero("safe-haven"),
+    getSiteSettings(),
+    getGallery("safe-haven-gallery"),
+  ]);
+  const gimgs = (gallery?.images || []).filter((im) => im?.asset?._ref);
   return (
     <>
       <SliderHero
@@ -51,11 +56,21 @@ export default async function SafeHavenPage() {
           <SectionIntro eyebrow="The apartment" title="Your private retreat" />
           <div className="mt-10 grid gap-4 md:grid-cols-3 md:grid-rows-2">
             <Reveal className="md:col-span-2 md:row-span-2">
-              <ParallaxImage accent={house.accent} className="h-full min-h-[260px] md:min-h-[420px]" label="Living room" />
+              <ParallaxImage
+                accent={house.accent}
+                image={gimgs[0]}
+                className="h-full min-h-[260px] md:min-h-[420px]"
+                label="Living room"
+              />
             </Reveal>
             {["Bedroom", "Kitchen", "Bathroom", "City view"].map((label, i) => (
               <Reveal key={label} delay={i * 0.05}>
-                <ParallaxImage accent={house.accent} className="aspect-square" label={label} />
+                <ParallaxImage
+                  accent={house.accent}
+                  image={gimgs[i + 1]}
+                  className="aspect-square"
+                  label={label}
+                />
               </Reveal>
             ))}
           </div>
@@ -82,6 +97,7 @@ export default async function SafeHavenPage() {
         ctaLabel="Chat with our concierge"
         ctaHref={waLink(
           "Hi! I'd like to inquire about availability at Safe Haven Luxury Apartments.",
+          settings?.whatsapp,
         )}
         accent={house.accent}
         external

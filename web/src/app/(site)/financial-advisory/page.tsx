@@ -6,7 +6,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { CtaCard } from "@/components/cta-card";
 import { Pricing, type Tier } from "@/components/pricing";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
 
 const house = houseBySlug("financial-advisory")!;
 
@@ -117,7 +117,12 @@ const tiers: Tier[] = [
 ];
 
 export default async function FinancialAdvisoryPage() {
-  const hero = await getHero("financial-advisory");
+  const [hero, settings, founder] = await Promise.all([
+    getHero("financial-advisory"),
+    getSiteSettings(),
+    getGallery("finance-founder"),
+  ]);
+  const founderImage = (founder?.images || []).find((im) => im?.asset?._ref);
   return (
     <>
       <FinanceHero house={house} hero={hero} />
@@ -136,7 +141,7 @@ export default async function FinancialAdvisoryPage() {
       </Section>
 
       {/* Founder / leadership — trust */}
-      <FinanceFounder accent={house.accent} />
+      <FinanceFounder accent={house.accent} image={founderImage} />
 
       {/* Pricing / tiered plans */}
       <Section soft id="pricing" className="scroll-mt-20">
@@ -160,6 +165,7 @@ export default async function FinancialAdvisoryPage() {
         ctaLabel="Speak to an advisor"
         ctaHref={waLink(
           "Hi! I'd like to speak with a financial advisor at The Ovis Effect.",
+          settings?.whatsapp,
         )}
         accent={house.accent}
         external

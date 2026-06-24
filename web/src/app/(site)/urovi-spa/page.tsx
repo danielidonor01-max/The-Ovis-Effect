@@ -8,7 +8,7 @@ import { Reviews } from "@/components/reviews";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
 
 const house = houseBySlug("urovi-spa")!;
 
@@ -54,7 +54,11 @@ const reviews = [
 ];
 
 export default async function UroviSpaPage() {
-  const hero = await getHero("urovi-spa");
+  const [hero, settings, spaGallery] = await Promise.all([
+    getHero("urovi-spa"),
+    getSiteSettings(),
+    getGallery("spa-gallery"),
+  ]);
   return (
     <>
       <SliderHero
@@ -138,7 +142,11 @@ export default async function UroviSpaPage() {
         {/* Full-bleed track so cards can scroll past the container edge */}
         <div className="mt-10">
           <Container>
-            <GalleryCarousel items={gallery} accent={house.accent} />
+            <GalleryCarousel
+              items={gallery}
+              images={spaGallery?.images}
+              accent={house.accent}
+            />
           </Container>
         </div>
       </Section>
@@ -154,7 +162,7 @@ export default async function UroviSpaPage() {
         title="Wellness, the way it was meant."
         sub="Step in. Let go. Feel the difference at Urovi Spa."
         ctaLabel="Book via WhatsApp"
-        ctaHref={waLink("Hi Urovi Spa! I'd like to book a session...")}
+        ctaHref={waLink("Hi Urovi Spa! I'd like to book a session...", settings?.whatsapp)}
         accent={house.accent}
         external
       />

@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { ParallaxImage } from "@/components/parallax-image";
 import { Reveal } from "@/components/reveal";
-import { gfaMenu } from "@/data/site";
+import type { MenuCategoryDoc } from "@/sanity/lib/data";
 
 const ACCENT = "#ff5b04";
 
-export function GfaCategories() {
+export function GfaCategories({ menu }: { menu: MenuCategoryDoc[] }) {
   return (
     <Section soft id="categories" className="scroll-mt-20">
       <Container>
@@ -18,7 +18,7 @@ export function GfaCategories() {
         />
 
         <div className="mt-14 flex flex-col gap-16 md:gap-24">
-          {gfaMenu.map((c, i) => (
+          {menu.map((c, i) => (
             <div
               key={c.key}
               id={`cat-${c.key}`}
@@ -30,6 +30,7 @@ export function GfaCategories() {
               <Reveal className="md:w-2/5">
                 <ParallaxImage
                   accent={ACCENT}
+                  image={c.image}
                   className="mx-auto aspect-[3/4] w-full max-w-sm"
                   label={c.label}
                 />
