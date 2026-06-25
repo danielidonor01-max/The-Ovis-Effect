@@ -32,27 +32,28 @@ export function Navbar() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 transition-all duration-300",
-        // NOTE: no backdrop-blur while the menu is open — backdrop-filter would
-        // make the fixed overlay get trapped inside the header instead of the viewport.
-        open
-          ? "bg-background"
-          : scrolled
-            ? "border-b border-border bg-background/80 backdrop-blur-md"
-            : "border-b border-transparent bg-background/0",
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          <Link
-            href="/"
-            className="relative z-[60] font-heading text-lg font-bold tracking-tight transition-opacity hover:opacity-70"
-            onClick={() => setOpen(false)}
-          >
-            The Ovis Effect
-          </Link>
+    <>
+      <header
+        className={cn(
+          // transition-colors (not -all): the backdrop-filter toggles instantly,
+          // so it can never animate and trap a fixed child mid-transition.
+          "sticky top-0 z-50 transition-colors duration-300",
+          open
+            ? "bg-background"
+            : scrolled
+              ? "border-b border-border bg-background/80 backdrop-blur-md"
+              : "border-b border-transparent bg-background/0",
+        )}
+      >
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="flex h-16 items-center justify-between gap-4">
+            <Link
+              href="/"
+              className="font-heading text-lg font-bold tracking-tight transition-opacity hover:opacity-70"
+              onClick={() => setOpen(false)}
+            >
+              The Ovis Effect
+            </Link>
 
           <nav className="hidden items-center gap-7 lg:flex">
             {houses.map((h) => {
@@ -91,13 +92,14 @@ export function Navbar() {
               Contact us
             </Link>
 
-            {/* Morphing hamburger ↔ X — sits above the overlay so it stays clickable */}
+            {/* Morphing hamburger ↔ X. The header (z-50) sits above the overlay
+                (z-40), so this stays visible + clickable while the menu is open. */}
             <button
               type="button"
               aria-label={open ? "Close menu" : "Open menu"}
               aria-expanded={open}
               onClick={() => setOpen((o) => !o)}
-              className="relative z-[60] -mr-1 grid size-10 place-items-center text-foreground lg:hidden"
+              className="-mr-1 grid size-10 place-items-center text-foreground lg:hidden"
             >
               <span className="relative block h-4 w-6">
                 <motion.span
@@ -120,8 +122,10 @@ export function Navbar() {
           </div>
         </div>
       </div>
+      </header>
 
-      {/* Mobile overlay menu */}
+      {/* Mobile overlay menu — OUTSIDE the header and below it (z-40 < z-50), so
+          the header's backdrop-filter can never trap or shift this fixed layer. */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -130,9 +134,8 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: EASE }}
-            className="fixed inset-0 z-50 flex flex-col bg-background lg:hidden"
+            className="fixed inset-0 z-40 flex flex-col bg-background pt-16 lg:hidden"
           >
-            <div className="h-16 shrink-0" aria-hidden />
             <nav className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center gap-1 px-5 sm:px-8">
               {houses.map((h, i) => (
                 <motion.div
@@ -171,6 +174,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
