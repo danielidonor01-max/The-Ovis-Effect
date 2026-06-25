@@ -14,7 +14,7 @@ export default async function SiteLayout({
     <div className="flex min-h-dvh flex-col">
       <JsonLd data={organizationLd(settings)} />
       <Navbar />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 overflow-x-clip">{children}</main>
       <Footer settings={settings} />
     </div>
   );

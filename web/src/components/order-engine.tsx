@@ -145,16 +145,16 @@ export function OrderEngine({
       {/* Sticky order bar */}
       {total > 0 && (
         <>
-          <div className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex w-[min(560px,calc(100%-2rem))] items-center justify-between gap-3 rounded-full border border-border bg-card p-2 pl-5 shadow-[0_18px_50px_-12px_rgba(22,35,42,0.45)]">
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-bold tabular-nums">
+          <div className="fixed inset-x-3 bottom-4 z-[60] mx-auto flex max-w-[560px] items-center justify-between gap-3 rounded-full border border-border bg-card p-2 pl-5 shadow-[0_18px_50px_-12px_rgba(22,35,42,0.45)]">
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+              <span className="truncate text-sm font-bold tabular-nums">
                 {total} item{total > 1 ? "s" : ""}
                 {estTotal ? ` · ${naira(estTotal)}` : ""}
               </span>
               <button
                 type="button"
                 onClick={() => setCart({})}
-                className="text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
+                className="shrink-0 text-xs text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
               >
                 Clear
               </button>
@@ -162,7 +162,7 @@ export function OrderEngine({
             <button
               type="button"
               onClick={sendOrder}
-              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 font-heading text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-[0.98]"
+              className="inline-flex shrink-0 items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 font-heading text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-[0.98] sm:px-5"
             >
               Send on WhatsApp <ArrowRight className="size-4" />
             </button>
@@ -185,7 +185,7 @@ export function OrderEngine({
             onClick={() => setOpen(null)}
             className="absolute inset-0 cursor-default bg-black/55 backdrop-blur-sm"
           />
-          <div className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-border bg-card shadow-2xl">
+          <div className="relative z-10 max-h-[88dvh] w-full max-w-md overflow-x-hidden overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl">
             <button
               type="button"
               onClick={() => setOpen(null)}
