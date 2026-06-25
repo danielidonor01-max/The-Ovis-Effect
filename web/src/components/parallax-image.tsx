@@ -39,7 +39,7 @@ export function ParallaxImage({
     <div
       ref={ref}
       className={cn(
-        "relative grid place-items-center overflow-hidden rounded-2xl bg-muted",
+        "relative grid place-items-center overflow-hidden rounded-card bg-muted",
         className,
       )}
     >

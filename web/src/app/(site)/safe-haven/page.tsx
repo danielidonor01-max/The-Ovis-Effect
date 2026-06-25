@@ -30,6 +30,11 @@ export default async function SafeHavenPage() {
     getGallery("safe-haven-gallery"),
   ]);
   const gimgs = (gallery?.images || []).filter((im) => im?.asset?._ref);
+  const galleryTiles = gimgs.length
+    ? gimgs.slice(0, 10).map((im) => ({ image: im, label: im?.caption || "" }))
+    : ["Living room", "Bedroom", "Kitchen", "Bathroom", "City view"].map(
+        (label) => ({ image: undefined, label }),
+      );
   return (
     <>
       <JsonLd data={houseLd("safe-haven", house.name, house.blurb, settings)} />
@@ -54,22 +59,19 @@ export default async function SafeHavenPage() {
       <Section soft id="gallery" className="scroll-mt-20">
         <Container>
           <SectionIntro eyebrow="The apartment" title="Your private retreat" />
-          <div className="mt-10 grid gap-4 md:grid-cols-3 md:grid-rows-2">
-            <Reveal className="md:col-span-2 md:row-span-2">
-              <ParallaxImage
-                accent={house.accent}
-                image={gimgs[0]}
-                className="h-full min-h-[260px] md:min-h-[420px]"
-                label="Living room"
-              />
-            </Reveal>
-            {["Bedroom", "Kitchen", "Bathroom", "City view"].map((label, i) => (
-              <Reveal key={label} delay={i * 0.05}>
+          {/* Bento that scales to any number of images (up to 10) — first tile large */}
+          <div className="mt-10 grid auto-rows-[180px] grid-cols-2 gap-4 sm:auto-rows-[200px] md:grid-cols-3">
+            {galleryTiles.map((t, i) => (
+              <Reveal
+                key={i}
+                delay={(i % 3) * 0.05}
+                className={i === 0 ? "col-span-2 row-span-2" : ""}
+              >
                 <ParallaxImage
                   accent={house.accent}
-                  image={gimgs[i + 1]}
-                  className="aspect-square"
-                  label={label}
+                  image={t.image}
+                  className="h-full"
+                  label={t.label}
                 />
               </Reveal>
             ))}

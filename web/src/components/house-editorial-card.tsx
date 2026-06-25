@@ -32,7 +32,9 @@ export function HouseEditorialCard({
     target: frameRef,
     offset: ["start end", "end start"],
   });
-  const driftY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  // Matches ParallaxImage exactly (amount 44 + 64px overflow buffer) so the
+  // scroll drift is identical on every page.
+  const driftY = useTransform(scrollYProgress, [0, 1], [-44, 44]);
   const parts = house.name.split(" ");
   const last = parts.pop()!;
   const first = parts.join(" ");
@@ -65,14 +67,14 @@ export function HouseEditorialCard({
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
           className={cn(
-            "relative aspect-[3/4] w-full overflow-hidden rounded-2xl md:aspect-auto md:h-[460px] md:w-[340px] md:shrink-0",
+            "relative aspect-[3/4] w-full overflow-hidden rounded-card md:aspect-auto md:h-[460px] md:w-[340px] md:shrink-0",
             right && "md:order-1",
           )}
         >
           {/* parallax drift layer (over-tall so no gap at the extremes) */}
           <motion.div
             style={{ y: reduce ? 0 : driftY }}
-            className="absolute inset-x-0 -top-12 h-[calc(100%+96px)]"
+            className="absolute inset-x-0 -top-16 h-[calc(100%+128px)]"
           >
             {src ? (
               // eslint-disable-next-line @next/next/no-img-element

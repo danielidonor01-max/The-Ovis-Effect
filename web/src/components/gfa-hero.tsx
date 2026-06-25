@@ -87,7 +87,7 @@ export function GfaHero({
                     // ONE constant radius (32px) for both states — 32px == half the
                     // 64px idle width, so idle cards read as fully-rounded caps while
                     // the radius never changes during the width animation.
-                    "relative h-[440px] shrink-0 cursor-pointer overflow-hidden rounded-[32px] transition-[width] duration-700 ease-in-out",
+                    "relative h-[440px] shrink-0 cursor-pointer overflow-hidden rounded-card transition-[width] duration-700 ease-in-out",
                     i === active ? "w-[300px]" : "w-[64px]",
                   )}
                 >
@@ -132,7 +132,7 @@ export function GfaHero({
                   type="button"
                   onClick={() => scrollToCat(c.key)}
                   aria-label={`View ${c.label}`}
-                  className="relative h-44 w-36 shrink-0 overflow-hidden rounded-2xl"
+                  className="relative h-44 w-36 shrink-0 overflow-hidden rounded-card"
                 >
                   {c.image?.asset?._ref ? (
                     // eslint-disable-next-line @next/next/no-img-element

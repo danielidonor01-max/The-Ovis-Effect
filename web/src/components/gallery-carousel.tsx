@@ -52,7 +52,7 @@ export function GalleryCarousel({
                 src={c.url}
                 alt={c.label}
                 className={
-                  "w-full rounded-2xl object-cover " +
+                  "w-full rounded-card object-cover " +
                   (i % 2 === 0 ? "aspect-[3/4]" : "aspect-[4/5]")
                 }
               />
@@ -60,7 +60,9 @@ export function GalleryCarousel({
               <PlaceholderImage
                 accent={accent}
                 label={c.label}
-                className={i % 2 === 0 ? "aspect-[3/4]" : "aspect-[4/5]"}
+                className={
+                  "rounded-card " + (i % 2 === 0 ? "aspect-[3/4]" : "aspect-[4/5]")
+                }
               />
             )}
           </div>

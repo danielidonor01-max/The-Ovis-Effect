@@ -50,7 +50,7 @@ export function SliderHero({
   return (
     <section className="pt-20 pb-4 sm:pt-24">
       <Container>
-        <div className="relative h-[78vh] min-h-[560px] w-full overflow-hidden rounded-3xl">
+        <div className="relative h-[78vh] min-h-[560px] w-full overflow-hidden rounded-card">
           {slidesData.map((s, idx) => (
             <div
               key={s.key}

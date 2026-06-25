@@ -31,7 +31,7 @@ export function GfaOrderHero({ menu }: { menu: MenuCategoryDoc[] }) {
         </h1>
 
         {/* Full-width auto-transitioning card */}
-        <div className="relative mt-6 h-[300px] w-full overflow-hidden rounded-3xl sm:h-[420px]">
+        <div className="relative mt-6 h-[300px] w-full overflow-hidden rounded-card sm:h-[420px]">
           {slides.map((s, idx) => (
             <div
               key={s.key}

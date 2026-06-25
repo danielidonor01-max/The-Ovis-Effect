@@ -99,7 +99,7 @@ export function OrderEngine({
       </div>
 
       {/* Items — 2-column grid with avatars */}
-      <div className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-2">
+      <div className="mx-auto mt-8 grid grid-cols-1 max-w-4xl gap-3 sm:grid-cols-2">
         {visible.map((it) => {
           const q = qtyOf(it.id);
           return (
