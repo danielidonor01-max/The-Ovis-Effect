@@ -78,7 +78,7 @@ export function FinanceHero({
 
             {/* Mini social proof — avatars + count */}
             <div className="mt-12 flex items-center gap-4">
-              <div className="flex -space-x-3">
+              <div className="flex shrink-0 -space-x-3">
                 {avatarImgs.length
                   ? avatarImgs.map((im, i) => (
                       <motion.img
