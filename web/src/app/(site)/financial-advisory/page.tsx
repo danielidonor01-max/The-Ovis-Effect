@@ -8,7 +8,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { CtaCard } from "@/components/cta-card";
 import { Pricing, type Tier } from "@/components/pricing";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero, getSiteSettings, getFounder, getGallery } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getFounder, getGallery, houseWhatsapp } from "@/sanity/lib/data";
 
 const house = houseBySlug("financial-advisory")!;
 
@@ -38,7 +38,7 @@ const tiers: Tier[] = [
       "Income & expenditure statement",
     ],
     cta: "Select Nano",
-    href: waLink("Hi, I'm interested in the FS 4 Nano package."),
+    message: "Hi, I'm interested in the FS 4 Nano package.",
   },
   {
     name: "FS 4 Micro",
@@ -53,7 +53,7 @@ const tiers: Tier[] = [
       "Preparation of profit/loss account",
     ],
     cta: "Select Micro",
-    href: waLink("Hi, I'm interested in the FS 4 Micro package."),
+    message: "Hi, I'm interested in the FS 4 Micro package.",
     featured: true,
   },
   {
@@ -69,7 +69,7 @@ const tiers: Tier[] = [
       "Preparation of financial statements",
     ],
     cta: "Select Small",
-    href: waLink("Hi, I'm interested in the FS 4 Small package."),
+    message: "Hi, I'm interested in the FS 4 Small package.",
   },
   {
     name: "AFS 4 Small",
@@ -84,7 +84,7 @@ const tiers: Tier[] = [
       "Monthly review call (Zoom/physical)",
     ],
     cta: "Select Advance Small",
-    href: waLink("Hi, I'm interested in the AFS 4 Small package."),
+    message: "Hi, I'm interested in the AFS 4 Small package.",
   },
   {
     name: "FS 4 Medium",
@@ -99,7 +99,7 @@ const tiers: Tier[] = [
       "Annual financial statement review",
     ],
     cta: "Select Medium",
-    href: waLink("Hi, I'm interested in the FS 4 Medium package."),
+    message: "Hi, I'm interested in the FS 4 Medium package.",
   },
   {
     name: "AFS 4 Medium",
@@ -111,7 +111,7 @@ const tiers: Tier[] = [
       "All FS 4 Medium Ent. packages",
     ],
     cta: "Select CFO Advance",
-    href: waLink("Hi, I'm interested in the AFS 4 Medium package."),
+    message: "Hi, I'm interested in the AFS 4 Medium package.",
   },
 ];
 
@@ -122,6 +122,7 @@ export default async function FinancialAdvisoryPage() {
     getFounder(),
     getGallery("finance-avatars"),
   ]);
+  const wa = houseWhatsapp(settings, "financial-advisory");
   return (
     <>
       <JsonLd data={houseLd("financial-advisory", house.name, house.blurb, settings)} />
@@ -153,7 +154,7 @@ export default async function FinancialAdvisoryPage() {
             lead="FS 4 packages scale with your revenue — from sole traders to scaling enterprises. Pick a tier and we'll tailor it to your business."
           />
           <div className="mt-12">
-            <Pricing tiers={tiers} accent={house.accent} />
+            <Pricing tiers={tiers} accent={house.accent} whatsapp={wa} />
           </div>
         </Container>
       </Section>
@@ -165,7 +166,7 @@ export default async function FinancialAdvisoryPage() {
         ctaLabel="Speak to an advisor"
         ctaHref={waLink(
           "Hi! I'd like to speak with a financial advisor at The Ovis Effect.",
-          settings?.whatsapp,
+          wa,
         )}
         accent={house.accent}
         external

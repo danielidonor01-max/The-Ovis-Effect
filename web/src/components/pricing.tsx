@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { waLink } from "@/data/site";
 import { Reveal } from "@/components/reveal";
 
 export type Tier = {
@@ -9,16 +10,19 @@ export type Tier = {
   desc: string;
   features: string[];
   cta: string;
-  href: string;
+  /** WhatsApp message text for this tier's button. */
+  message: string;
   featured?: boolean;
 };
 
 export function Pricing({
   tiers,
   accent = "#125c54",
+  whatsapp,
 }: {
   tiers: Tier[];
   accent?: string;
+  whatsapp?: string;
 }) {
   return (
     // One framed mega-card; cells are split by 1px hairlines (gap-px over a
@@ -70,7 +74,7 @@ export function Pricing({
               </div>
 
               <Link
-                href={t.href}
+                href={waLink(t.message, whatsapp)}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={

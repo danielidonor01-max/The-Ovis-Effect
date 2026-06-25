@@ -8,7 +8,7 @@ import { ParallaxImage } from "@/components/parallax-image";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getGallery, houseWhatsapp } from "@/sanity/lib/data";
 
 const house = houseBySlug("safe-haven")!;
 
@@ -101,7 +101,7 @@ export default async function SafeHavenPage() {
         ctaLabel="Chat with our concierge"
         ctaHref={waLink(
           "Hi! I'd like to inquire about availability at Safe Haven Luxury Apartments.",
-          settings?.whatsapp,
+          houseWhatsapp(settings, "safe-haven"),
         )}
         accent={house.accent}
         external

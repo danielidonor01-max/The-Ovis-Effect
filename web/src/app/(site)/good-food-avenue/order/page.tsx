@@ -4,7 +4,7 @@ import { GfaOrderHero } from "@/components/gfa-order-hero";
 import { OrderEngine } from "@/components/order-engine";
 import { CtaCard } from "@/components/cta-card";
 import { houseBySlug, waLink } from "@/data/site";
-import { getMenuOrFallback, getSiteSettings } from "@/sanity/lib/data";
+import { getMenuOrFallback, getSiteSettings, houseWhatsapp } from "@/sanity/lib/data";
 
 const house = houseBySlug("good-food-avenue")!;
 
@@ -20,7 +20,7 @@ export default async function GfaOrderPage() {
     getMenuOrFallback(),
     getSiteSettings(),
   ]);
-  const whatsapp = settings?.whatsapp;
+  const whatsapp = houseWhatsapp(settings, "good-food-avenue");
 
   return (
     <>

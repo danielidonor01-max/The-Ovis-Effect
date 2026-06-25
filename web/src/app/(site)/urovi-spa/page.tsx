@@ -10,7 +10,7 @@ import { Reviews } from "@/components/reviews";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero, getSiteSettings, getGallery } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getGallery, houseWhatsapp } from "@/sanity/lib/data";
 
 const house = houseBySlug("urovi-spa")!;
 
@@ -173,7 +173,10 @@ export default async function UroviSpaPage() {
         title="Wellness, the way it was meant."
         sub="Step in. Let go. Feel the difference at Urovi Spa."
         ctaLabel="Book via WhatsApp"
-        ctaHref={waLink("Hi Urovi Spa! I'd like to book a session...", settings?.whatsapp)}
+        ctaHref={waLink(
+          "Hi Urovi Spa! I'd like to book a session...",
+          houseWhatsapp(settings, "urovi-spa"),
+        )}
         accent={house.accent}
         external
       />

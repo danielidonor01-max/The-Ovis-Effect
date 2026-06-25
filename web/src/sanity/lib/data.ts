@@ -35,11 +35,29 @@ export type SiteSettings = {
   email?: string;
   phoneDisplay?: string;
   whatsapp?: string;
+  whatsappGoodFood?: string;
+  whatsappSpa?: string;
+  whatsappFinance?: string;
+  whatsappSafeHaven?: string;
   address?: string;
   instagram?: string;
   facebook?: string;
   tiktok?: string;
 };
+
+/** The WhatsApp number for a house, falling back to the general one. */
+export function houseWhatsapp(
+  settings: SiteSettings | null | undefined,
+  slug: string,
+): string | undefined {
+  const perHub: Record<string, string | undefined> = {
+    "good-food-avenue": settings?.whatsappGoodFood,
+    "urovi-spa": settings?.whatsappSpa,
+    "financial-advisory": settings?.whatsappFinance,
+    "safe-haven": settings?.whatsappSafeHaven,
+  };
+  return perHub[slug] || settings?.whatsapp || undefined;
+}
 
 export type MenuItemDoc = {
   id: string;
@@ -74,7 +92,9 @@ const HERO = `*[_type=="pageHero" && page==$page][0]{
 }`;
 
 const SITE = `*[_type=="siteSettings"][0]{
-  email, phoneDisplay, whatsapp, address, instagram, facebook, tiktok
+  email, phoneDisplay, whatsapp,
+  whatsappGoodFood, whatsappSpa, whatsappFinance, whatsappSafeHaven,
+  address, instagram, facebook, tiktok
 }`;
 
 const HOMEPAGE = `*[_type=="homepage"][0]{
