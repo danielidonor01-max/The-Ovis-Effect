@@ -48,11 +48,13 @@ export default async function SafeHavenPage() {
 
       <Section>
         <Container>
-          <p className="mx-auto max-w-3xl text-center font-heading text-2xl font-light leading-snug text-balance sm:text-3xl">
-            The ultimate retreat, hidden in plain sight. Anonymous luxury
-            apartments with exclusive in-house service — refined privacy, made
-            effortless.
-          </p>
+          <Reveal>
+            <p className="mx-auto max-w-3xl text-center font-heading text-2xl font-light leading-snug text-balance sm:text-3xl">
+              The ultimate retreat, hidden in plain sight. Anonymous luxury
+              apartments with exclusive in-house service — refined privacy, made
+              effortless.
+            </p>
+          </Reveal>
         </Container>
       </Section>
 

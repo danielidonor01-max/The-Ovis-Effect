@@ -18,7 +18,11 @@ export function FeatureGrid({
       )}
     >
       {items.map((f, i) => (
-        <Reveal key={f.title} delay={i * 0.05}>
+        <Reveal
+          key={f.title}
+          from={i % 2 === 0 ? "left" : "right"}
+          delay={(i % 3) * 0.05}
+        >
           <div className="h-full rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground/20">
             <h3 className="font-heading text-lg font-semibold">{f.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">

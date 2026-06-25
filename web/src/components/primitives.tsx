@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
 
 export function Container({
   className,
@@ -52,7 +53,10 @@ export function SectionIntro({
   as?: "h1" | "h2";
 }) {
   return (
-    <div className={cn("max-w-2xl", center && "mx-auto text-center", className)}>
+    <Reveal
+      from={center ? "up" : "left"}
+      className={cn("max-w-2xl", center && "mx-auto text-center", className)}
+    >
       {eyebrow && (
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand">
           {eyebrow}
@@ -66,6 +70,6 @@ export function SectionIntro({
           {lead}
         </p>
       )}
-    </div>
+    </Reveal>
   );
 }

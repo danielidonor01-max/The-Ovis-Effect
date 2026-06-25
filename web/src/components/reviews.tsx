@@ -1,4 +1,5 @@
 import { Container } from "@/components/primitives";
+import { Reveal } from "@/components/reveal";
 
 export function Reviews({
   reviews,
@@ -14,15 +15,17 @@ export function Reviews({
   return (
     <section className="overflow-hidden py-16 sm:py-20">
       <Container>
-        <p
-          className="text-xs font-semibold uppercase tracking-[0.3em]"
-          style={{ color: accent }}
-        >
-          {eyebrow}
-        </p>
-        <h2 className="mt-3 font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
-          {title}
-        </h2>
+        <Reveal from="left">
+          <p
+            className="text-xs font-semibold uppercase tracking-[0.3em]"
+            style={{ color: accent }}
+          >
+            {eyebrow}
+          </p>
+          <h2 className="mt-3 font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
+            {title}
+          </h2>
+        </Reveal>
       </Container>
 
       {/* Flush full-bleed band — cards touch edge to edge, alternating shades */}

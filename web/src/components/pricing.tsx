@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/reveal";
 
 export type Tier = {
   name: string;
@@ -23,7 +24,7 @@ export function Pricing({
     // One framed mega-card; cells are split by 1px hairlines (gap-px over a
     // border-coloured grid background), so there are no doubled edges at any
     // breakpoint — the outer frame is the only border.
-    <div className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border">
+    <Reveal className="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-border">
       <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
         {tiers.map((t) => (
           <div
@@ -107,6 +108,6 @@ export function Pricing({
           </div>
         ))}
       </div>
-    </div>
+    </Reveal>
   );
 }

@@ -46,7 +46,7 @@ export function FinanceFounder({
             />
           </Reveal>
 
-          <Reveal delay={0.08}>
+          <Reveal from="right" delay={0.08}>
             <div>
               <p
                 className="text-xs font-semibold uppercase tracking-[0.3em]"

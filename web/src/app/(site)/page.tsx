@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
 import { Counter } from "@/components/counter";
+import { Reveal } from "@/components/reveal";
 import { HeroHeading } from "@/components/hero-heading";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
@@ -67,15 +68,20 @@ export default async function HomePage() {
       <Section className="py-12 sm:py-16">
         <Container>
           <div className="grid grid-cols-1 gap-10 border-y border-border py-10 sm:grid-cols-3 sm:gap-6">
-            {stats.map(([n, l]) => (
-              <div key={l} className="text-center">
+            {stats.map(([n, l], i) => (
+              <Reveal
+                key={l}
+                from={i === 0 ? "left" : i === stats.length - 1 ? "right" : "up"}
+                delay={i * 0.08}
+                className="text-center"
+              >
                 <p className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
                   <Counter value={n} />
                 </p>
                 <p className="mx-auto mt-2 max-w-[16rem] text-sm text-muted-foreground">
                   {l}
                 </p>
-              </div>
+              </Reveal>
             ))}
           </div>
         </Container>

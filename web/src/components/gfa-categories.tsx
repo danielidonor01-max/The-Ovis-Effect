@@ -35,7 +35,11 @@ export function GfaCategories({ menu }: { menu: MenuCategoryDoc[] }) {
                   label={c.label}
                 />
               </Reveal>
-              <div className={cn("md:w-3/5", i % 2 === 1 && "md:text-right")}>
+              <Reveal
+                from={i % 2 === 1 ? "left" : "right"}
+                delay={0.05}
+                className={cn("md:w-3/5", i % 2 === 1 && "md:text-right")}
+              >
                 <span className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   {String(i + 1).padStart(2, "0")}
                 </span>
@@ -58,7 +62,7 @@ export function GfaCategories({ menu }: { menu: MenuCategoryDoc[] }) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </Reveal>
             </div>
           ))}
         </div>
