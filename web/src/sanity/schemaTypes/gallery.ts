@@ -4,7 +4,8 @@ import { ImagesIcon } from "@sanity/icons";
 const GALLERY_KEYS = [
   { title: "Spa — Therapy categories (4, in order)", value: "spa-therapies" },
   { title: "Spa — Gallery", value: "spa-gallery" },
-  { title: "Safe Haven — Gallery", value: "safe-haven-gallery" },
+  { title: "Safe Haven — Gallery (up to 10)", value: "safe-haven-gallery" },
+  { title: "Finance — Hero customer avatars (up to 5)", value: "finance-avatars" },
 ];
 
 export const gallery = defineType({

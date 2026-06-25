@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { Container, Section, SectionIntro } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
+import { Counter } from "@/components/counter";
 import { HeroHeading } from "@/components/hero-heading";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
@@ -69,7 +70,7 @@ export default async function HomePage() {
             {stats.map(([n, l]) => (
               <div key={l} className="text-center">
                 <p className="font-heading text-4xl font-bold tracking-tight sm:text-5xl">
-                  {n}
+                  <Counter value={n} />
                 </p>
                 <p className="mx-auto mt-2 max-w-[16rem] text-sm text-muted-foreground">
                   {l}

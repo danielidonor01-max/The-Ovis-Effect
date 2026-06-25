@@ -8,7 +8,7 @@ import { FeatureGrid } from "@/components/feature-grid";
 import { CtaCard } from "@/components/cta-card";
 import { Pricing, type Tier } from "@/components/pricing";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero, getSiteSettings, getFounder } from "@/sanity/lib/data";
+import { getHero, getSiteSettings, getFounder, getGallery } from "@/sanity/lib/data";
 
 const house = houseBySlug("financial-advisory")!;
 
@@ -116,15 +116,16 @@ const tiers: Tier[] = [
 ];
 
 export default async function FinancialAdvisoryPage() {
-  const [hero, settings, founder] = await Promise.all([
+  const [hero, settings, founder, avatars] = await Promise.all([
     getHero("financial-advisory"),
     getSiteSettings(),
     getFounder(),
+    getGallery("finance-avatars"),
   ]);
   return (
     <>
       <JsonLd data={houseLd("financial-advisory", house.name, house.blurb, settings)} />
-      <FinanceHero house={house} hero={hero} />
+      <FinanceHero house={house} hero={hero} avatars={avatars?.images} />
 
       <Section soft id="services" className="scroll-mt-20">
         <Container>

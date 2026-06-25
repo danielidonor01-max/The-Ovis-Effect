@@ -8,8 +8,9 @@ import { EASE } from "@/lib/motion";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/primitives";
 import { HeroHeading } from "@/components/hero-heading";
+import { urlForImage } from "@/sanity/lib/image";
 import type { House } from "@/data/site";
-import type { HeroContent } from "@/sanity/lib/data";
+import type { HeroContent, SanityImage } from "@/sanity/lib/data";
 
 const bars = [38, 60, 46, 72, 55, 92, 64];
 const rows: { label: string; val: string; up: boolean }[] = [
@@ -20,11 +21,16 @@ const rows: { label: string; val: string; up: boolean }[] = [
 export function FinanceHero({
   house,
   hero,
+  avatars,
 }: {
   house: House;
   hero?: HeroContent | null;
+  avatars?: SanityImage[];
 }) {
   const accent = house.accent;
+  const avatarImgs = (avatars || [])
+    .filter((im) => im?.asset?._ref)
+    .slice(0, 5);
   return (
     <section className="flex min-h-[calc(100dvh-4rem)] items-center py-16">
       <Container>
@@ -73,17 +79,29 @@ export function FinanceHero({
             {/* Mini social proof — avatars + count */}
             <div className="mt-12 flex items-center gap-4">
               <div className="flex -space-x-3">
-                {[0.22, 0.4, 0.6, 0.85].map((o, i) => (
-                  <motion.span
-                    key={i}
-                    className="inline-block size-10 rounded-full border-2 border-background ring-1 ring-black/5"
-                    style={{ backgroundColor: accent, opacity: o }}
-                    aria-hidden="true"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: o, x: 0 }}
-                    transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
-                  />
-                ))}
+                {avatarImgs.length
+                  ? avatarImgs.map((im, i) => (
+                      <motion.img
+                        key={i}
+                        src={urlForImage(im!).width(80).height(80).url()}
+                        alt=""
+                        className="inline-block size-10 rounded-full border-2 border-background object-cover ring-1 ring-black/5"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
+                      />
+                    ))
+                  : [0.22, 0.4, 0.6, 0.85].map((o, i) => (
+                      <motion.span
+                        key={i}
+                        className="inline-block size-10 rounded-full border-2 border-background ring-1 ring-black/5"
+                        style={{ backgroundColor: accent, opacity: o }}
+                        aria-hidden="true"
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: o, x: 0 }}
+                        transition={{ duration: 0.4, delay: 0.5 + i * 0.08, ease: EASE }}
+                      />
+                    ))}
               </div>
               <p className="text-sm leading-snug text-muted-foreground">
                 <span className="font-semibold text-foreground">270+ businesses</span>{" "}
