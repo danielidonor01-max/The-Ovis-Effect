@@ -89,7 +89,9 @@ const MENU = `*[_type=="menuCategory"] | order(order asc){
   }
 }`;
 
-const GALLERY = `*[_type=="gallery" && key==$key][0]{ images }`;
+// Looked up by fixed document id (gallery-<key>), matching the named editors
+// in the Studio structure — deterministic, no key-collision ambiguity.
+const GALLERY = `*[_id == $id][0]{ images }`;
 
 const FOUNDER = `*[_type=="founder"][0]{ eyebrow, quote, name, role, credentials, image }`;
 
@@ -148,7 +150,7 @@ export async function getMenuOrFallback(): Promise<MenuCategoryDoc[]> {
 
 export async function getGallery(key: string): Promise<GalleryDoc> {
   try {
-    return await client.fetch(GALLERY, { key }, opts);
+    return await client.fetch(GALLERY, { id: `gallery-${key}` }, opts);
   } catch {
     return null;
   }

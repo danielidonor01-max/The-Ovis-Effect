@@ -79,5 +79,26 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Galleries & Images")
         .icon(ImagesIcon)
-        .child(S.documentTypeList("gallery").title("Galleries")),
+        .child(
+          S.list()
+            .title("Galleries & Images")
+            .items([
+              galleryItem(S, "Spa — Therapy categories (4, in order)", "gallery-spa-therapies"),
+              galleryItem(S, "Spa — Gallery", "gallery-spa-gallery"),
+              galleryItem(S, "Safe Haven — Gallery (up to 10)", "gallery-safe-haven-gallery"),
+              galleryItem(S, "Finance — Hero customer avatars (up to 5)", "gallery-finance-avatars"),
+            ]),
+        ),
     ]);
+
+// A named, always-present gallery editor (auto-creates the doc on first open).
+function galleryItem(
+  S: Parameters<StructureResolver>[0],
+  title: string,
+  id: string,
+) {
+  return S.listItem()
+    .title(title)
+    .icon(ImagesIcon)
+    .child(S.document().schemaType("gallery").documentId(id).title(title));
+}

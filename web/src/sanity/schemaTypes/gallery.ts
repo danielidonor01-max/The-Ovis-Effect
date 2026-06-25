@@ -1,33 +1,24 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
 import { ImagesIcon } from "@sanity/icons";
 
-const GALLERY_KEYS = [
-  { title: "Spa — Therapy categories (4, in order)", value: "spa-therapies" },
-  { title: "Spa — Gallery", value: "spa-gallery" },
-  { title: "Safe Haven — Gallery (up to 10)", value: "safe-haven-gallery" },
-  { title: "Finance — Hero customer avatars (up to 5)", value: "finance-avatars" },
-];
-
+// Galleries are surfaced as fixed, named singletons in the Studio structure
+// (e.g. "gallery-finance-avatars"), so editors just click a named item to edit
+// its images — no "create + pick a key" step. Looked up by document id.
 export const gallery = defineType({
   name: "gallery",
-  title: "Gallery / Image set",
+  title: "Gallery",
   type: "document",
   icon: ImagesIcon,
   fields: [
-    defineField({
-      name: "key",
-      title: "Location",
-      type: "string",
-      options: { list: GALLERY_KEYS, layout: "dropdown" },
-      validation: (r) => r.required(),
-      description: "Where on the site these images appear.",
-    }),
+    // Legacy identity field from older docs — hidden; identity is the document id.
+    defineField({ name: "key", title: "Key", type: "string", hidden: true }),
     defineField({
       name: "images",
       title: "Images",
       type: "array",
       description:
-        "📐 Recommended: ~1080×1350px portrait (4:5) · keep under ~700 KB each.",
+        "📐 Recommended: ~1080×1350px portrait (4:5) · keep under ~700 KB each. " +
+        "(Avatars: square ~400×400px.)",
       of: [
         defineArrayMember({
           type: "image",
@@ -40,9 +31,9 @@ export const gallery = defineType({
     }),
   ],
   preview: {
-    select: { key: "key", media: "images.0", images: "images" },
-    prepare: ({ key, media, images }) => ({
-      title: GALLERY_KEYS.find((k) => k.value === key)?.title ?? key,
+    select: { images: "images", media: "images.0" },
+    prepare: ({ images, media }) => ({
+      title: "Gallery",
       subtitle: `${images?.length ?? 0} image(s)`,
       media,
     }),
