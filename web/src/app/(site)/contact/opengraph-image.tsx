@@ -1,14 +1,14 @@
 import { ogImage, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 
-export const alt = "The Ovis Effect — Wealth, Appetite & Wellbeing in Warri";
+export const alt = "Contact The Ovis Effect — Warri, Delta State";
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 
 export default function Image() {
   return ogImage({
     eyebrow: "THE OVIS EFFECT",
-    title: "Wealth, Appetite & Wellbeing",
-    subtitle: "Food · Wellness · Finance · Stays — Warri, Delta State",
+    title: "Let's talk",
+    subtitle: "Get in touch — food, spa, finance & stays in Warri, Delta State",
     accent: "#ff5b04",
   });
 }
