@@ -5,6 +5,7 @@ import { Container, Section, SectionIntro } from "@/components/primitives";
 import { FadeIn } from "@/components/fade-in";
 import { Counter } from "@/components/counter";
 import { Reveal } from "@/components/reveal";
+import { HeroBackground } from "@/components/hero-background";
 import { HeroHeading } from "@/components/hero-heading";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
@@ -30,9 +31,10 @@ export default async function HomePage() {
   return (
     <>
       {/* Hero — full viewport, text + buttons only */}
-      <section className="flex min-h-[calc(100dvh-4rem)] items-center">
+      <section className="relative flex min-h-[calc(100dvh-4rem)] items-center overflow-hidden">
+        <HeroBackground />
         <Container>
-          <FadeIn className="mx-auto max-w-4xl text-center">
+          <FadeIn className="relative z-10 mx-auto max-w-4xl text-center">
             <h1
               className="font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-[5.25rem]"
               style={{
