@@ -3,7 +3,6 @@ import { DocumentIcon } from "@sanity/icons";
 import { TITLE_COLORS, TITLE_WEIGHTS, DEFAULT_TITLE_COLOR, DEFAULT_TITLE_WEIGHT } from "../lib/presets";
 
 const PAGES = [
-  { title: "Home", value: "home" },
   { title: "Good Food Avenue", value: "good-food-avenue" },
   { title: "Urovi Spa", value: "urovi-spa" },
   { title: "Financial Advisory", value: "financial-advisory" },
@@ -70,15 +69,6 @@ export const pageHero = defineType({
           ],
         }),
       ],
-    }),
-    defineField({
-      name: "cardImage",
-      title: "Homepage card image",
-      type: "image",
-      options: { hotspot: true },
-      description:
-        "The photo shown for this house on the homepage 'branded houses' section. (Home page can leave this empty.) " +
-        "📐 Recommended: ~1080×1440px portrait (3:4) · keep under ~600 KB.",
     }),
   ],
   preview: {

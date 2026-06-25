@@ -18,6 +18,19 @@ export type HeroContent = {
   images?: SanityImage[];
 };
 
+export type HomepageDoc = {
+  heading?: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  titleColor?: string;
+  titleWeight?: string;
+  goodFoodAvenue?: SanityImage;
+  uroviSpa?: SanityImage;
+  financialAdvisory?: SanityImage;
+  safeHaven?: SanityImage;
+} | null;
+
 export type SiteSettings = {
   email?: string;
   phoneDisplay?: string;
@@ -64,6 +77,11 @@ const SITE = `*[_type=="siteSettings"][0]{
   email, phoneDisplay, whatsapp, address, instagram, facebook, tiktok
 }`;
 
+const HOMEPAGE = `*[_type=="homepage"][0]{
+  heading, subtitle, ctaLabel, ctaHref, titleColor, titleWeight,
+  goodFoodAvenue, uroviSpa, financialAdvisory, safeHaven
+}`;
+
 const MENU = `*[_type=="menuCategory"] | order(order asc){
   "key": key.current, label, image,
   "items": *[_type=="menuItem" && references(^._id) && available==true] | order(order asc){
@@ -85,19 +103,11 @@ export async function getHero(page: string): Promise<HeroContent | null> {
   }
 }
 
-/** Map of page-slug → homepage card image (for the branded-houses section). */
-export async function getHouseCards(): Promise<Record<string, SanityImage>> {
+export async function getHomepage(): Promise<HomepageDoc> {
   try {
-    const rows: { page: string; cardImage?: SanityImage }[] = await client.fetch(
-      `*[_type=="pageHero" && defined(cardImage)]{ "page": page, cardImage }`,
-      {},
-      opts,
-    );
-    const map: Record<string, SanityImage> = {};
-    for (const r of rows) if (r.cardImage) map[r.page] = r.cardImage;
-    return map;
+    return await client.fetch(HOMEPAGE, {}, opts);
   } catch {
-    return {};
+    return null;
   }
 }
 

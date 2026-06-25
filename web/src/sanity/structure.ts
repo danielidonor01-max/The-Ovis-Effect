@@ -1,6 +1,7 @@
 import type { StructureResolver } from "sanity/structure";
 import {
   CogIcon,
+  HomeIcon,
   DocumentIcon,
   TagIcon,
   BasketIcon,
@@ -13,6 +14,16 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Content")
     .items([
+      S.listItem()
+        .title("Homepage")
+        .icon(HomeIcon)
+        .child(
+          S.document()
+            .schemaType("homepage")
+            .documentId("homepage")
+            .title("Homepage"),
+        ),
+
       S.listItem()
         .title("Site Settings")
         .icon(CogIcon)
@@ -28,7 +39,11 @@ export const structure: StructureResolver = (S) =>
       S.listItem()
         .title("Page Heroes")
         .icon(DocumentIcon)
-        .child(S.documentTypeList("pageHero").title("Page Heroes")),
+        .child(
+          S.documentTypeList("pageHero")
+            .title("Page Heroes")
+            .filter('_type == "pageHero" && page != "home"'),
+        ),
 
       S.listItem()
         .title("Founder / Leadership")

@@ -7,7 +7,7 @@ import { HeroHeading } from "@/components/hero-heading";
 import { HouseEditorialCard } from "@/components/house-editorial-card";
 import { CtaCard } from "@/components/cta-card";
 import { houses } from "@/data/site";
-import { getHero, getHouseCards } from "@/sanity/lib/data";
+import { getHomepage, type SanityImage } from "@/sanity/lib/data";
 
 const stats: [string, string][] = [
   ["04", "Branded houses, one standard"],
@@ -16,8 +16,14 @@ const stats: [string, string][] = [
 ];
 
 export default async function HomePage() {
-  const [hero, cards] = await Promise.all([getHero("home"), getHouseCards()]);
-  const heading = hero?.heading || "Wealth, *Appetite* & Wellbeing";
+  const home = await getHomepage();
+  const heading = home?.heading || "Wealth, *Appetite* & Wellbeing";
+  const cardBySlug: Record<string, SanityImage | undefined> = {
+    "good-food-avenue": home?.goodFoodAvenue,
+    "urovi-spa": home?.uroviSpa,
+    "financial-advisory": home?.financialAdvisory,
+    "safe-haven": home?.safeHaven,
+  };
 
   return (
     <>
@@ -28,22 +34,22 @@ export default async function HomePage() {
             <h1
               className="font-heading text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl md:text-[5.25rem]"
               style={{
-                color: hero?.titleColor || undefined,
-                fontWeight: hero?.titleWeight ? Number(hero.titleWeight) : undefined,
+                color: home?.titleColor || undefined,
+                fontWeight: home?.titleWeight ? Number(home.titleWeight) : undefined,
               }}
             >
               <HeroHeading text={heading} accent="#FF5B04" />
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              {hero?.subtitle ||
+              {home?.subtitle ||
                 "One roof, four houses — food, calm, comfort and capital, curated to a single standard right here in Warri."}
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Link
-                href={hero?.ctaHref || "#houses"}
+                href={home?.ctaHref || "#houses"}
                 className={cn(buttonVariants(), "h-11 rounded-lg px-6")}
               >
-                {hero?.ctaLabel || "Explore the houses"}
+                {home?.ctaLabel || "Explore the houses"}
               </Link>
               <Link
                 href="/contact"
@@ -89,7 +95,7 @@ export default async function HomePage() {
                 key={h.slug}
                 house={h}
                 position={i % 2 === 0 ? "left" : "right"}
-                image={cards[h.slug]}
+                image={cardBySlug[h.slug]}
               />
             ))}
           </div>

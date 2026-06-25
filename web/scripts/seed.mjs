@@ -49,18 +49,21 @@ const founder = {
   ],
 };
 
+// ── Homepage (hero text + branded-house card images) ──
+const homepage = {
+  _id: "homepage",
+  _type: "homepage",
+  heading: "Wealth, *Appetite* & Wellbeing",
+  subtitle:
+    "One roof, four houses — food, calm, comfort and capital, curated to a single standard right here in Warri.",
+  ctaLabel: "Explore the houses",
+  ctaHref: "#houses",
+  titleColor: "#16232A",
+  titleWeight: "600",
+};
+
 // ── Page heroes (white titles on the slider heroes) ──
 const heroes = [
-  {
-    page: "home",
-    heading: "Wealth, *Appetite* & Wellbeing",
-    subtitle:
-      "One roof, four houses — food, calm, comfort and capital, curated to a single standard right here in Warri.",
-    ctaLabel: "Explore the houses",
-    ctaHref: "#houses",
-    titleColor: "#16232A",
-    titleWeight: "600",
-  },
   {
     page: "good-food-avenue",
     eyebrow: "Appetite · Good Food Avenue",
@@ -169,6 +172,7 @@ async function run() {
   const tx = client.transaction();
 
   tx.createOrReplace(siteSettings);
+  tx.createOrReplace(homepage);
   tx.createOrReplace(founder);
 
   heroes.forEach((h) =>
@@ -207,7 +211,7 @@ async function run() {
 
   await tx.commit();
   console.log(
-    `Seeded: siteSettings, founder, ${heroes.length} heroes, ${categories.length} categories, ${n} items, ${galleries.length} galleries.`,
+    `Seeded: siteSettings, homepage, founder, ${heroes.length} heroes, ${categories.length} categories, ${n} items, ${galleries.length} galleries.`,
   );
 }
 
