@@ -7,6 +7,7 @@ import {
   BasketIcon,
   ImagesIcon,
   UserIcon,
+  BillIcon,
 } from "@sanity/icons";
 
 // A tidy, sectioned Studio: Site Settings · Page Heroes · Food Menu · Galleries.
@@ -53,6 +54,16 @@ export const structure: StructureResolver = (S) =>
             .schemaType("founder")
             .documentId("founder")
             .title("Founder / Leadership"),
+        ),
+
+      S.listItem()
+        .title("Spa — Pricing CTA")
+        .icon(BillIcon)
+        .child(
+          S.document()
+            .schemaType("spaPricing")
+            .documentId("spaPricing")
+            .title("Spa — Pricing CTA"),
         ),
 
       S.divider(),

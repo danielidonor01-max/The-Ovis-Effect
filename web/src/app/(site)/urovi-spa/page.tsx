@@ -7,10 +7,17 @@ import { SliderHero } from "@/components/slider-hero";
 import { ParallaxImage } from "@/components/parallax-image";
 import { GalleryCarousel } from "@/components/gallery-carousel";
 import { Reviews } from "@/components/reviews";
+import { PriceCta } from "@/components/price-cta";
 import { CtaCard } from "@/components/cta-card";
 import { Reveal } from "@/components/reveal";
 import { houseBySlug, waLink } from "@/data/site";
-import { getHero, getSiteSettings, getGallery, houseWhatsapp } from "@/sanity/lib/data";
+import {
+  getHero,
+  getSiteSettings,
+  getGallery,
+  getSpaPricing,
+  houseWhatsapp,
+} from "@/sanity/lib/data";
 
 const house = houseBySlug("urovi-spa")!;
 
@@ -53,11 +60,12 @@ const reviews = [
 ];
 
 export default async function UroviSpaPage() {
-  const [hero, settings, spaGallery, therapyGallery] = await Promise.all([
+  const [hero, settings, spaGallery, therapyGallery, pricing] = await Promise.all([
     getHero("urovi-spa"),
     getSiteSettings(),
     getGallery("spa-gallery"),
     getGallery("spa-therapies"),
+    getSpaPricing(),
   ]);
   const therapyImgs = (therapyGallery?.images || []).filter(
     (im) => im?.asset?._ref,
@@ -69,7 +77,11 @@ export default async function UroviSpaPage() {
         house={house}
         slides={["Treatment room", "Relaxation lounge", "Steam & sauna", "Reception"]}
         ctaLabel="Book a session"
-        ctaHref="#services"
+        ctaHref={waLink(
+          "Hi Urovi Spa! I'd like to book a session.",
+          houseWhatsapp(settings, "urovi-spa"),
+        )}
+        contact={false}
         hero={hero}
       />
 
@@ -161,6 +173,17 @@ export default async function UroviSpaPage() {
           </Container>
         </div>
       </Section>
+
+      {/* Pricing CTA → price-list PDF */}
+      <PriceCta
+        eyebrow={pricing?.eyebrow}
+        title={pricing?.title}
+        body={pricing?.body}
+        ctaLabel={pricing?.ctaLabel}
+        image={pricing?.image}
+        pdfUrl={pricing?.pdfUrl}
+        accent={house.accent}
+      />
 
       <Reviews
         reviews={reviews}

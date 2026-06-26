@@ -22,14 +22,17 @@ export function SliderHero({
   ctaLabel,
   ctaHref,
   hero,
+  contact = true,
 }: {
   house: House;
   slides: string[];
   ctaLabel: string;
   ctaHref: string;
   hero?: HeroContent | null;
+  contact?: boolean;
 }) {
   const accent = house.accent;
+  const ctaExternal = ctaHref.startsWith("http");
 
   const cmsImages = (hero?.images || []).filter((im) => im?.asset?._ref);
   const slidesData = cmsImages.length
@@ -111,21 +114,25 @@ export function SliderHero({
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href={hero?.ctaHref || ctaHref}
+                href={ctaHref}
+                target={ctaExternal ? "_blank" : undefined}
+                rel={ctaExternal ? "noopener noreferrer" : undefined}
                 className={cn(buttonVariants(), "h-11 rounded-lg px-6 text-white")}
                 style={{ backgroundColor: accent }}
               >
-                {hero?.ctaLabel || ctaLabel}
+                {ctaLabel}
               </Link>
-              <Link
-                href="/contact"
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "h-11 rounded-lg border-white/40 bg-white/10 px-6 text-white backdrop-blur hover:bg-white/20",
-                )}
-              >
-                Contact
-              </Link>
+              {contact && (
+                <Link
+                  href="/contact"
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "h-11 rounded-lg border-white/40 bg-white/10 px-6 text-white backdrop-blur hover:bg-white/20",
+                  )}
+                >
+                  Contact
+                </Link>
+              )}
             </div>
           </motion.div>
 

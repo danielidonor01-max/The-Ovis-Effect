@@ -71,8 +71,12 @@ export function HeroIntro({
                   return (
                     <motion.span
                       key={li}
-                      className="inline-block"
-                      style={l.accent ? { color: accent } : undefined}
+                      className={cn("inline-block", l.accent && "appetite-letter")}
+                      style={
+                        l.accent
+                          ? { color: accent, animationDelay: `${li * 0.13}s` }
+                          : undefined
+                      }
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3, delay: idx * STAGGER, ease: EASE }}

@@ -138,3 +138,25 @@
     animation: none;
   }
 }
+
+/* Continuous warm glow wave across the highlighted hero word (per-letter,
+   phase-offset). Uses filter only, so it never fights the spell-out
+   (opacity/transform) animation. */
+@keyframes appetiteSheen {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 91, 4, 0.35));
+  }
+}
+.appetite-letter {
+  animation: appetiteSheen 2.8s ease-in-out infinite;
+  will-change: filter;
+}
+@media (prefers-reduced-motion: reduce) {
+  .appetite-letter {
+    animation: none;
+  }
+}

@@ -76,6 +76,15 @@ export type MenuCategoryDoc = {
 
 export type GalleryDoc = { images?: SanityImage[] } | null;
 
+export type SpaPricing = {
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  ctaLabel?: string;
+  image?: SanityImage;
+  pdfUrl?: string;
+} | null;
+
 export type FounderDoc = {
   eyebrow?: string;
   quote?: string;
@@ -114,6 +123,10 @@ const MENU = `*[_type=="menuCategory"] | order(order asc){
 const GALLERY = `*[_id == $id][0]{ images }`;
 
 const FOUNDER = `*[_type=="founder"][0]{ eyebrow, quote, name, role, credentials, image }`;
+
+const SPA_PRICING = `*[_id=="spaPricing"][0]{
+  eyebrow, title, body, ctaLabel, image, "pdfUrl": pdf.asset->url
+}`;
 
 // All getters swallow errors (e.g. Sanity unreachable) and return null/[] so
 // callers fall back to hardcoded content — the site never breaks on a CMS hiccup.
@@ -179,6 +192,14 @@ export async function getGallery(key: string): Promise<GalleryDoc> {
 export async function getFounder(): Promise<FounderDoc> {
   try {
     return await client.fetch(FOUNDER, {}, opts);
+  } catch {
+    return null;
+  }
+}
+
+export async function getSpaPricing(): Promise<SpaPricing> {
+  try {
+    return await client.fetch(SPA_PRICING, {}, opts);
   } catch {
     return null;
   }
