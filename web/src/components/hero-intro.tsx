@@ -63,36 +63,33 @@ export function HeroIntro({
         }}
       >
         <span aria-hidden="true">
-          {words.map((word, wi) => (
-            <Fragment key={wi}>
-              <span className="inline-block">
-                {word.map((l, li) => {
-                  const idx = i++;
-                  return (
-                    <motion.span
-                      key={li}
-                      className={cn("inline-block", l.accent && "appetite-letter")}
-                      style={
-                        l.accent
-                          ? ({
-                              color: accent,
-                              "--sheen": accent,
-                              animationDelay: `${li * 0.13}s`,
-                            } as CSSProperties)
-                          : undefined
-                      }
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: idx * STAGGER, ease: EASE }}
-                    >
-                      {l.ch}
-                    </motion.span>
-                  );
-                })}
-              </span>
-              {wi < words.length - 1 ? " " : null}
-            </Fragment>
-          ))}
+          {words.map((word, wi) => {
+            const accentWord = word.some((l) => l.accent);
+            return (
+              <Fragment key={wi}>
+                <span className="relative inline-block">
+                  {word.map((l, li) => {
+                    const idx = i++;
+                    return (
+                      <motion.span
+                        key={li}
+                        className="inline-block"
+                        style={l.accent ? ({ color: accent } as CSSProperties) : undefined}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: idx * STAGGER, ease: EASE }}
+                      >
+                        {l.ch}
+                      </motion.span>
+                    );
+                  })}
+                  {/* one reflection sweeping the whole accent word */}
+                  {accentWord && <span className="appetite-shine" />}
+                </span>
+                {wi < words.length - 1 ? " " : null}
+              </Fragment>
+            );
+          })}
         </span>
       </h1>
 

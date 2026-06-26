@@ -139,33 +139,38 @@
   }
 }
 
-/* Continuous warm glow wave across the highlighted hero word (per-letter,
-   phase-offset). Uses filter only, so it never fights the spell-out
-   (opacity/transform) animation. */
-@keyframes appetiteSheen {
-  0%,
-  42%,
+/* A single bright reflection that sweeps across the whole highlighted hero
+   word. One overlay (not per-letter) holds a moving white streak; `screen`
+   blend brightens only the coloured glyphs and stays invisible over the white
+   page, so exactly one reflection travels across the word at a time. Only
+   background-position animates, so it never fights the spell-out. */
+@keyframes appetiteShine {
+  0% {
+    background-position: 200% 0;
+  }
   100% {
-    color: var(--sheen, #ff5b04);
-    text-shadow: none;
-  }
-  50% {
-    color: #ffffff;
-    text-shadow:
-      0 0 18px rgba(255, 255, 255, 0.95),
-      0 0 36px rgba(255, 176, 96, 0.75);
-  }
-  58% {
-    color: var(--sheen, #ff5b04);
-    text-shadow: none;
+    background-position: -100% 0;
   }
 }
-.appetite-letter {
-  animation: appetiteSheen 3.2s ease-in-out infinite;
-  will-change: color, text-shadow;
+.appetite-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0) 42%,
+    rgba(255, 255, 255, 0.92) 50%,
+    rgba(255, 255, 255, 0) 58%
+  );
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  animation: appetiteShine 4.5s linear infinite;
+  will-change: background-position;
 }
 @media (prefers-reduced-motion: reduce) {
-  .appetite-letter {
+  .appetite-shine {
     animation: none;
+    display: none;
   }
 }
