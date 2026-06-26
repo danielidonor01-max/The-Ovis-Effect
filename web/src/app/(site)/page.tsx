@@ -42,7 +42,7 @@ export default async function HomePage() {
                 fontWeight: home?.titleWeight ? Number(home.titleWeight) : undefined,
               }}
             >
-              <HeroHeading text={heading} accent="#FF5B04" />
+              <HeroHeading text={heading} accent="#FF5B04" shimmer />
             </h1>
             <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
               {home?.subtitle ||

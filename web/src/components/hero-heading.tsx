@@ -5,16 +5,28 @@ import * as React from "react";
 export function HeroHeading({
   text,
   accent,
+  shimmer,
 }: {
   text: string;
   accent?: string;
+  shimmer?: boolean;
 }) {
   const parts = text.split(/(\*[^*]+\*)/g);
   return (
     <>
       {parts.map((p, i) =>
         p.startsWith("*") && p.endsWith("*") ? (
-          <span key={i} style={accent ? { color: accent } : undefined}>
+          <span
+            key={i}
+            className={shimmer ? "hero-sheen" : undefined}
+            style={
+              shimmer
+                ? ({ "--sheen": accent } as React.CSSProperties)
+                : accent
+                  ? { color: accent }
+                  : undefined
+            }
+          >
             {p.slice(1, -1)}
           </span>
         ) : (
