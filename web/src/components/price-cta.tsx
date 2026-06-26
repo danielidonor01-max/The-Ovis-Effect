@@ -8,22 +8,33 @@ import { ParallaxImage } from "@/components/parallax-image";
 import type { SanityImage } from "@/sanity/lib/data";
 
 export function PriceCta({
-  eyebrow = "Pricing",
-  title = "See our full treatment menu & prices",
-  body = "Browse every facial, massage, scrub and ritual with up-to-date pricing — download the full Urovi Spa price list.",
-  ctaLabel = "View pricing",
+  eyebrow,
+  title,
+  body,
+  ctaLabel,
   image,
-  pdfUrl = "/urovi-spa-pricing.pdf",
+  pdfUrl,
   accent = "#3e7c66",
 }: {
-  eyebrow?: string;
-  title?: string;
-  body?: string;
-  ctaLabel?: string;
+  eyebrow?: string | null;
+  title?: string | null;
+  body?: string | null;
+  ctaLabel?: string | null;
   image?: SanityImage;
-  pdfUrl?: string;
+  pdfUrl?: string | null;
   accent?: string;
 }) {
+  // GROQ returns `null` (not `undefined`) for empty CMS fields, which slips
+  // past default params — coalesce so empty fields fall back and, critically,
+  // `<Link href>` is never null (that crashes prerender).
+  const eyebrowText = eyebrow || "Pricing";
+  const titleText = title || "See our full treatment menu & prices";
+  const bodyText =
+    body ||
+    "Browse every facial, massage, scrub and ritual with up-to-date pricing — download the full Urovi Spa price list.";
+  const ctaText = ctaLabel || "View pricing";
+  const href = pdfUrl || "/urovi-spa-pricing.pdf";
+
   return (
     <Section soft>
       <Container>
@@ -43,16 +54,16 @@ export function PriceCta({
                 className="text-xs font-semibold uppercase tracking-[0.3em]"
                 style={{ color: accent }}
               >
-                {eyebrow}
+                {eyebrowText}
               </p>
               <h2 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
-                {title}
+                {titleText}
               </h2>
               <p className="mt-4 max-w-md leading-relaxed text-muted-foreground">
-                {body}
+                {bodyText}
               </p>
               <Link
-                href={pdfUrl}
+                href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
@@ -61,7 +72,7 @@ export function PriceCta({
                 )}
                 style={{ backgroundColor: accent }}
               >
-                {ctaLabel} <ArrowUpRight className="size-4" />
+                {ctaText} <ArrowUpRight className="size-4" />
               </Link>
             </div>
           </Reveal>

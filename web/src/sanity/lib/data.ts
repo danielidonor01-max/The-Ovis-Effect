@@ -94,7 +94,10 @@ export type FounderDoc = {
   image?: SanityImage;
 } | null;
 
-const opts = { next: { revalidate: 60 } } as const;
+// `tags` lets the Sanity webhook → /api/revalidate purge every CMS-backed
+// page on demand (revalidateTag("sanity")); `revalidate` is the time-based
+// fallback so content is never more than a minute stale.
+const opts = { next: { revalidate: 60, tags: ["sanity"] } };
 
 const HERO = `*[_type=="pageHero" && page==$page][0]{
   eyebrow, heading, subtitle, ctaLabel, ctaHref, titleColor, titleWeight, images
