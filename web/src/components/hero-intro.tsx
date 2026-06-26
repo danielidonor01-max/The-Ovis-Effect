@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -74,7 +74,11 @@ export function HeroIntro({
                       className={cn("inline-block", l.accent && "appetite-letter")}
                       style={
                         l.accent
-                          ? { color: accent, animationDelay: `${li * 0.13}s` }
+                          ? ({
+                              color: accent,
+                              "--sheen": accent,
+                              animationDelay: `${li * 0.13}s`,
+                            } as CSSProperties)
                           : undefined
                       }
                       initial={{ opacity: 0, y: 8 }}
